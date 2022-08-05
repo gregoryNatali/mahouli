@@ -1,0 +1,61 @@
+> person enter website in guest mode
+> person create account (nickname, email, password)
+> person confirms email using code
+> person receives a jwt (id, email, password)
+> person uses site in logged mode (can access lists)
+
+create account steps:
+> person clicks "create account"
+> data is sent to create-account endpoint
+    data = {
+      nickname: string,
+      email: string,
+      password: string
+    }
+> server checks if email already exists
+> if not, email create a row in users table
+    User:
+      id = {given by orm},
+      profile_picture = '',
+      nickname = {request_nickname},
+      email = {request_email},
+      confirmed_email = false,
+      password = {request_password (encrypted)}
+      join_date = {today_date}
+> server creates a token and returns:
+    {
+      "token": {jwt},
+      "confirmed_email": false
+    }
+> client asks for confirmation code email
+> person inserts the code
+> client sets "token" as "bearer-token" cookie
+> gg
+
+login steps:
+> person clicks "login account"
+> data is sent to login endpoint
+    data = {
+      email: string,
+      password: string
+    }
+> server checks if email exists
+> server checks if request and db passwords are equal
+> server returns:
+    {
+      "token": {jwt},
+      "confirmed_email": {user.confirmed_email}
+    }
+> if not confirmed_email, client asks for it
+> client sets "token" as "bearer-token" cookie
+> gg
+
+in each request:
+> send bearer-token
+> if no bearer-token, set guest view
+
+guest mode:
+> can search
+> can view news
+> can view characters/animes/mangas etc
+> can't make lists
