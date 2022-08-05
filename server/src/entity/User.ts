@@ -10,7 +10,7 @@ export class User {
     profile_picture: string
 
     @Column("varchar", { length: 50 })
-    nickname: string
+    name: string
 
     @Column("varchar", { length: 320 })
     email: string
@@ -22,6 +22,6 @@ export class User {
     password: string
 
     @Column("date")
-    join_date: Date
+    join_date: string
 
 }
