@@ -1,5 +1,5 @@
 > person enter website in guest mode
-> person create account (nickname, email, password)
+> person create account (name, email, password)
 > person confirms email using code
 > person receives a jwt (id, email, password)
 > person uses site in logged mode (can access lists)
@@ -8,7 +8,7 @@ create account steps:
 > person clicks "create account"
 > data is sent to create-account endpoint
     data = {
-      nickname: string,
+      name: string,
       email: string,
       password: string
     }
@@ -17,7 +17,7 @@ create account steps:
     User:
       id = {given by orm},
       profile_picture = '',
-      nickname = {request_nickname},
+      name = {request_name},
       email = {request_email},
       confirmed_email = false,
       password = {request_password (encrypted)}
