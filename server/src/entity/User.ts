@@ -6,7 +6,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column("varchar")
+    @Column("varchar", { default: '' })
     profile_picture: string
 
     @Column("varchar", { length: 50 })
@@ -15,7 +15,7 @@ export class User {
     @Column("varchar", { length: 320 })
     email: string
 
-    @Column("boolean")
+    @Column("boolean", { default: false })
     confirmed_email: boolean
 
     @Column("varchar", { length: 320 })
