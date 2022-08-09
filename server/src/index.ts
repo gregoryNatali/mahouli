@@ -1,5 +1,6 @@
 import { AppDataSource } from "./data-source"
 import { userRoutes } from "./api/UsersApi"
+import * as dotenv from 'dotenv'
 import fastify from "fastify"
 
 AppDataSource.initialize().then(async () => {
@@ -15,6 +16,8 @@ AppDataSource.initialize().then(async () => {
 	//  AppDataSource.manager.find({ id: 1 })
 	//  AppDataSource.manager.find(instantiated entity)
 	//    find, findOneBy, findBy, findAndCount
+
+	dotenv.config()	
 
 	const server = fastify()
 
