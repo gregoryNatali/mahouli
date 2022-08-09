@@ -11,7 +11,15 @@ export async function createJWT(payload: any) {
 
 export async function verifyJWT(jwt: string) {
 	const pubKey = await importSPKI(process.env.JWT_PUBLIC_KEY, 'ES256')
-	const { payload, protectedHeader } = await jwtVerify(jwt, pubKey)
+	let data: any
 
-	return payload
+	try {
+		const { payload, protectedHeader } = await jwtVerify(jwt, pubKey)
+		data = payload
+	}
+	catch (err) {
+		data = null
+	}
+
+	return data
 }
