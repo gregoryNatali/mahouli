@@ -18,6 +18,9 @@ export class User {
     @Column("boolean", { default: false })
     confirmed_email: boolean
 
+		@Column("varchar", { length: 8 })
+		confirm_code: string
+
     @Column("varchar", { length: 320 })
     password: string
 
