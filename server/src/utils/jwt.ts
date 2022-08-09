@@ -1,4 +1,5 @@
 import { importPKCS8, importSPKI, jwtVerify, SignJWT } from "jose";
+import * as dotenv from 'dotenv'
 
 export async function createJWT(payload: any) {
 	const jwt = await new SignJWT(payload)
@@ -23,3 +24,20 @@ export async function verifyJWT(jwt: string) {
 
 	return data
 }
+
+async function testJWT() {
+	dotenv.config()
+
+	const jwt = createJWT({
+		name: 'example',
+		email: 'example@examp.le',
+		password: 'example'
+	})
+
+	const payload = verifyJWT(await jwt)
+
+	console.log(await jwt)
+	console.log(await payload)
+}
+
+testJWT()
