@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { AppContainer } from "./styles/App"
 import Layout from "./pages/Layout"
 import Home from "./pages/Home"
 
 function App() {
   return (
-    <div className="App">
+    <AppContainer className="App">
       <BrowserRouter>
         <Routes>
           <Route path="login" />
@@ -14,7 +15,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </AppContainer>
   )
 }
 
