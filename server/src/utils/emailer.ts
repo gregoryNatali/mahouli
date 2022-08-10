@@ -3,8 +3,6 @@ import { User } from '../entity/User'
 import * as dotenv from 'dotenv'
 
 export async function sendConfirmEmail(user: User) {
-	dotenv.config()
-	
 	const transporter = nodemailer.createTransport({
 		host: 'smtp-mail.outlook.com',
 		secureConnection: false,
