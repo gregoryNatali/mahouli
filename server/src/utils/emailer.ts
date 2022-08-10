@@ -22,7 +22,7 @@ export async function sendConfirmEmail(user: User) {
 		text: `Hey there! Welcome to mahouLi!\n\nYour confirmation code is ${user.confirm_code}`
 	}
 
-	transporter.sendMail(email, (err, info) => {
+	transporter.sendMail(email, (err: any, info: any) => {
 		if (err)
 			return console.log(err);
 	})
