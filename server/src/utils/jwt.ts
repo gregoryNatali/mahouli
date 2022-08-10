@@ -40,4 +40,4 @@ async function testJWT() {
 	console.log(await payload)
 }
 
-testJWT()
+// testJWT()
