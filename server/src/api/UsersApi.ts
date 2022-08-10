@@ -6,7 +6,6 @@ import { User } from "../entity/User";
 
 export async function userRoutes (fastify, options) {
 	fastify.post('/api/user/create', async (req, resp) => {
-		const userTable = AppDataSource.getRepository(User)
 		const info = req.body
 
 		const newUser = new User()
