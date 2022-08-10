@@ -30,13 +30,49 @@ export async function userRoutes (fastify, options) {
 
 		await AppDataSource.manager.save(newUser)
 
-		// make email confirmation
+		const jwt = await createJWT({
+			id: newUser.id,
+			name: newUser.name,
+			email: newUser.email,
+			password: newUser.password
+		})
 
-		return { success: true }
+		return { success: true, token: jwt, confirmed_email: newUser.confirmed_email }
 	}) 
 
+	fastify.get('/user/confirm-email', async (req, resp) => {
+		// resp.redirect('/')
+
+		// make redirectable link to confirm email (use query parameters)
+	})
+
 	fastify.put('/api/user/confirm-email', async (req, resp) => {
-		return
+		let jwt: string
+
+		try {
+			jwt = req.headers.cookie
+		}
+		catch (err) {
+			return { success: false, message: 'missing cookie' }	
+		}
+
+		const content = await verifyJWT(jwt)
+		const user = await AppDataSource.manager.findOneBy(User, { email: content.email })
+
+		try {
+			if (req.body.confirm_code !== user.confirm_code)
+				return { success: false, message: 'wrong code' }
+		}
+		catch (err) {
+			return { success: false, message: 'missing confirm_code in body' }
+		}
+
+		user.confirmed_email = true
+		user.confirm_code = ''
+
+		AppDataSource.manager.save(user)
+
+		return { success: true }
 	})
 
 	fastify.post('/api/user/login', async (req, resp) => {
