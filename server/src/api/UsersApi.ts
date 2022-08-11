@@ -1,6 +1,8 @@
+import { compareText, encryptText } from "../utils/encrypter";
+import { getRequestCookies } from "../utils/serverUtils";
 import { generateConfirmCode } from "../utils/userMisc";
 import { createJWT, verifyJWT } from "../utils/jwt";
-import { encryptText } from "../utils/encrypter";
+import { sendConfirmEmail } from "../utils/emailer";
 import { AppDataSource } from "../data-source";
 import { User } from "../entity/User";
 
@@ -29,12 +31,7 @@ export async function userRoutes (fastify, options) {
 
 		await AppDataSource.manager.save(newUser)
 
-		const jwt = await createJWT({
-			id: newUser.id,
-			name: newUser.name,
-			email: newUser.email,
-			password: newUser.password
-		})
+		const jwt = await createJWT(newUser)
 
 		return { success: true, token: jwt, confirmed_email: newUser.confirmed_email }
 	}) 
@@ -46,17 +43,13 @@ export async function userRoutes (fastify, options) {
 	})
 
 	fastify.put('/api/user/confirm-email', async (req, resp) => {
-		let jwt: string
+		let jwt: any =	getRequestCookies(req)
 
-		try {
-			jwt = req.headers.cookie
-		}
-		catch (err) {
-			return { success: false, message: 'missing cookie' }	
-		}
+		if (typeof jwt !== 'string')
+			return jwt
 
 		const content = await verifyJWT(jwt)
-		const user = await AppDataSource.manager.findOneBy(User, { email: content.email })
+		const user = await AppDataSource.manager.findOneBy(User, { id: content.id })
 
 		try {
 			if (req.body.confirm_code !== user.confirm_code)
@@ -75,23 +68,60 @@ export async function userRoutes (fastify, options) {
 	})
 
 	fastify.post('/api/user/login', async (req, resp) => {
-		return
+		const user = await AppDataSource.manager.findOneBy(User, { email: req.body.email })
+		if (!user)
+			return { success: false, message: 'user not found' }
+
+		if (!compareText(req.body.password, user.password))
+			return { success: false, message: 'wrong password' }
+
+		const jwt = await createJWT(user)
+
+		if (!user.confirmed_email) {
+			sendConfirmEmail(user)
+			return { success: false, jwt: jwt }
+		}
+
+		// maybe find something safer
+		return { success: true, jwt: jwt }
 	})
 
 	fastify.get('/api/user/get/:id', async (req, resp) => {
-		return
+		const user = await AppDataSource.manager.findOneBy(User, { id: req.params.id})
+		return user
 	})
 
 	fastify.get('/api/user/verify', async (req, resp) => {
-		return
+		const jwt = getRequestCookies(req)
+
+		if (typeof jwt !== 'string')
+			return { success: false, message: 'missing cookies' }
+
+		const test = await verifyJWT(jwt)
+
+		return { success: Boolean(test) }
 	})
 
 	fastify.get('/api/user/delete', async (req, resp) => {
-		return
+		const jwt = getRequestCookies(req)
+
+		if (typeof jwt !== 'string')
+			return { success: false, message: 'missing cookies' }
+			
+		const content = await verifyJWT(jwt)
+		const user = await AppDataSource.manager.findOneBy(User, { id: content.id })
+		await AppDataSource.manager.remove(user)
+		return { success: true}
 	})
 
 	fastify.put('/api/user/update', async (req, resp) => {
-		return
+		let name: string
+		try {
+			name = req.body.name
+		}
+		catch (err) {
+			return { success: false, message: 'missing cookies' }
+		}
 	})
 
 	fastify.put('/api/user/update-pfp', async (req, resp) => {

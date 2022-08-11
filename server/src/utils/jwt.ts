@@ -1,7 +1,13 @@
 import { importPKCS8, importSPKI, jwtVerify, SignJWT } from "jose";
-import * as dotenv from 'dotenv'
+import { User } from "../entity/User";
 
-export async function createJWT(payload: any) {
+export async function createJWT(user: User) {
+	const payload = {
+		id: user.id,
+		email: user.email,
+		password: user.password
+	}
+
 	const jwt = await new SignJWT(payload)
 		.setProtectedHeader({ alg: 'ES256' })
 		.setExpirationTime('14d')
@@ -24,20 +30,3 @@ export async function verifyJWT(jwt: string) {
 
 	return data
 }
-
-async function testJWT() {
-	dotenv.config()
-
-	const jwt = createJWT({
-		name: 'example',
-		email: 'example@examp.le',
-		password: 'example'
-	})
-
-	const payload = verifyJWT(await jwt)
-
-	console.log(await jwt)
-	console.log(await payload)
-}
-
-// testJWT()
