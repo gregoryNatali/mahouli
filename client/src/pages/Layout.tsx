@@ -1,19 +1,24 @@
 import { Link, Outlet } from "react-router-dom";
+import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer } from "../styles/Layout";
 
 function Layout() {
 	return (
-		<>
-			<nav>
-				<ul>
-					<li><Link to={'/'}></Link></li>
-					<li></li>
-					<li></li>
+		<LayoutContainer>
+			<NavbarContainer>
+        <LinksContainer>
+        <Link to={'/'}>mahouLi</Link>
+        <ul>
+					<li><Link to={'/animes'}>Animes</Link></li>
+					<li><Link to={'/mangas'}>Mangas</Link></li>
+					<li><Link to={'/about'}>Sobre</Link></li>
+					<li><Link to={'/profile'}>Conta</Link></li>
 				</ul>
-			</nav>
-			<div className="content">
+        </LinksContainer>
+			</NavbarContainer>
+			<ContentContainer className="content">
 				<Outlet />
-			</div>
-		</>
+			</ContentContainer>
+		</LayoutContainer>
 	)
 }
 

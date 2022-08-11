@@ -1,6 +1,7 @@
-html, body {
+html, body, #root {
   display: flex;
   flex: 1 1 auto;
   margin: 0;
   padding: 0;
+  background-color: #272727;
 }
