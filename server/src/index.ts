@@ -21,6 +21,14 @@ AppDataSource.initialize().then(async () => {
 
 	const server = fastify()
 
+	// support to receive images (used for pfp)
+	server.register(require('@fastify/multipart'), {
+		limits: {
+			fileSize: 8000000, // 8mb
+			files: 1
+		}
+	})
+
 	server.register(userRoutes)
 
 	server.listen({ port: 8080, host: '0.0.0.0' }, (err, address) => {

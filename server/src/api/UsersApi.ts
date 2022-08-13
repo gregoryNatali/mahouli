@@ -6,6 +6,9 @@ import { sendConfirmEmail } from "../utils/emailer";
 import { AppDataSource } from "../data-source";
 import { User } from "../entity/User";
 
+// imports for file upload and manipulation
+const sharp = require('sharp')
+
 export async function userRoutes (fastify, options) {
 	fastify.post('/api/user/create', async (req, resp) => {
 		const info = req.body
@@ -78,8 +81,9 @@ export async function userRoutes (fastify, options) {
 		const jwt = await createJWT(user)
 
 		if (!user.confirmed_email) {
+			user.confirm_code = generateConfirmCode(8)
 			sendConfirmEmail(user)
-			return { success: false, jwt: jwt }
+			return { success: false, message: 'email not confirmed', userid: user.id }
 		}
 
 		// maybe find something safer
@@ -111,20 +115,69 @@ export async function userRoutes (fastify, options) {
 		const content = await verifyJWT(jwt)
 		const user = await AppDataSource.manager.findOneBy(User, { id: content.id })
 		await AppDataSource.manager.remove(user)
-		return { success: true}
+		return { success: true }
 	})
 
 	fastify.put('/api/user/update', async (req, resp) => {
-		let name: string
+		const jwt = getRequestCookies(req)
+
+		if (typeof jwt !== 'string')
+			return { success: false, message: 'missing cookies' }
+		
+		const content = await verifyJWT(jwt)
+		const user = await AppDataSource.manager.findOneBy(User, { id: content.id })
+
+		let name: string = ''
+		let password: string = ''
+
 		try {
 			name = req.body.name
+			password = req.body.name
 		}
 		catch (err) {
-			return { success: false, message: 'missing cookies' }
 		}
+
+		if (name !== '')
+			user.name = name
+		
+		if (password !== '')
+			user.password = await encryptText(password)
+
+		await AppDataSource.manager.save(user)
+
+		const newJwt = await createJWT(user)
+		return { success: true, new_jwt: newJwt }
 	})
 
 	fastify.put('/api/user/update-pfp', async (req, resp) => {
-		return
+		const jwt = getRequestCookies(req)
+
+		if (typeof jwt !== 'string')
+			return { success: false, message: 'missing cookies' }
+
+		const content = await verifyJWT(jwt)
+		const user = await AppDataSource.manager.findOneBy(User, { id: content.id })
+
+		try {
+			const data = await req.file()
+
+			const extension = String(data.filename).split('.')[String(data.filename).split('.').length - 1]
+			const supportedExtensions = ['jpeg', 'jpg', 'png', 'webp', 'avif', 'svg', 'tiff']
+			if (!supportedExtensions.includes(extension))
+				return { success: false, message: 'image extension not supported'}
+
+			const buffer = await data.toBuffer()
+			sharp(buffer)
+				.resize(500, 500)
+				.toFile(`images/users/${user.id}.jpg`)
+			
+			user.profile_picture = `images/users/${user.id}.jpg`
+			await AppDataSource.manager.save(user)
+
+			return { success: true }
+		}
+		catch (err) {
+			return { success: false, message: 'file may be too large' }
+		}
 	})
 } 
