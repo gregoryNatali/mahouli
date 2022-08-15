@@ -82,8 +82,9 @@ export async function userRoutes (fastify, options) {
 
 		if (!user.confirmed_email) {
 			user.confirm_code = generateConfirmCode(8)
-			sendConfirmEmail(user)
-			return { success: false, message: 'email not confirmed', userid: user.id }
+			await sendConfirmEmail(user)
+			await AppDataSource.manager.save(user)
+			return { success: false, message: 'email not confirmed', token: jwt }
 		}
 
 		// maybe find something safer
