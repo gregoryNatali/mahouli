@@ -9,11 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "nuka-carousel": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "react-slick": "^0.29.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
