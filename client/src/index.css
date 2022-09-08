@@ -1,7 +1,24 @@
-html, body, #root {
+/* html, body, #root { 
   display: flex;
-  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
+  
+} */
+
+html, body {
+  display: flex;
+  flex: 1 1 auto;
   background-color: #272727;
+}
+
+body {
+  margin: 0;
+  display: flex; 
+}
+
+#root, .App {
+  display: flex;
+  flex: 1 1 auto;
 }

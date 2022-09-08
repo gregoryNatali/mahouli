@@ -3,6 +3,7 @@ import { AppContainer } from "./styles/App"
 import Layout from "./pages/Layout"
 import Home from "./pages/Home"
 import { AnimesPage } from "./pages/Animes"
+import { Signup } from "./pages/Signup"
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="login" />
-          <Route path="signin" />
+          <Route path="signup" element={<Signup />} />
           <Route element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="animes" element={<AnimesPage />} />
