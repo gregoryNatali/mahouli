@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "./User"
 
 @Entity()
-export class UserMangaList {
+export class EntryList {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -34,4 +34,19 @@ export class UserMangaList {
 		@Column("integer")
 		score: number
 
+		@Column("boolean")
+		is_anime: number
+
+		constructor(info?: any) {
+			this.id = info.id
+			this.mal_id = info.mal_id
+			this.user = info.user
+			this.img_url = info.img_url
+			this.name = info.name
+			this.start_date = info.start_date
+			this.finish_date = info.finish_date
+			this.progress = info.progress
+			this.total_episodes = info.total_episodes
+			this.score = info.score
+		}
 }
