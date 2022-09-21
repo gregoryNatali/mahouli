@@ -9,9 +9,9 @@ function Layout() {
         <Link to={'/'}>mahouLi</Link>
         <ul>
 					<li><Link to={'/animes'}>Animes</Link></li>
-					<li><Link to={'/mangas'}>Mangas</Link></li>
+					<li><Link to={'/mangas'}>Mangás</Link></li>
 					<li><Link to={'/about'}>Sobre</Link></li>
-					<li><Link to={'/profile'}>Conta</Link></li>
+					<li><Link to={'/account'}>Conta</Link></li>
 				</ul>
         </LinksContainer>
 			</NavbarContainer>

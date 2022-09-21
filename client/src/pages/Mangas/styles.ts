@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const AnimesPageContainer = styled.div`
+export const MangasPageContainer = styled.div`
   color: #d9d9d9;
-  
+
   display: flex; 
   flex-direction: column;
   flex: 1 1 auto;

@@ -1,18 +1,6 @@
 import styled from "styled-components";
 
-export const SignupPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0 2rem 2rem 2rem;
-  border-radius: 6px;
-
-  color: #d9d9d9;
-`
-
-export const StyledSignupForm = styled.form `
+export const StyledFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   background-color: #191919;
@@ -29,7 +17,6 @@ export const StyledSignupForm = styled.form `
     border-radius: 6px;
     margin-bottom: 0.5rem;
     color: #d9d9d9;
-    padding: 0.2rem;
   }
 
   button {
@@ -40,4 +27,4 @@ export const StyledSignupForm = styled.form `
     padding: 0.5rem;
     border-radius: 6px;
   }
-`
+  `
