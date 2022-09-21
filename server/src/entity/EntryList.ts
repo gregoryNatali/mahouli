@@ -35,7 +35,7 @@ export class EntryList {
 		score: number
 
 		@Column("boolean")
-		is_anime: number
+		is_anime: boolean
 
 		constructor(info?: any) {
 			this.id = info.id
