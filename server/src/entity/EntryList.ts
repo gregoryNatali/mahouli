@@ -35,6 +35,9 @@ export class EntryList {
 		score: number
 
 		@Column("boolean")
+		is_favorite: boolean
+
+		@Column("boolean")
 		is_anime: boolean
 
 		constructor(info?: any) {
