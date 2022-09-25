@@ -1,22 +1,30 @@
-import { AppDataSource } from "../data-source";
 import { EntryList } from "../entity/EntryList";
 import { getUser } from "../utils/serverUtils";
+import { AppDataSource } from "../data-source";
+import { FastifyInstance } from "fastify";
 import { FastifyRequest } from "fastify";
+import { User } from "../entity/User";
 
-async function addToList(info: any, is_anime: boolean) {
-	let obj = new EntryList(info)
-	obj.is_anime = is_anime
+async function addToList(info: any, user: User) {
+	let obj = new EntryList(info, user)
 	return await AppDataSource.manager.save(obj)
 }
 
-async function removeFromList(info: any, is_anime: boolean) {
-	let obj = new EntryList(info)
-	obj.is_anime = is_anime
+async function removeFromList(info: any, user: User) {
+	let obj = await AppDataSource.manager.findOneBy(EntryList, { id: info.id })
+
+	if (obj.user !== user)
+		return false
+
 	return await AppDataSource.manager.delete(EntryList, obj)
 }
 
-async function editListEntry(info: any, is_anime: boolean) {
+async function editListEntry(info: any, user: User) {
 	let obj = await AppDataSource.manager.findOneBy(EntryList, { id: info.id })
+
+	if (obj.user !== user)
+		return false
+	
 	obj.img_url = info.img_url
 	obj.name = info.name
 	obj.progress = info.progress
@@ -26,62 +34,76 @@ async function editListEntry(info: any, is_anime: boolean) {
 	return await AppDataSource.manager.save(obj)
 }
 
-export async function listRoutes (fastify, options) {
+export async function listRoutes (fastify: FastifyInstance) {
 	// anime
-	fastify.get('/api/anime/list', async (req, resp) => {
+	fastify.get('/api/anime/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
 		
-		return await AppDataSource.manager.findBy(EntryList, { user: user })
+		return await AppDataSource.manager.findBy(EntryList, { user: user, is_anime: true })
 	})
 
-	fastify.post('/api/anime/addEntry', async (req: FastifyRequest, resp) => {
+	fastify.post('/api/anime/addEntry', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
 
-		const entry = new EntryList(req.body)
-		await AppDataSource.manager.save(entry)
-		return { success: Boolean(entry)}
+		const entry = await addToList(req.body, user)
+		return { success: Boolean(entry) }
 	})
 
-	fastify.post('/api/anime/editEntry', async (req, resp) => {
+	fastify.post('/api/anime/editEntry', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
-
-			//todo
+		
+		const entry = await editListEntry(req.body, user)
+		return { success: Boolean(entry) }
 	})
 
-	fastify.post('/api/anime/deleteEntry', async (req, resp) => {
+	fastify.post('/api/anime/deleteEntry', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
+		
+		const entry = await removeFromList(req.body, user)
+		return { success: Boolean(entry) }
 	})
 
 	// manga
-	fastify.post('/api/manga/list', async (req, resp) => {
+	fastify.post('/api/manga/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
+
+		return await AppDataSource.manager.findBy(EntryList, { user: user, is_anime: false })
 	})
 
-	fastify.post('/api/manga/addEntry', async (req, resp) => {
+	fastify.post('/api/manga/addEntry', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
+		
+		const entry = await addToList(req.body, user)
+		return { success: Boolean(entry) }
 	})
 
-	fastify.post('/api/manga/editEntry', async (req, resp) => {
+	fastify.post('/api/manga/editEntry', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
+		
+		const entry = await editListEntry(req.body, user)
+		return { success: Boolean(entry) }
 	})
 
 	fastify.post('/api/manga/deleteEntry', async (req, resp) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
+		
+		const entry = await removeFromList(req.body, user)
+		return { success: Boolean(entry) }
 	})
 }

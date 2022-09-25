@@ -40,10 +40,10 @@ export class EntryList {
 		@Column("boolean")
 		is_anime: boolean
 
-		constructor(info?: any) {
+		constructor(info?: any, user?: User) {
 			this.id = info.id
 			this.mal_id = info.mal_id
-			this.user = info.user
+			this.user = user
 			this.img_url = info.img_url
 			this.name = info.name
 			this.start_date = info.start_date
