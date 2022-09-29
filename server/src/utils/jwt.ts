@@ -4,8 +4,7 @@ import { User } from "../entity/User";
 export async function createJWT(user: User) {
 	const payload = {
 		id: user.id,
-		email: user.email,
-		password: user.password
+		email: user.email
 	}
 
 	const jwt = await new SignJWT(payload)
