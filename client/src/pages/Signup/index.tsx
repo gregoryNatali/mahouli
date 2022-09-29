@@ -4,8 +4,18 @@ import { SignupPageContainer, StyledSignupForm } from "./styles";
 export function SignupPage() {
   const redirect = useNavigate()
 
-  const onSubmit = () => {
-    redirect('/animes')
+  const onSubmit = (e: React.SyntheticEvent ) => {
+    e.preventDefault()
+    
+    const target = e.target as typeof e.target & {
+      email: { value: string }
+      password: { value: string }
+      username : { value: string }
+    }
+
+    sendRegister(target.email.value, target.password.value, target.username.value)
+
+    redirect('/signin')
   }
 
   return (
@@ -13,11 +23,11 @@ export function SignupPage() {
       <h1>Cadastro</h1>
       <StyledSignupForm onSubmit={onSubmit}>
         <label htmlFor="usernameInput">Nome de usuário:</label>
-        <input id="usernameInput" type="text" autoComplete="off" />
+        <input id="usernameInput" name="username" type="email" autoComplete="off" />
         <label htmlFor="emailInput">Email:</label>
-        <input id="emailInput" type="text" autoComplete="on"/>
+        <input id="emailInput" name="input" type="text" autoComplete="on"/>
         <label htmlFor="passwordInput">Senha:</label>
-        <input id="passwordInput" type="password" />
+        <input id="passwordInput" name="password" type="password" />
         <label htmlFor="repeatPasswordInput">Repetir senha:</label>
         <input id="repeatPasswordInput" type="password" />
         <button type="submit">Cadastrar</button>

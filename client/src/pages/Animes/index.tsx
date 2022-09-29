@@ -18,15 +18,13 @@ export function AnimesPage() {
       <div>Loading...</div>
     )
   
-  let sortedAnimes = []
+  let sortedAnimes: Array<Array<SeasonAnime>> = []
   for (let i = 0; i < seasonAnimes.length; i++) {
     if ((i + 1) % 8 == 0 || i == 0) {
-      sortedAnimes[i].push([])
+      sortedAnimes[i].push(seasonAnimes[i])
     }
-    const element = seasonAnimes[i];
-    
   }
-
+  console.log(sortedAnimes)
   return (
     <AnimesPageContainer>
       <QuoteBar />
@@ -35,9 +33,9 @@ export function AnimesPage() {
       <div style={{display: 'flex', flex: '1 1 auto', alignItems: 'center', justifyContent: 'center' }}>
         <Carousel style={{width: '98vw'}}>
           
-        {seasonAnimes.map((seasonAnime: SeasonAnime, index: number) => {
+        {/* {seasonAnimes.map((seasonAnime: SeasonAnime, index: number) => {
           
-        })}
+        })} */}
 
           <div style={{ display: 'flex', userSelect: 'none', gap: '0.5rem' }}>
             <img src="https://cdn.myanimelist.net/r/160x220/images/anime/1530/120110.webp?s=4aaac682a2a4727af927349fa2eb9260" />
