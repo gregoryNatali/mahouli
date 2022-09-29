@@ -1,7 +1,7 @@
 import { QuoteBar } from "../../components/QuoteBar"
 import { HomeContainer, HomeContentContainer } from "./styles"
 
-function Home() {
+export function Home() {
 	return (
 		<HomeContainer>
 			<QuoteBar />
@@ -46,5 +46,3 @@ function Home() {
 		</HomeContainer>
 	)
 }
-
-export default Home

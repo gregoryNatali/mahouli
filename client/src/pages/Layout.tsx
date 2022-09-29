@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer } from "../styles/Layout";
 
-function Layout() {
+export function Layout() {
 	return (
 		<LayoutContainer>
 			<NavbarContainer>
@@ -21,5 +21,3 @@ function Layout() {
 		</LayoutContainer>
 	)
 }
-
-export default Layout

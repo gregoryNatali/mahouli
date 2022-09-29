@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { AppContainer } from "./styles/App"
-import Layout from "./pages/Layout"
-import Home from "./pages/Home"
-import { AnimesPage } from "./pages/Animes"
-import { SignupPage } from "./pages/Signup"
-import { MangasPage } from "./pages/Mangas"
-import { AboutPage } from "./pages/About"
-import { AccountPage } from "./pages/Account"
-import { SigninPage } from "./pages/Signin"
 import { SynapsisPage } from "./pages/Synopsis"
+import { AccountPage } from "./pages/Account"
+import { AppContainer } from "./styles/App"
+import { AnimesPage } from "./pages/Animes"
+import { MangasPage } from "./pages/Mangas"
+import { SigninPage } from "./pages/Signin"
+import { SignupPage } from "./pages/Signup"
+import { AboutPage } from "./pages/About"
+import { Layout } from "./pages/Layout"
+import { Home } from "./pages/Home"
 
 function App() {
   return (
