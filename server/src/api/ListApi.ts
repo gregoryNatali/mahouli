@@ -1,3 +1,5 @@
+import { getAnimeOrManga } from "../utils/animes";
+import { KnownAnime } from "../entity/KnownAnime";
 import { EntryList } from "../entity/EntryList";
 import { getUser } from "../utils/serverUtils";
 import { AppDataSource } from "../data-source";
@@ -5,8 +7,8 @@ import { FastifyInstance } from "fastify";
 import { FastifyRequest } from "fastify";
 import { User } from "../entity/User";
 
-async function addToList(info: any, user: User) {
-	let obj = new EntryList(info, user)
+async function addToList(info: any, user: User, anime: KnownAnime) {
+	let obj = new EntryList(info, user, anime)
 	return await AppDataSource.manager.save(obj)
 }
 
@@ -25,12 +27,9 @@ async function editListEntry(info: any, user: User) {
 	if (obj.user !== user)
 		return false
 	
-	obj.img_url = info.img_url
-	obj.name = info.name
 	obj.progress = info.progress
 	obj.score = info.score
 	obj.start_date = info.start
-	obj.total_episodes = info.total_episodes
 	return await AppDataSource.manager.save(obj)
 }
 
@@ -49,7 +48,8 @@ export async function listRoutes (fastify: FastifyInstance) {
 		if (!user.success)
 			return user
 
-		const entry = await addToList(req.body, user)
+		const body: any = req.body 
+		const entry = await addToList(body, user, await getAnimeOrManga(body.name, body))
 		return { success: Boolean(entry) }
 	})
 
@@ -85,7 +85,8 @@ export async function listRoutes (fastify: FastifyInstance) {
 		if (!user.success)
 			return user
 		
-		const entry = await addToList(req.body, user)
+		const body: any = req.body 
+		const entry = await addToList(body, user, await getAnimeOrManga(body.name, body))
 		return { success: Boolean(entry) }
 	})
 

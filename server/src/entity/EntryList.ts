@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from "typeorm"
+import { KnownAnime } from "./KnownAnime"
 import { User } from "./User"
 
 @Entity()
@@ -7,17 +8,11 @@ export class EntryList {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column("integer")
-    mal_id: number
-
 		@ManyToOne(() => User, (user) => user.id)
 		user: User
 
-		@Column("varchar")
-		img_url: string
-
-		@Column("varchar")
-		name: string
+		@ManyToMany(() => KnownAnime, (anime) => anime.id)
+		anime: KnownAnime
 
     @Column("date")
     start_date: string
@@ -29,9 +24,6 @@ export class EntryList {
 		progress: number
 
 		@Column("integer")
-		total_episodes: number
-
-		@Column("integer")
 		score: number
 
 		@Column("boolean")
@@ -40,16 +32,15 @@ export class EntryList {
 		@Column("boolean")
 		is_anime: boolean
 
-		constructor(info?: any, user?: User) {
+		constructor(info?: any, user?: User, anime?: KnownAnime) {
 			this.id = info.id
-			this.mal_id = info.mal_id
 			this.user = user
-			this.img_url = info.img_url
-			this.name = info.name
+			this.anime = anime
 			this.start_date = info.start_date
 			this.finish_date = info.finish_date
 			this.progress = info.progress
-			this.total_episodes = info.total_episodes
 			this.score = info.score
+			this.is_favorite = info.is_favorite
+			this.is_anime = info.is_anime
 		}
 }
