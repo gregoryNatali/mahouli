@@ -10,16 +10,20 @@ export function AnimesPage() {
 
   useEffect(() => {
     getSeasonAnimes(setSeasonAnimes)
-    console.log(seasonAnimes)
+    // console.log(seasonAnimes)
   }, [])
 
   if (!seasonAnimes)
     return (
       <div>Loading...</div>
     )
-
-  let animeWrapper = <></>
+  
+  let sortedAnimes = []
   for (let i = 0; i < seasonAnimes.length; i++) {
+    if ((i + 1) % 8 == 0 || i == 0) {
+      sortedAnimes[i].push([])
+    }
+    const element = seasonAnimes[i];
     
   }
 
@@ -27,16 +31,14 @@ export function AnimesPage() {
     <AnimesPageContainer>
       <QuoteBar />
       <h1>Animes</h1>
+
       <div style={{display: 'flex', flex: '1 1 auto', alignItems: 'center', justifyContent: 'center' }}>
         <Carousel style={{width: '98vw'}}>
-          {/* {seasonAnimes.map((seasonAnime: any, index: any) => {
-            if ((index + 1) % 8 === 0 || index === 0) {
-              <div>
-                {seasonAnime.map()}
-              </div>
-            }
-          })} */}
           
+        {seasonAnimes.map((seasonAnime: SeasonAnime, index: number) => {
+          
+        })}
+
           <div style={{ display: 'flex', userSelect: 'none', gap: '0.5rem' }}>
             <img src="https://cdn.myanimelist.net/r/160x220/images/anime/1530/120110.webp?s=4aaac682a2a4727af927349fa2eb9260" />
             <img src="https://cdn.myanimelist.net/r/160x220/images/anime/1864/122519.webp?s=ba617471a0fad3a2cb79d770acdac79f" />

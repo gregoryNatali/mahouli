@@ -1,11 +1,11 @@
 import { QuoteBar } from "../../components/QuoteBar"
-import { HomeContainer } from "./styles"
+import { HomeContainer, HomeContentContainer } from "./styles"
 
 function Home() {
 	return (
 		<HomeContainer>
 			<QuoteBar />
-      <div>
+      <HomeContentContainer>
         <div>
           <h1>Notícias</h1>
           <div>
@@ -42,7 +42,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </HomeContentContainer>
 		</HomeContainer>
 	)
 }
