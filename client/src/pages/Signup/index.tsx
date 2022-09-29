@@ -18,6 +18,11 @@ export function SignupPage() {
     redirect('/signin')
   }
 
+  function verifyPassword(password: string, repeatPassword: string) {
+    if (password === repeatPassword) 
+      return 
+  }
+
   return (
     <SignupPageContainer>
       <h1>Cadastro</h1>
