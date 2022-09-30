@@ -34,9 +34,7 @@ export async function userRoutes (fastify, options) {
 
 		await AppDataSource.manager.save(newUser)
 
-		const jwt = await createJWT(newUser)
-
-		return { success: true, token: jwt, confirmed_email: newUser.confirmed_email }
+		return { success: true }
 	}) 
 
 	fastify.get('/user/confirm-email', async (req, resp) => {
@@ -61,7 +59,7 @@ export async function userRoutes (fastify, options) {
 		user.confirmed_email = true
 		user.confirm_code = ''
 
-		AppDataSource.manager.save(user)
+		await AppDataSource.manager.save(user)
 
 		return { success: true }
 	})
