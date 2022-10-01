@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { SynapsisPage } from "./pages/Synopsis"
+import { SynopsisPage } from "./pages/Synopsis"
 import { AccountPage } from "./pages/Account"
 import { AppContainer } from "./styles/App"
 import { AnimesPage } from "./pages/Animes"
@@ -24,8 +24,8 @@ function App() {
             <Route path="about" element={<AboutPage />} />
             <Route path="account" element={<AccountPage />} />
           </Route>
-          <Route path="anime/:id" element={<SynapsisPage />} />
-          <Route path="manga/:id" element={<SynapsisPage />} />
+          <Route path="anime/:id" element={<SynopsisPage />} />
+          <Route path="manga/:id" element={<SynopsisPage />} />
         </Routes>
       </BrowserRouter>
     </AppContainer>

@@ -1,6 +1,6 @@
 import { SynapsisPageContainer } from "./styles";
 
-export function SynapsisPage() {
+export function SynopsisPage() {
 
   return(
     <SynapsisPageContainer>
