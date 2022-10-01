@@ -1,8 +1,6 @@
-import { hasSubscribers } from "diagnostics_channel"
-
 const baseUrl = process.env.BASE_API_URL + '/api'
-const headers = new Headers()
 
+const headers = new Headers()
 headers.set('Authorization', localStorage.getItem('token')!)
 
 export async function sendLogin(email: string, password: string) {
@@ -35,8 +33,15 @@ export async function sendRegister(name: string, email: string, password: string
 	return await req.json()
 }
 
-export async function sendEmailConfirm() {
+export async function sendEmailConfirm(confirm_code: string) {
+	const req = await fetch(`${baseUrl}/user/confirm-email`, {
+		method: 'PUT',
+		body: JSON.stringify({
+			confirm_code
+		})
+	})
 
+	return await req.json()
 }
 
 export async function verifyLogin() {
