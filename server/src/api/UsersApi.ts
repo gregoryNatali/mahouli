@@ -12,8 +12,8 @@ const sharp = require('sharp')
 export async function userRoutes (fastify, options) {
 	fastify.post('/api/user/create', async (req, resp) => {
 		const info = req.body
-
 		const newUser = new User()
+
 		try {
 			if (!info.password || !info.name || !info.email)
 				throw 'error'
@@ -36,12 +36,6 @@ export async function userRoutes (fastify, options) {
 
 		return { success: true }
 	}) 
-
-	fastify.get('/user/confirm-email', async (req, resp) => {
-		// resp.redirect('/')
-
-		// make redirectable link to confirm email (use query parameters)
-	})
 
 	fastify.put('/api/user/confirm-email', async (req, resp) => {
 		const user = await getUser(req)
