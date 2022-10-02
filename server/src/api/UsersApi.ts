@@ -1,9 +1,9 @@
 import { compareText, encryptText } from "../utils/encrypter";
 import { generateConfirmCode } from "../utils/userMisc";
-import { createJWT, verifyJWT } from "../utils/jwt";
 import { sendConfirmEmail } from "../utils/emailer";
 import { AppDataSource } from "../data-source";
 import { getUser } from "../utils/serverUtils";
+import { createJWT } from "../utils/jwt";
 import { User } from "../entity/User";
 
 // imports for file upload and manipulation

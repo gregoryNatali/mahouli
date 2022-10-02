@@ -1,16 +1,15 @@
-import Carousel from 'nuka-carousel'
-import { useEffect, useState } from 'react';
-import { getSeasonAnimes } from '../../api/api';
+import { getSeasonAnimes } from '../../api/jikanApi';
 import { QuoteBar } from "../../components/QuoteBar";
 import { SeasonAnime } from '../../types/Anime';
 import { AnimesPageContainer } from "./styles";
+import { useEffect, useState } from 'react';
+import Carousel from 'nuka-carousel'
 
 export function AnimesPage() {
   const [seasonAnimes, setSeasonAnimes]: any = useState()
 
   useEffect(() => {
     getSeasonAnimes(setSeasonAnimes)
-    // console.log(seasonAnimes)
   }, [])
 
   if (!seasonAnimes)
