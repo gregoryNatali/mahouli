@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost::8080/api'
+const baseUrl = 'http://localhost:8080/api'
 
 const headers = new Headers()
 headers.set('Authorization', localStorage.getItem('token')!)

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { FormEvent } from 'react'
 // import { StyledForm } from "../../components/StyledForm";
 import { SigninPageContainer, StyledSigninForm } from "./styles";
+import { sendLogin } from "../../api/userManager";
 
 export function SigninPage() {
   const redirect = useNavigate()

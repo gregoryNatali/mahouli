@@ -15,6 +15,9 @@ export const SignupPageContainer = styled.div`
 export const StyledSignupForm = styled.form `
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   background-color: #191919;
   padding: 2rem;
   border-radius: 6px;
@@ -36,8 +39,19 @@ export const StyledSignupForm = styled.form `
     background-color: #6A336A;
     border: none;
     color: #d9d9d9;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     padding: 0.5rem;
     border-radius: 6px;
   }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+`
+
+export const ErrorMessageSpan = styled.span`
+font-size: 0.8rem;
+color: #e20000;
 `
