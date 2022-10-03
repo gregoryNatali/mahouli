@@ -21,6 +21,12 @@ AppDataSource.initialize().then(async () => {
 	server.register(userRoutes)
 	server.register(listRoutes)
 
+	server.addHook("onSend", async (req, resp) => {
+		resp.headers({
+			"Access-Control-Allow-Origin": "*"
+		})
+	})
+
 	server.listen({ port: 8080, host: '0.0.0.0' }, (err, address) => {
 		if (err) {
 			console.error(err)
