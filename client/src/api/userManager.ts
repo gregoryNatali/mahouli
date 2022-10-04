@@ -41,6 +41,11 @@ export async function sendEmailConfirm(confirm_code: string) {
 		})
 	})
 
+  const data = await req.json()
+
+  if (!data.success)
+    return data
+
 	return await req.json()
 }
 
