@@ -11,7 +11,7 @@ export function Layout() {
 					<li><Link to={'/animes'}>Animes</Link></li>
 					<li><Link to={'/mangas'}>Mangás</Link></li>
 					<li><Link to={'/about'}>Sobre</Link></li>
-					<li><Link to={'/account'}>Conta</Link></li>
+					<li><Link to={ localStorage.getItem('token') ? '/account' : '/signin' }>Conta</Link></li>
 				</ul>
         </LinksContainer>
 			</NavbarContainer>

@@ -13,11 +13,11 @@ export async function sendLogin(email: string, password: string) {
 	})
 
 	const data = await req.json()
-
-	if (!data.success)
-		return
-
 	localStorage.setItem('token', data.jwt)
+
+	if (!data.success) {
+		return data
+	}
 }
 
 export async function sendRegister(name: string, email: string, password: string) {

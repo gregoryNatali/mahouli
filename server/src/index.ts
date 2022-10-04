@@ -23,7 +23,7 @@ AppDataSource.initialize().then(async () => {
 
 	server.addHook("onSend", async (req, resp) => {
 		resp.headers({
-			"Access-Control-Allow-Origin": "*"
+			"Access-Control-Allow-*": "*"
 		})
 	})
 
