@@ -36,6 +36,7 @@ export function SigninPage() {
         <input id="passwordInput" name="password" type="password" />
         <button type="submit">Entrar</button>
       </StyledSigninForm>
+      <span onClick={() => redirect('/signup')}>Não possuo uma conta :(</span>
     </SigninPageContainer>
   )
 }
