@@ -7,7 +7,7 @@ export function SignupPage() {
   const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
 
-  const onSubmit = (e: React.SyntheticEvent) => {
+  const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     
     
