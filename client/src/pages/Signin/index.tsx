@@ -1,8 +1,10 @@
 import { SigninPageContainer, StyledSigninForm } from "./styles";
 import { sendLogin } from "../../api/userManager";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 export function SigninPage() {
+	const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
 
   const onSubmit = async (e: React.SyntheticEvent ) => {
@@ -13,8 +15,14 @@ export function SigninPage() {
       password: { value: string }
     }
 
-    await sendLogin(target.email.value, target.password.value)
-    
+    const result = await sendLogin(target.email.value, target.password.value)
+
+		if (result) {
+			if (result.message === 'email not confirmed')
+				redirect('/email-confirmation')
+			return
+		}
+
     redirect('/')
   }
 
