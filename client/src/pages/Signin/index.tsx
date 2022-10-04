@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 export function SigninPage() {
   const redirect = useNavigate()
 
-  const onSubmit = (e: React.SyntheticEvent ) => {
+  const onSubmit = async (e: React.SyntheticEvent ) => {
     e.preventDefault()
     
     const target = e.target as typeof e.target & {
@@ -13,7 +13,7 @@ export function SigninPage() {
       password: { value: string }
     }
 
-    sendLogin(target.email.value, target.password.value)
+    await sendLogin(target.email.value, target.password.value)
 
     redirect('/')
   }
