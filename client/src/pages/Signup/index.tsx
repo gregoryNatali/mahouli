@@ -23,7 +23,7 @@ export function SignupPage() {
       return
     }
 
-    sendRegister(target.email.value, target.password.value, target.username.value)
+    await sendRegister(target.email.value, target.password.value, target.username.value)
 
     redirect('/signin')
   }

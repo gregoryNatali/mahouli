@@ -14,7 +14,7 @@ export function SigninPage() {
     }
 
     await sendLogin(target.email.value, target.password.value)
-
+    
     redirect('/')
   }
 
