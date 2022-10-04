@@ -63,7 +63,7 @@ export async function userRoutes (fastify, options) {
 		if (!user)
 			return { success: false, message: 'user not found' }
 
-		if (!compareText(req.body.password, user.password))
+		if (!await compareText(req.body.password, user.password))
 			return { success: false, message: 'wrong password' }
 
 		const jwt = await createJWT(user)
