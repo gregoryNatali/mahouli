@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SigninPageContainer = styled.div`
+export const EmailConfirmationPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +20,7 @@ export const SigninPageContainer = styled.div`
   }
 `
 
-export const StyledSigninForm = styled.form `
+export const StyledEmailConfirmationForm = styled.form `
     display: flex;
   flex-direction: column;
   background-color: #191919;
@@ -49,4 +49,9 @@ export const StyledSigninForm = styled.form `
     border-radius: 6px;
   }
 
+`
+
+export const ErrorMessageSpan = styled.span`
+font-size: 0.8rem;
+color: #e20000;
 `

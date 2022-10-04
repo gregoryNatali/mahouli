@@ -5,11 +5,19 @@ export const SignupPageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  
   padding: 0 2rem 2rem 2rem;
   border-radius: 6px;
-
+  
   color: #d9d9d9;
+  
+  span {
+    margin-top: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #777777;
+    text-decoration: underline;
+  }
 `
 
 export const StyledSignupForm = styled.form `

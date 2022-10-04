@@ -47,6 +47,7 @@ export function SignupPage() {
         </div>
         <ErrorMessageSpan>{wentWrong}</ErrorMessageSpan>
       </StyledSignupForm>
+      <span onClick={() => redirect('/signin')}>Já possuo uma conta</span>
     </SignupPageContainer>
   )
 }
