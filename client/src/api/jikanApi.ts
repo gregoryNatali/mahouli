@@ -17,7 +17,7 @@ export async function getSeasonAnimes(setSeasonAnime: any) {
 
   const formattedData: Array<SeasonAnime> = []
 
-  data.forEach((e: any) => {
+  data.data.forEach((e: any) => {
     formattedData.push({
       name: e.title,
       image: e.images.jpg.image_url,

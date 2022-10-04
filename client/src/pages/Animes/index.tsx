@@ -19,11 +19,13 @@ export function AnimesPage() {
   
   let sortedAnimes: Array<Array<SeasonAnime>> = []
   for (let i = 0; i < seasonAnimes.length; i++) {
-    if ((i + 1) % 8 == 0 || i == 0) {
-      sortedAnimes[i].push(seasonAnimes[i])
-    }
+		for (let j = 0; j < 8; j++) {
+      sortedAnimes[i].push(seasonAnimes[j])
+		}
   }
+
   console.log(sortedAnimes)
+
   return (
     <AnimesPageContainer>
       <QuoteBar />
