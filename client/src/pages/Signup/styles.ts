@@ -57,9 +57,11 @@ export const StyledSignupForm = styled.form `
     flex-direction: column;
     margin-bottom: 0.5rem;
   }
-`
 
-export const ErrorMessageSpan = styled.span`
-font-size: 0.8rem;
-color: #e20000;
+  span {
+  font-size: 0.8rem;
+  color: #e20000;
+  text-decoration: none;
+  cursor: default;
+  }
 `
