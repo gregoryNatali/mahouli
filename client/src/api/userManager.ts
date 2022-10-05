@@ -1,9 +1,11 @@
+import { NavigateFunction } from "react-router"
+
 const baseUrl = 'http://localhost:8080/api'
 
 const headers = new Headers()
 headers.set('Authorization', localStorage.getItem('token')!)
 
-export async function sendLogin(email: string, password: string) {
+export async function sendLogin(email: string, password: string, redirect: NavigateFunction) {
 	const req = await fetch(`${baseUrl}/user/login`, {
 		method: 'POST',
 		body: JSON.stringify({
@@ -18,9 +20,11 @@ export async function sendLogin(email: string, password: string) {
 	if (!data.success) {
 		return data
 	}
+
+	redirect('/')
 }
 
-export async function sendRegister(name: string, email: string, password: string) {
+export async function sendRegister(name: string, email: string, password: string, redirect: NavigateFunction) {
 	const req = await fetch(`${baseUrl}/user/create`, {
 		method: 'POST',
 		body: JSON.stringify({
@@ -29,13 +33,18 @@ export async function sendRegister(name: string, email: string, password: string
 			password
 		})
 	})
+	
+	const data =  await req.json()
 
-	return await req.json()
+	if (!data.success)
+		return data
+
+	redirect('/signin')
 }
 
-export async function sendEmailConfirm(confirm_code: string) {
+export async function sendEmailConfirm(confirm_code: string, redirect: NavigateFunction) {
 	const req = await fetch(`${baseUrl}/user/confirm-email`, {
-		method: 'PUT',
+		method: 'POST',
 		body: JSON.stringify({
 			confirm_code
 		})
