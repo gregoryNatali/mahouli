@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { sendRegister } from "../../api/userManager";
-import { ErrorMessageSpan, SignupPageContainer, StyledSignupForm } from "./styles";
+import { SignupPageContainer, StyledSignupForm } from "./styles";
 
 export function SignupPage() {
   const [wentWrong, setWentWrong] = useState<string>()
@@ -45,7 +45,7 @@ export function SignupPage() {
           <input id="repeatPasswordInput" name="repeatPassword" type="password" />
           <button type="submit">Cadastrar</button>
         </div>
-        <ErrorMessageSpan>{wentWrong}</ErrorMessageSpan>
+        <span>{wentWrong}</span>
       </StyledSignupForm>
       <span onClick={() => redirect('/signin')}>Já possuo uma conta</span>
     </SignupPageContainer>

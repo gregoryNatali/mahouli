@@ -15,10 +15,15 @@ export async function sendLogin(email: string, password: string, redirect: Navig
 	})
 
 	const data = await req.json()
-	localStorage.setItem('token', data.jwt)
+	localStorage.setItem('token', data.token)
 
 	if (!data.success) {
-		return data
+		if (data.message === "email not confirmed") {
+      redirect('/email-confirmation')
+      return
+    }
+    
+    return data
 	}
 
 	redirect('/')
