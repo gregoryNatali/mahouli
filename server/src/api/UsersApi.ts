@@ -41,6 +41,8 @@ export async function userRoutes (fastify, options) {
 		return { success: true }
 	}) 
 
+	fastify.options('/api/user/confirm-email', async (req, resp) => {})
+
 	fastify.post('/api/user/confirm-email', async (req, resp) => {
 		const user = await getUser(req)
 		if (!user.success)

@@ -16,7 +16,7 @@ export function EmailConfirmationPage() {
 
     const result = await sendEmailConfirm(target.codeInput.value, redirect)
 
-    if (result) {
+    if (result !== null) {
       if (result.message === "wrong code")
         setWentWrong('Código Inválido')
     }
