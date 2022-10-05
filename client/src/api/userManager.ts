@@ -2,8 +2,6 @@ import { NavigateFunction } from "react-router"
 
 const baseUrl = 'http://localhost:8080/api'
 
-const headers = new Headers()
-headers.set('Authorization', localStorage.getItem('token')!)
 
 export async function sendLogin(email: string, password: string, redirect: NavigateFunction) {
 	const req = await fetch(`${baseUrl}/user/login`, {
@@ -48,7 +46,11 @@ export async function sendRegister(name: string, email: string, password: string
 }
 
 export async function sendEmailConfirm(confirm_code: string, redirect: NavigateFunction) {
+	const headers = new Headers()
+	headers.set('Authorization', localStorage.getItem('token')!)
+
 	const req = await fetch(`${baseUrl}/user/confirm-email`, {
+		headers,
 		method: 'POST',
 		body: JSON.stringify({
 			confirm_code
@@ -60,10 +62,13 @@ export async function sendEmailConfirm(confirm_code: string, redirect: NavigateF
   if (!data.success)
     return data
 
-	return await req.json()
+	redirect('/')
 }
 
 export async function verifyLogin() {
+	const headers = new Headers()
+	headers.set('Authorization', localStorage.getItem('token')!)
+
 	const req = await fetch(`${baseUrl}/user/verify`, {
 		headers
 	})
@@ -72,6 +77,9 @@ export async function verifyLogin() {
 }
 
 export async function getUser(id: string) {
+	const headers = new Headers()
+	headers.set('Authorization', localStorage.getItem('token')!)
+
 	const req = await fetch(`${baseUrl}/user/get/${id}`, {
 		headers
 	})
