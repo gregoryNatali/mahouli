@@ -14,14 +14,12 @@ export function EmailConfirmationPage() {
       codeInput: { value: string }
     }
 
-    const result = await sendEmailConfirm(target.codeInput.value)
+    const result = await sendEmailConfirm(target.codeInput.value, redirect)
 
     if (result) {
       if (result.message === "wrong code")
         setWentWrong('Código Inválido')
     }
-    
-    redirect('/')
   }
 
   return(
