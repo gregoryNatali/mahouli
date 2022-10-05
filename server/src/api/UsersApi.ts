@@ -11,10 +11,13 @@ const sharp = require('sharp')
 
 export async function userRoutes (fastify, options) {
 	fastify.post('/api/user/create', async (req, resp) => {
-		const info = req.body
+		const info = JSON.parse(req.body)
 		const newUser = new User()
 
 		try {
+			// console.log(info.name)
+			// console.log(info.email)
+			// console.log(info.password)
 			if (!info.password || !info.name || !info.email)
 				throw 'error'
 
@@ -25,6 +28,7 @@ export async function userRoutes (fastify, options) {
 			newUser.confirm_code = generateConfirmCode(8)
 		}
 		catch (err) {
+			console.log(err)
 			return { success: false, message: 'missing information in request body'}
 		}
 		
@@ -37,13 +41,14 @@ export async function userRoutes (fastify, options) {
 		return { success: true }
 	}) 
 
-	fastify.put('/api/user/confirm-email', async (req, resp) => {
+	fastify.post('/api/user/confirm-email', async (req, resp) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
 
+		const info = JSON.parse(req.body)
 		try {
-			if (req.body.confirm_code !== user.confirm_code)
+			if (info.confirm_code !== user.confirm_code)
 				return { success: false, message: 'wrong code' }
 		}
 		catch (err) {
@@ -59,11 +64,12 @@ export async function userRoutes (fastify, options) {
 	})
 
 	fastify.post('/api/user/login', async (req, resp) => {
-		const user = await AppDataSource.manager.findOneBy(User, { email: req.body.email })
+		const info = JSON.parse(req.body)
+		const user = await AppDataSource.manager.findOneBy(User, { email: info.email })
 		if (!user)
 			return { success: false, message: 'user not found' }
 
-		if (!await compareText(req.body.password, user.password))
+		if (!await compareText(info.password, user.password))
 			return { success: false, message: 'wrong password' }
 
 		const jwt = await createJWT(user)
@@ -106,9 +112,10 @@ export async function userRoutes (fastify, options) {
 		let name: string = ''
 		let password: string = ''
 
+		const info = JSON.parse(req.body)
 		try {
-			name = req.body.name
-			password = req.body.name
+			name = info.name
+			password = info.password
 		}
 		catch (err) {
 		}

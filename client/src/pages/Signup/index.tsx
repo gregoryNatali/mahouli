@@ -23,9 +23,9 @@ export function SignupPage() {
       return
     }
 
-    await sendRegister(target.email.value, target.password.value, target.username.value)
-
-    redirect('/signin')
+    const retData = await sendRegister(target.username.value, target.email.value, target.password.value, redirect)
+		if (retData)
+			setWentWrong(retData.message)
   }
 
 

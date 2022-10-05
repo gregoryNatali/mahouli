@@ -15,15 +15,9 @@ export function SigninPage() {
       password: { value: string }
     }
 
-    const result = await sendLogin(target.email.value, target.password.value)
+    const result = await sendLogin(target.email.value, target.password.value, redirect)
 
-		if (result) {
-			if (result.message === 'email not confirmed')
-				redirect('/email-confirmation')
-			return
-		}
-
-    redirect('/')
+		setWentWrong(result.message)
   }
 
   return(
