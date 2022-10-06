@@ -16,10 +16,10 @@ export async function sendConfirmEmail(user: User) {
 	})
 
 	const email = {
-		from: `"mahouLi Team " <${process.env.EMAIL}>`,
+		from: `"Time mahouLi" <${process.env.EMAIL}>`,
 		to: user.email,
-		subject: 'mahouLi Account Creation',
-		text: `Hey there! Welcome to mahouLi!\n\nYour confirmation code is ${user.confirm_code}`
+		subject: 'mahouLi - Conta criada!',
+		text: `Olá! Bem vindo(a) ao mahouLi!\n\nSeu código de confirmação é: ${user.confirm_code}`
 	}
 
 	transporter.sendMail(email, (err: any, info: any) => {
