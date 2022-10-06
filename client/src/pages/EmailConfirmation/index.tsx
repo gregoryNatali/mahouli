@@ -7,7 +7,7 @@ export function EmailConfirmationPage() {
   const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
 
-  const onSubmit = async (e: React.SyntheticEvent ) => {
+  const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     
     const target = e.target as typeof e.target & {
