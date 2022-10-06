@@ -42,6 +42,11 @@ export const LinksContainer = styled.div`
       list-style-type: none;
     }
   }
+
+  #logout {
+    color: red;
+    cursor: pointer;
+  }
 `
 
 export const ContentContainer = styled.div`
