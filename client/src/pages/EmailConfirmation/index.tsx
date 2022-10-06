@@ -1,11 +1,16 @@
 import { EmailConfirmationPageContainer, ErrorMessageSpan, StyledEmailConfirmationForm } from "./styles";
-import { sendEmailConfirm, sendLogin } from "../../api/userManager";
+import { sendEmailConfirm } from "../../api/userManager";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { useState } from "react";
 
 export function EmailConfirmationPage() {
   const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
+
+	useEffect(() => {
+		if (localStorage.getItem('token'))
+			redirect('/')
+	}, [])
 
   const onSubmit = async (e: React.SyntheticEvent ) => {
     e.preventDefault()
