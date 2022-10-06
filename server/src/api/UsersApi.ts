@@ -84,7 +84,7 @@ export async function userRoutes (fastify, options) {
 		}
 
 		// maybe find something safer
-		return { success: true, jwt: jwt }
+		return { success: true, token: jwt }
 	})
 
 	fastify.get('/api/user/get/:id', async (req, resp) => {
@@ -92,7 +92,7 @@ export async function userRoutes (fastify, options) {
 		return user
 	})
 
-	fastify.get('/api/user/getOwnAccount/', async (req, resp) => {
+	fastify.get('/api/user/getOwnAccount', async (req, resp) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user

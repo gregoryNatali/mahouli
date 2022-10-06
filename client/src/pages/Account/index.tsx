@@ -7,10 +7,18 @@ import {
   ProfileContainer, 
   StyledListButton, 
   UserSideContainer 
-} from "./styles";
+} from "./styles"
+import { getOwnAccount } from "../../api/userManager"
+import { useEffect, useState } from "react"
+import { User } from "../../types/User"
 import Carousel from 'nuka-carousel'
 
 export function AccountPage() {
+	const [account, setAccount] = useState<User>()
+
+	useEffect(() => {
+		getOwnAccount(setAccount)
+	}, [])
 
   return(
     <AccountPageContainer>
