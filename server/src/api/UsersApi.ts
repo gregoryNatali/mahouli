@@ -92,12 +92,20 @@ export async function userRoutes (fastify, options) {
 		return user
 	})
 
+	fastify.get('/api/user/getOwnAccount/', async (req, resp) => {
+		const user = await getUser(req)
+		if (!user.success)
+			return user
+
+		return user.user
+	})
+
 	fastify.get('/api/user/verify', async (req, resp) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
 
-		return { success: Boolean(user) }
+		return { success: Boolean(user), confirmed_email: user.confirmed_email }
 	})
 
 	fastify.get('/api/user/delete', async (req, resp) => {

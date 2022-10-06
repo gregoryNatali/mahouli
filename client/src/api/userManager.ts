@@ -65,7 +65,7 @@ export async function sendEmailConfirm(confirm_code: string, redirect: NavigateF
 	redirect('/')
 }
 
-export async function verifyLogin() {
+export async function verifyLogin(redirect?: NavigateFunction) {
 	const headers = new Headers()
 	headers.set('Authorization', localStorage.getItem('token')!)
 
@@ -73,7 +73,19 @@ export async function verifyLogin() {
 		headers
 	})
 	
-	return await req.json()
+	const data = await req.json()
+
+	if (!data.success) {
+		localStorage.removeItem('token')
+		redirect!('/signin')
+	}
+
+	const url = document.location.pathname
+
+		if (url === 'signin' ||
+				url === 'signup' ||
+				url === 'email-confirmation')
+			redirect!('/')
 }
 
 export async function getUser(id: string) {
@@ -81,6 +93,16 @@ export async function getUser(id: string) {
 	headers.set('Authorization', localStorage.getItem('token')!)
 
 	const req = await fetch(`${baseUrl}/user/get/${id}`, {
+		headers
+	})
+
+	return await req.json()
+}
+
+export async function getOwnAccount() {
+	const headers = new Headers()
+	headers.set('Authorization', localStorage.getItem('token')!)
+	const req = await fetch(`${baseUrl}/api/user/getOwnAccount/`, {
 		headers
 	})
 
