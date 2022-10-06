@@ -9,15 +9,19 @@ import {
   UserSideContainer 
 } from "./styles";
 import Carousel from 'nuka-carousel'
+import { getOwnAccount } from "../../api/userManager";
 
 export function AccountPage() {
+
+  const user = getOwnAccount()
+  console.log(user)
 
   return(
     <AccountPageContainer>
       <UserSideContainer>
         <ProfileContainer>
-          <h3>greg</h3>
-          <img src="https://i1.sndcdn.com/avatars-000056635201-rrh3y0-t500x500.jpg" alt="tapioca" />
+          <h3>{}</h3>
+          <img src='' alt="user profile picture" />
         </ProfileContainer>
         <ListContainer>
           <div className="listText">
@@ -29,7 +33,7 @@ export function AccountPage() {
           </div>
           <div className="entryDateContainer">
             <span>Membro desde:</span>
-            <span>13/06/2020</span>
+            <span>{}</span>
           </div>
         </ListContainer>
       </UserSideContainer>

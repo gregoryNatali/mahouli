@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { EmailConfirmationPage } from "./pages/EmailConfirmation"
 import { SynopsisPage } from "./pages/Synopsis"
 import { AccountPage } from "./pages/Account"
 import { AppContainer } from "./styles/App"
@@ -9,7 +10,6 @@ import { SignupPage } from "./pages/Signup"
 import { AboutPage } from "./pages/About"
 import { Layout } from "./pages/Layout"
 import { Home } from "./pages/Home"
-import { EmailConfirmationPage } from "./pages/EmailConfirmation"
 
 function App() {
   return (

@@ -2,7 +2,13 @@ import { Link, Outlet } from "react-router-dom";
 import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer } from "../styles/Layout";
 
 export function Layout() {
-	return (
+	
+  const logout = () => {
+    localStorage.removeItem('token')
+    document.location.reload()
+  }
+  
+  return (
 		<LayoutContainer>
 			<NavbarContainer>
         <LinksContainer>
@@ -11,7 +17,20 @@ export function Layout() {
 					<li><Link to={'/animes'}>Animes</Link></li>
 					<li><Link to={'/mangas'}>Mangás</Link></li>
 					<li><Link to={'/about'}>Sobre</Link></li>
-					<li><Link to={ localStorage.getItem('token') ? '/account' : '/signin' }>Conta</Link></li>
+          {localStorage.getItem('token') &&
+            <>
+              <li><Link to={'/account'}>Conta</Link></li>
+              <li 
+                id="logout"
+                onClick={logout}
+              >
+                Sair
+              </li>
+            </>
+          }
+          {!localStorage.getItem('token') &&
+            <li><Link to={'/signin'}>Entrar</Link></li>
+          }
 				</ul>
         </LinksContainer>
 			</NavbarContainer>
