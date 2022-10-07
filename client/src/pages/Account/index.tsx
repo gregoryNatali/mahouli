@@ -8,20 +8,22 @@ import {
   StyledListButton, 
   UserSideContainer 
 } from "./styles"
-import { getOwnAccount } from "../../api/userManager"
+import { getOwnAccount, verifyLogin } from "../../api/userManager"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 import { User } from "../../types/User"
 import Carousel from 'nuka-carousel'
-import { getOwnAccount } from "../../api/userManager";
 
 export function AccountPage() {
 	const [account, setAccount] = useState<User>()
+	const redirect = useNavigate()
 
 	useEffect(() => {
 		getOwnAccount(setAccount)
+		verifyLogin(redirect)
 	}, [])
 
-  const user = getOwnAccount()
+  const user = getOwnAccount(setAccount)
   console.log(user)
 
   return(

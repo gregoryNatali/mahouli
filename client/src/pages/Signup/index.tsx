@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { sendRegister } from "../../api/userManager";
 import { SignupPageContainer, StyledSignupForm } from "./styles";
@@ -7,9 +7,13 @@ export function SignupPage() {
   const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
 
+	useEffect(() => {
+		if (localStorage.getItem('token'))
+			redirect('/')
+	})
+
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    
     
     const target = e.target as typeof e.target & {
       email: { value: string }

@@ -1,11 +1,15 @@
 import { SigninPageContainer, StyledSigninForm } from "./styles";
-import { sendLogin } from "../../api/userManager";
+import { sendLogin, verifyLogin } from "../../api/userManager";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function SigninPage() {
 	const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
+
+	useEffect(() => {
+		verifyLogin(redirect)
+	}, [])
 
   const onSubmit = async (e: React.SyntheticEvent ) => {
     e.preventDefault()

@@ -104,7 +104,7 @@ export async function getUser(id: string) {
 export async function getOwnAccount(setState: any) {
 	const headers = new Headers()
 	headers.set('Authorization', localStorage.getItem('token')!)
-	const req = await fetch(`${baseUrl}/api/user/getOwnAccount/`, {
+	const req = await fetch(`${baseUrl}/api/user/getOwnAccount`, {
 		headers
 	})
 
