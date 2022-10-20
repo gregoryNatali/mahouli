@@ -18,20 +18,32 @@ export function AccountPage() {
 	const [account, setAccount] = useState<User>()
 	const redirect = useNavigate()
 
+  const formatDate = (date: string) => {
+    const year = date.slice(0, 4)
+    const month = date.slice(5, 7)
+    const day = date.slice(8)
+
+    const joinDate = `${day}/${month}/${year}`
+    return joinDate
+  }
+
 	useEffect(() => {
 		getOwnAccount(setAccount)
 		verifyLogin(redirect)
 	}, [])
 
-  const user = getOwnAccount(setAccount)
-  console.log(user)
+  if (!account) return (
+    redirect('/signin')
+    )
+
+  console.log(account)
 
   return(
     <AccountPageContainer>
       <UserSideContainer>
         <ProfileContainer>
-          <h3>{}</h3>
-          <img src='' alt="user profile picture" />
+          <h3>{account.name}</h3>
+          <img src={account.profile_picture ? account.profile_picture : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="user profile picture" />
         </ProfileContainer>
         <ListContainer>
           <div className="listText">
@@ -43,7 +55,7 @@ export function AccountPage() {
           </div>
           <div className="entryDateContainer">
             <span>Membro desde:</span>
-            <span>{}</span>
+            <span>{formatDate(account.join_date)}</span>
           </div>
         </ListContainer>
       </UserSideContainer>

@@ -1,6 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
 import { NavigateFunction } from "react-router"
-import { User } from "../types/User"
 
 const baseUrl = 'http://localhost:8080/api'
 
@@ -104,7 +102,7 @@ export async function getUser(id: string) {
 export async function getOwnAccount(setState: any) {
 	const headers = new Headers()
 	headers.set('Authorization', localStorage.getItem('token')!)
-	const req = await fetch(`${baseUrl}/api/user/getOwnAccount`, {
+	const req = await fetch(`${baseUrl}/user/getOwnAccount`, {
 		headers
 	})
 
