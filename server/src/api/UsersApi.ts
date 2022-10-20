@@ -10,6 +10,10 @@ import { User } from "../entity/User";
 const sharp = require('sharp')
 
 export async function userRoutes (fastify, options) {
+	fastify.options('/api/user/confirm-email', async (req, resp) => {})
+	fastify.options('/api/user/getOwnAccount', async (req, resp) => {})
+	fastify.options('/api/user/verify', async (req, resp) => {})
+
 	fastify.post('/api/user/create', async (req, resp) => {
 		const info = JSON.parse(req.body)
 		const newUser = new User()
@@ -40,8 +44,6 @@ export async function userRoutes (fastify, options) {
 
 		return { success: true }
 	}) 
-
-	fastify.options('/api/user/confirm-email', async (req, resp) => {})
 
 	fastify.post('/api/user/confirm-email', async (req, resp) => {
 		const user = await getUser(req)

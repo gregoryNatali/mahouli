@@ -1,4 +1,4 @@
-import { SeasonAnime } from "../types/Anime"
+import { SeasonAnime } from "../types/SeasonAnime"
 
 const baseUrl = 'https://api.jikan.moe/v4'
 
