@@ -1,4 +1,4 @@
 import styled from "styled-components";
 
-export const SynapsisPageContainer = styled.div`
+export const SynopsisPageContainer = styled.div`
 `
