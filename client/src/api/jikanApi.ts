@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+import { Anime } from "../types/Anime"
 import { SeasonAnime } from "../types/SeasonAnime"
 
 const baseUrl = 'https://api.jikan.moe/v4'
@@ -31,6 +33,19 @@ export async function getSeasonAnimes(setSeasonAnime: any) {
 // synopsis page
 // getAnimeById ("/anime/{id}")
 // getMangaById ("/manga/{id}")
+export async function getAnimeById(id: string, setState: Dispatch<SetStateAction<Anime>>) {
+	const req = await fetch(`${baseUrl}/anime/${id}`)
+	const data = await req.json()
+
+	setState(data)
+}
+
+export async function getMangaById(id: string, setState: Dispatch<SetStateAction<Anime>>) {
+	const req = await fetch(`${baseUrl}/manga/${id}`)
+	const data = await req.json()
+
+	setState(data)
+}
 
 // search page
 // getAnimeSearch ("/anime")
