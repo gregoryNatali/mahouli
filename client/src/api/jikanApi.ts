@@ -33,18 +33,18 @@ export async function getSeasonAnimes(setSeasonAnime: any) {
 // synopsis page
 // getAnimeById ("/anime/{id}")
 // getMangaById ("/manga/{id}")
-export async function getAnimeById(id: string, setState: Dispatch<SetStateAction<Anime>>) {
+export async function getAnimeById(id: string, setState: any) {
 	const req = await fetch(`${baseUrl}/anime/${id}`)
 	const data = await req.json()
 
-	setState(data)
+	setState(data.data)
 }
 
-export async function getMangaById(id: string, setState: Dispatch<SetStateAction<Anime>>) {
+export async function getMangaById(id: string, setState: any) {
 	const req = await fetch(`${baseUrl}/manga/${id}`)
 	const data = await req.json()
 
-	setState(data)
+	setState(data.data)
 }
 
 // search page
