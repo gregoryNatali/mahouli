@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { Anime } from "../types/Anime"
-import { SeasonAnime } from "../types/SeasonAnime"
+import { formattedData } from "../types/SeasonAnime"
 
 const baseUrl = 'https://api.jikan.moe/v4'
 
@@ -17,7 +17,7 @@ export async function getSeasonAnimes(setSeasonAnime: any) {
   const req = await fetch(`${baseUrl}/seasons/now`)
 	const data = await req.json()
 
-  const formattedData: Array<SeasonAnime> = []
+  const formattedData: Array<formattedData> = []
 
   data.data.forEach((e: any) => {
     formattedData.push({
@@ -28,6 +28,23 @@ export async function getSeasonAnimes(setSeasonAnime: any) {
   })
 
   setSeasonAnime(formattedData)
+}
+
+export async function getRandomMangas(setRandomMangas: any) {
+  const req = await fetch(`${baseUrl}/top/manga`)
+  const data = await req.json()
+
+  const formattedData: Array<formattedData> = []
+    
+    data.data.forEach((e: any) => {
+      formattedData.push({
+        name: e.title,
+        image: e.images.jpg.image_url,
+        malId: e.mal_id
+      })
+    })
+    
+  setRandomMangas(formattedData)
 }
 
 // synopsis page
