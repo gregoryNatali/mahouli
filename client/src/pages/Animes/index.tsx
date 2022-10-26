@@ -1,6 +1,6 @@
 import { getSeasonAnimes } from '../../api/jikanApi';
 import { QuoteBar } from "../../components/QuoteBar";
-import { SeasonAnime } from '../../types/SeasonAnime';
+import { formattedData as SeasonAnime } from '../../types/SeasonAnime';
 import { AnimesPageContainer } from "./styles";
 import { useEffect, useState } from 'react';
 import Carousel from 'nuka-carousel'
