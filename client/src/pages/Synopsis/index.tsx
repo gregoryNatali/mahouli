@@ -22,13 +22,19 @@ export function SynopsisPage() {
 	if (!anime)
 		return <div>Loading...</div>
 
-		console.log(anime)
   return(
     <SynopsisPageContainer>
 			<div className="info">
-				<img src={ anime.images.jpg.large_image_url } alt="" />
-				<h2>{ anime.title }</h2>
-				<h4>{ anime.year }</h4>
+				<div className="image">
+					<img src={ anime.images.jpg.large_image_url } alt="" />
+				</div>
+				<div className="actions">
+				</div>
+				<div className="anime-info">
+					<h2>{ anime.title }</h2>
+					<h4>{ anime.year }</h4>
+					<p>{ anime.synopsis }</p>
+				</div>
 			</div>	
     </SynopsisPageContainer>
   )

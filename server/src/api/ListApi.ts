@@ -1,11 +1,11 @@
-import { getAnimeOrManga } from "../utils/animes";
-import { KnownAnime } from "../entity/KnownAnime";
-import { EntryList } from "../entity/EntryList";
-import { getUser } from "../utils/serverUtils";
-import { AppDataSource } from "../data-source";
-import { FastifyInstance } from "fastify";
-import { FastifyRequest } from "fastify";
-import { User } from "../entity/User";
+import { getAnimeOrManga } from "../utils/animes"
+import { KnownAnime } from "../entity/KnownAnime"
+import { EntryList } from "../entity/EntryList"
+import { getUser } from "../utils/serverUtils"
+import { AppDataSource } from "../data-source"
+import { FastifyInstance } from "fastify"
+import { FastifyRequest } from "fastify"
+import { User } from "../entity/User"
 
 async function addToList(info: any, user: User, anime: KnownAnime) {
 	let obj = new EntryList(info, user, anime)
