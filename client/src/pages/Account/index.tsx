@@ -33,17 +33,24 @@ export function AccountPage() {
 	}, [])
 
   if (!account) return (
-    redirect('/signin')
+    <>
+    {redirect('/signin')}
+    </>
     )
 
   console.log(account)
 
-  return(
+  return (
     <AccountPageContainer>
       <UserSideContainer>
         <ProfileContainer>
           <h3>{account.name}</h3>
-          <img src={account.profile_picture ? account.profile_picture : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="user profile picture" />
+          <img src={
+            account.profile_picture 
+            ? account.profile_picture 
+            : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+            } 
+            alt="user profile picture" />
         </ProfileContainer>
         <ListContainer>
           <div className="listText">

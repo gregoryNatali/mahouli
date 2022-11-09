@@ -32,8 +32,6 @@ export function SignupPage() {
 			setWentWrong(retData.message)
   }
 
-
-
   return (
     <SignupPageContainer>
       <h1>Cadastro</h1>
