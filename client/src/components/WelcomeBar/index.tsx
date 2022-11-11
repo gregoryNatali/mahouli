@@ -14,7 +14,6 @@ export function WelcomeBar({ gifType }: WelcomBarProps) {
       const req = await fetch(`https://nekos.best/api/v2/${gifType}`)
       const data = await req.json()
       setGifUrl(data.results[0].url)
-      console.log(data)
     }
     loadAnimeGif()
   }, [])

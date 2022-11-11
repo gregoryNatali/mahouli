@@ -5,6 +5,8 @@ export const QuoteBarContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
 
+  margin-top: 1rem;
+
 `
 
 export const QuoteTextContainer = styled.div`

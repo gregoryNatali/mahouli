@@ -1,5 +1,6 @@
 import Carousel from 'nuka-carousel'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { getRandomMangas } from '../../api/jikanApi';
 import { WelcomeBar } from "../../components/WelcomeBar";
 import { formattedData as Manga } from '../../types/SeasonAnime';
@@ -7,6 +8,12 @@ import { MangasPageContainer } from "./styles";
 
 export function MangasPage() {
   const [randomMangas, setRandomMangas]: any = useState()
+  const redirect = useNavigate()
+
+
+  const handleRredirectToMangaPage = (malId: string) => {
+    redirect(`/manga/${malId}`)
+  }
 
   useEffect(() => {
     getRandomMangas(setRandomMangas)
@@ -33,6 +40,7 @@ export function MangasPage() {
               alt={`${randomManga.name} Cover`}
               width={180}
               height={280}
+              onDoubleClick={() => handleRredirectToMangaPage(randomManga.malId)}
             />
           ))}
         </Carousel>

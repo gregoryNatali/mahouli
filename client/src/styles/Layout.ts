@@ -9,7 +9,7 @@ export const LayoutContainer = styled.div`
 `
 
 export const NavbarContainer = styled.nav`
-  padding: 1rem 0 1rem 0;
+  padding: 0.3rem 0 0.3rem 0;
 
   width: 100%;
 
@@ -29,9 +29,12 @@ export const LinksContainer = styled.div`
   display: flex;
   flex: 1 1 auto;
   justify-content: space-between;
+  align-items: center;
 
   ul {
     display: flex;
+    align-items: center;
+    justify-content: center;
 
     padding: 0;
     margin: 0;
@@ -43,10 +46,24 @@ export const LinksContainer = styled.div`
     }
   }
 
-  #logout {
-    color: red;
-    cursor: pointer;
+  img {
+    height: 3rem;
+
+    margin-left: 1rem;
   }
+
+`
+
+export const Logout = styled.li`
+color: #F8F9F6;
+cursor: pointer;
+transition: 200ms;
+
+  :hover {
+    color: #eb1111;
+    transition: 200ms;
+  }
+  
 `
 
 export const ContentContainer = styled.div`
