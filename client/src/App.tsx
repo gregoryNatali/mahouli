@@ -8,6 +8,7 @@ import { MangasPage } from "./pages/Mangas"
 import { SigninPage } from "./pages/Signin"
 import { SignupPage } from "./pages/Signup"
 import { AboutPage } from "./pages/About"
+import { ListPage } from "./pages/List"
 import { Layout } from "./pages/Layout"
 import { Home } from "./pages/Home"
 
@@ -25,9 +26,10 @@ function App() {
             <Route path="mangas" element={<MangasPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="account" element={<AccountPage />} />
+						<Route path="anime/:id" element={<SynopsisPage />} />
+						<Route path="manga/:id" element={<SynopsisPage />} />
+						<Route path="list" element={<ListPage />} />
           </Route>
-          <Route path="anime/:id" element={<SynopsisPage />} />
-          <Route path="manga/:id" element={<SynopsisPage />} />
         </Routes>
       </BrowserRouter>
     </AppContainer>

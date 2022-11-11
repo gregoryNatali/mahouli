@@ -8,11 +8,12 @@ export async function addToList(body: Anime) {
 	// todo
 }
 
-export async function getList() {
-	const req = await fetch(`${baseUrl}`)
+export async function getList(setState: any, type: string) {
+	const req = await fetch(`${baseUrl}/anime/list`)
 	const list: Anime[] = await req.json()
 
 	sessionStorage.setItem(listCacheName, JSON.stringify(list))
+	setState(list)
 }
 
 export async function setCacheList(list: Anime[]) {
