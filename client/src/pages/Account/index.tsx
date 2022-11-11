@@ -47,7 +47,7 @@ export function AccountPage() {
           <h3>{account.name}</h3>
           <img src={
             account.profile_picture 
-            ? account.profile_picture 
+            ? 'http://localhost:8080/images/users/' + account.profile_picture 
             : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
             } 
             alt="user profile picture" />

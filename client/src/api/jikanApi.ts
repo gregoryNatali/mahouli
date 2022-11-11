@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react"
-import { Anime } from "../types/Anime"
 import { formattedData } from "../types/SeasonAnime"
 
 const baseUrl = 'https://api.jikan.moe/v4'

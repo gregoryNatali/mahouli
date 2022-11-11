@@ -160,7 +160,7 @@ export async function userRoutes (fastify, options) {
 				.resize(500, 500)
 				.toFile(`images/users/${user.id}.jpg`)
 			
-			user.profile_picture = `images/users/${user.id}.jpg`
+			user.profile_picture = `${user.id}.jpg`
 			await AppDataSource.manager.save(user)
 
 			return { success: true }

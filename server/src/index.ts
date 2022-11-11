@@ -1,8 +1,10 @@
+import { fastifyStatic } from "@fastify/static"
 import { AppDataSource } from "./data-source"
 import { userRoutes } from "./api/UsersApi"
 import { listRoutes } from "./api/ListApi"
 import * as dotenv from 'dotenv'
 import fastify from "fastify"
+import path = require('path')
 
 AppDataSource.initialize().then(async () => {
 
@@ -18,8 +20,20 @@ AppDataSource.initialize().then(async () => {
 		}
 	})
 
+	// console.log(path.basename(path.dirname(__dirname)))
+	// console.log(path.resolve(__dirname, '../images/users'));
+	// console.log(pathToFileURL(path.resolve(__dirname, '../images/users').toString()).toString())
+	
 	server.register(userRoutes)
 	server.register(listRoutes)
+	server.register(fastifyStatic, {
+		root: path.resolve(__dirname, '../images/users'),
+		prefix: '/images/users'
+	})
+	// await server.register(fileRoutes, {
+	// 	routesDir: '../images/users',
+	// 	// prefix: '/images/users'
+	// })
 
 	server.addHook("onSend", async (req, resp) => {
 		resp.header("Access-Control-Allow-Origin", "*")
