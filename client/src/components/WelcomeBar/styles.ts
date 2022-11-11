@@ -2,13 +2,16 @@ import styled from "styled-components";
 
 export const QuoteBarContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
 
 `
 
 export const QuoteTextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-left: 0.5rem;
 
   a {
@@ -16,11 +19,13 @@ export const QuoteTextContainer = styled.div`
   }
 
   h1 {
-    color: #747171;
+    color: #f7f7f7;
+    margin: 0;
   }
 
-  h2 {
-    color: #BDBDBD;
+  h3 {
+    color: #858585;
+    margin: 0;
   }
 
 `
