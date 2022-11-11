@@ -1,8 +1,8 @@
 import Carousel from 'nuka-carousel'
 import { useEffect, useState } from 'react';
 import { getRandomMangas } from '../../api/jikanApi';
-import { QuoteBar } from "../../components/QuoteBar";
-import { formattedData as Manga} from '../../types/SeasonAnime';
+import { WelcomeBar } from "../../components/WelcomeBar";
+import { formattedData as Manga } from '../../types/SeasonAnime';
 import { MangasPageContainer } from "./styles";
 
 export function MangasPage() {
@@ -12,25 +12,27 @@ export function MangasPage() {
     getRandomMangas(setRandomMangas)
   }, [])
 
-  if(!randomMangas) {
+  if (!randomMangas) {
     return (
       <div>Loading...</div>
     )
   }
   console.log(randomMangas)
-  return(
+  return (
     <MangasPageContainer>
-      <QuoteBar />
+      <WelcomeBar
+        gifType="think"
+      />
       <h1>Mangás</h1>
-      <div style={{display: 'flex', flex: '1 1 auto', alignItems: 'center', justifyContent: 'center' }}>
-        <Carousel slidesToShow={7} style={{width: '98vw'}}>
+      <div style={{ display: 'flex', flex: '1 1 auto', alignItems: 'center', justifyContent: 'center' }}>
+        <Carousel slidesToShow={7} style={{ width: '98vw' }}>
           {randomMangas.map((randomManga: Manga) => (
-            <img 
+            <img
               key={randomManga.malId}
-              src={randomManga.image} 
+              src={randomManga.image}
               alt={`${randomManga.name} Cover`}
               width={180}
-              height={280} 
+              height={280}
             />
           ))}
         </Carousel>
