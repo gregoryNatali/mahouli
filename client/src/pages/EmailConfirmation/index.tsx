@@ -1,14 +1,22 @@
 import { EmailConfirmationPageContainer, ErrorMessageSpan, StyledEmailConfirmationForm } from "./styles";
 import { sendEmailConfirm } from "../../api/userManager";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
-export function EmailConfirmationPage() {
+interface stateType {
+	token: string
+}
+
+export function EmailConfirmationPage(props: any) {
+	const [pendingUser, setPendingUser] = useState<any>({})
   const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
+	const state = useLocation().state as stateType
 
 	useEffect(() => {
-		if (localStorage.getItem('token'))
+		setPendingUser(state.token)
+		if (localStorage.getItem('token') ||
+				!pendingUser)
 			redirect('/')
 	}, [])
 
@@ -19,7 +27,7 @@ export function EmailConfirmationPage() {
       codeInput: { value: string }
     }
 
-    const result = await sendEmailConfirm(target.codeInput.value, redirect)
+    const result = await sendEmailConfirm(target.codeInput.value, pendingUser.token, redirect)
 
     if (result !== null) {
       if (result.message === "wrong code")

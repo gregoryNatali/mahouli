@@ -35,15 +35,17 @@ async function editListEntry(info: any, user: User) {
 
 export async function listRoutes (fastify: FastifyInstance) {
 	// anime
+	fastify.options('/api/anime/list', async (req, resp) => {})
 	fastify.get('/api/anime/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
 		
-		return await AppDataSource.manager.findBy(EntryList, { user: user, is_anime: true })
+		const list = await AppDataSource.manager.findBy(EntryList, { user: user, is_anime: true })
+		// return list.length === 0 ? [] : list
 	})
 
-	fastify.post('/api/anime/addEntry', async (req: FastifyRequest) => {
+	fastify.post('/api/anime/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user

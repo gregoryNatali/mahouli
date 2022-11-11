@@ -13,11 +13,14 @@ export async function sendLogin(email: string, password: string, redirect: Navig
 	})
 
 	const data = await req.json()
-	localStorage.setItem('token', data.token)
 
 	if (!data.success) {
 		if (data.message === "email not confirmed") {
-      redirect('/email-confirmation')
+      redirect('/email-confirmation', {
+				state: {
+					token: data.token,
+				}
+			})
       return
     }
     
@@ -45,9 +48,9 @@ export async function sendRegister(name: string, email: string, password: string
 	redirect('/signin')
 }
 
-export async function sendEmailConfirm(confirm_code: string, redirect: NavigateFunction) {
+export async function sendEmailConfirm(confirm_code: string, token: string, redirect: NavigateFunction) {
 	const headers = new Headers()
-	headers.set('Authorization', localStorage.getItem('token')!)
+	headers.set('Authorization', token)
 
 	const req = await fetch(`${baseUrl}/user/confirm-email`, {
 		headers,

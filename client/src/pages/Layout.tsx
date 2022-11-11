@@ -19,6 +19,7 @@ export function Layout() {
 					<li><Link to={'/about'}>Sobre</Link></li>
           {localStorage.getItem('token') &&
             <>
+              <li><Link to={'/list'}>Lista</Link></li>
               <li><Link to={'/account'}>Conta</Link></li>
               <li 
                 id="logout"

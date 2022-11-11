@@ -9,10 +9,21 @@ export async function addToList(body: Anime) {
 }
 
 export async function getList(setState: any, type: string) {
-	const req = await fetch(`${baseUrl}/anime/list`)
-	const list: Anime[] = await req.json()
+	const headers = new Headers()
+	headers.set('Authorization', localStorage.getItem('token')!)
+	const req = await fetch(`${baseUrl}/anime/list`, {
+		headers
+	})
+	console.log(req)
+	console.log(headers)
+	const list: Anime[] | any = await req.json()
 
-	sessionStorage.setItem(listCacheName, JSON.stringify(list))
+	if (list.status) {
+		setState([])
+		sessionStorage.setItem(listCacheName, '[]')
+	}
+
+	sessionStorage.setItem(listCacheName, JSON.stringify(list.results))
 	setState(list)
 }
 
