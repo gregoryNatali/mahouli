@@ -4,8 +4,12 @@ import { formattedData } from "../types/SeasonAnime"
 
 const baseUrl = 'https://api.jikan.moe/v4'
 
-// general
-// AnimeChanAPI: "https://animechan.vercel.app/api/random"
+// gif
+// https://nekos.best/api/v2
+//	/endpoints
+//	/poke
+//	/wave
+//	/think
 
 // home
 // getAnimeNews ("/anime/{id}/news")
