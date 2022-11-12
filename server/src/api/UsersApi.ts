@@ -46,9 +46,10 @@ export async function userRoutes (fastify, options) {
 	}) 
 
 	fastify.post('/api/user/confirm-email', async (req, resp) => {
-		const user = await getUser(req)
-		if (!user.success)
+		const { success, user } = await getUser(req)
+		if (!success) {
 			return user
+		}
 
 		const info = JSON.parse(req.body)
 		try {
@@ -80,8 +81,8 @@ export async function userRoutes (fastify, options) {
 
 		if (!user.confirmed_email) {
 			user.confirm_code = generateConfirmCode(8)
-			await sendConfirmEmail(user)
 			await AppDataSource.manager.save(user)
+			await sendConfirmEmail(user)
 			return { success: false, message: 'email not confirmed', token: jwt }
 		}
 

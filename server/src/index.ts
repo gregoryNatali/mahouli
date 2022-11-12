@@ -3,6 +3,7 @@ import { AppDataSource } from "./data-source"
 import { userRoutes } from "./api/UsersApi"
 import { listRoutes } from "./api/ListApi"
 import * as dotenv from 'dotenv'
+import cors from '@fastify/cors'
 import fastify from "fastify"
 import path = require('path')
 
@@ -30,15 +31,13 @@ AppDataSource.initialize().then(async () => {
 		root: path.resolve(__dirname, '../images/users'),
 		prefix: '/images/users'
 	})
+	server.register(cors, {
+		origin: '*'
+	})
 	// await server.register(fileRoutes, {
 	// 	routesDir: '../images/users',
 	// 	// prefix: '/images/users'
 	// })
-
-	server.addHook("onSend", async (req, resp) => {
-		resp.header("Access-Control-Allow-Origin", "*")
-		resp.header("Access-Control-Allow-Headers", "authorization")
-	})
 
 	server.listen({ port: 8080, host: '0.0.0.0' }, (err, address) => {
 		if (err) {

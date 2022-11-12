@@ -65,6 +65,7 @@ export async function sendEmailConfirm(confirm_code: string, token: string, redi
   if (!data.success)
     return data
 
+	localStorage.setItem('token', token)
   redirect('/')
 }
 
