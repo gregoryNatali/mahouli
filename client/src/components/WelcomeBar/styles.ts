@@ -39,6 +39,7 @@ export const QuoteImageContainer = styled.div`
   img {
     opacity: 0.5;
     height: 175px;
+		border-radius: 5px;
   }
 
   /* div {

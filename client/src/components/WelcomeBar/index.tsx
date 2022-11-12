@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { QuoteBarContainer, QuoteImageContainer, QuoteTextContainer } from "./styles";
+import { useEffect, useState } from "react";
 
-type WelcomBarProps = {
+type WelcomeBarProps = {
   gifType: "wave" | "poke" | "think"
 }
 
-export function WelcomeBar({ gifType }: WelcomBarProps) {
+export function WelcomeBar({ gifType }: WelcomeBarProps) {
   const [gifUrl, setGifUrl] = useState<string>('')
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export function WelcomeBar({ gifType }: WelcomBarProps) {
         <h3>~Ohayo</h3>
       </QuoteTextContainer>
       <QuoteImageContainer>
-        <img src={gifUrl} />
+        <img src={gifUrl} alt={`${gifType} anime gif`}/>
       </QuoteImageContainer>
     </QuoteBarContainer>
   )

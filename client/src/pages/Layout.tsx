@@ -14,24 +14,24 @@ export function Layout() {
       <NavbarContainer>
         <LinksContainer>
           <Link to={'/'}>
-            <img src="/public/logo.svg" alt="" />
+            <img src="/logo.svg" alt="" />
           </Link>
           <ul>
             <li><SearchBar /></li>
-            <li><Link to={'/animes'}>Animes</Link></li>
-            <li><Link to={'/mangas'}>Mangás</Link></li>
-            <li><Link to={'/about'}>Sobre</Link></li>
+            <Link to={'/animes'}><li>Animes</li></Link>
+            <Link to={'/mangas'}><li>Mangás</li></Link>
+            <Link to={'/about'}><li>Sobre</li></Link>
             {localStorage.getItem('token') &&
               <>
-								<li><Link to={'/list'}>Lista</Link></li>
-                <li><Link to={'/account'}>Conta</Link></li>
+								<Link to={'/list'}><li>Lista</li></Link>
+                <Link to={'/account'}><li>Conta</li></Link>
                 <Logout onClick={logout}>
                   Sair
                 </Logout>
               </>
             }
             {!localStorage.getItem('token') &&
-              <li><Link to={'/signin'}>Entrar</Link></li>
+              <Link to={'/signin'}><li>Entrar</li></Link>
             }
           </ul>
         </LinksContainer>
