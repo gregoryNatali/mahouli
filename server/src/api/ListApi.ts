@@ -33,19 +33,23 @@ async function editListEntry(info: any, user: User) {
 	return await AppDataSource.manager.save(obj)
 }
 
+
 export async function listRoutes (fastify: FastifyInstance) {
 	// anime
-	fastify.options('/api/anime/list', async (req, resp) => {})
-	fastify.get('/api/anime/list', async (req: FastifyRequest) => {
+	fastify.options('/api/:isanime/list', async (req, resp) => {})
+	fastify.get('/api/:isanime/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
 		
-		const list = await AppDataSource.manager.findBy(EntryList, { user: user, is_anime: true })
-		// return list.length === 0 ? [] : list
+		const { isanime } = req.params as { isanime: string }
+		return await AppDataSource.manager.findBy(EntryList, {
+			user: user,
+			is_anime: isanime === 'anime'
+		})
 	})
 
-	fastify.post('/api/anime/list', async (req: FastifyRequest) => {
+	fastify.post('/api/:isanime/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
@@ -55,7 +59,7 @@ export async function listRoutes (fastify: FastifyInstance) {
 		return { success: Boolean(entry) }
 	})
 
-	fastify.post('/api/anime/editEntry', async (req: FastifyRequest) => {
+	fastify.put('/api/:isanime/list', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
@@ -64,44 +68,7 @@ export async function listRoutes (fastify: FastifyInstance) {
 		return { success: Boolean(entry) }
 	})
 
-	fastify.post('/api/anime/deleteEntry', async (req: FastifyRequest) => {
-		const user = await getUser(req)
-		if (!user.success)
-			return user
-		
-		const entry = await removeFromList(req.body, user)
-		return { success: Boolean(entry) }
-	})
-
-	// manga
-	fastify.post('/api/manga/list', async (req: FastifyRequest) => {
-		const user = await getUser(req)
-		if (!user.success)
-			return user
-
-		return await AppDataSource.manager.findBy(EntryList, { user: user, is_anime: false })
-	})
-
-	fastify.post('/api/manga/addEntry', async (req: FastifyRequest) => {
-		const user = await getUser(req)
-		if (!user.success)
-			return user
-		
-		const body: any = req.body 
-		const entry = await addToList(body, user, await getAnimeOrManga(body.name, body))
-		return { success: Boolean(entry) }
-	})
-
-	fastify.post('/api/manga/editEntry', async (req: FastifyRequest) => {
-		const user = await getUser(req)
-		if (!user.success)
-			return user
-		
-		const entry = await editListEntry(req.body, user)
-		return { success: Boolean(entry) }
-	})
-
-	fastify.post('/api/manga/deleteEntry', async (req, resp) => {
+	fastify.post('/api/:isanime/deleteEntry', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user

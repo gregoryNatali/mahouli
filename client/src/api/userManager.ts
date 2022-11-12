@@ -1,4 +1,5 @@
 import { NavigateFunction } from "react-router"
+import { getHeaders } from "./useful"
 
 const baseUrl = 'http://localhost:8080/api'
 
@@ -70,11 +71,8 @@ export async function sendEmailConfirm(confirm_code: string, token: string, redi
 }
 
 export async function verifyLogin(redirect?: NavigateFunction) {
-  const headers = new Headers()
-  headers.set('Authorization', localStorage.getItem('token')!)
-
   const req = await fetch(`${baseUrl}/user/verify`, {
-    headers
+    headers: getHeaders()
   })
 
   const data = await req.json()
@@ -93,21 +91,16 @@ export async function verifyLogin(redirect?: NavigateFunction) {
 }
 
 export async function getUser(id: string) {
-  const headers = new Headers()
-  headers.set('Authorization', localStorage.getItem('token')!)
-
   const req = await fetch(`${baseUrl}/user/get/${id}`, {
-    headers
+    headers: getHeaders()
   })
 
   return await req.json()
 }
 
 export async function getOwnAccount(setState: any) {
-  const headers = new Headers()
-  headers.set('Authorization', localStorage.getItem('token')!)
   const req = await fetch(`${baseUrl}/user/getOwnAccount`, {
-    headers
+    headers: getHeaders()
   })
 
   setState(await req.json())
