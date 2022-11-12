@@ -13,29 +13,6 @@ export function Layout() {
     <LayoutContainer>
       <NavbarContainer>
         <LinksContainer>
-<<<<<<< HEAD
-        <Link to={'/'}>mahouLi</Link>
-        <ul>
-					<li><Link to={'/animes'}>Animes</Link></li>
-					<li><Link to={'/mangas'}>Mangás</Link></li>
-					<li><Link to={'/about'}>Sobre</Link></li>
-          {localStorage.getItem('token') &&
-            <>
-              <li><Link to={'/list'}>Lista</Link></li>
-              <li><Link to={'/account'}>Conta</Link></li>
-              <li 
-                id="logout"
-                onClick={logout}
-              >
-                Sair
-              </li>
-            </>
-          }
-          {!localStorage.getItem('token') &&
-            <li><Link to={'/signin'}>Entrar</Link></li>
-          }
-				</ul>
-=======
           <Link to={'/'}>
             <img src="/public/logo.svg" alt="" />
           </Link>
@@ -46,6 +23,7 @@ export function Layout() {
             <li><Link to={'/about'}>Sobre</Link></li>
             {localStorage.getItem('token') &&
               <>
+								<li><Link to={'/list'}>Lista</Link></li>
                 <li><Link to={'/account'}>Conta</Link></li>
                 <Logout onClick={logout}>
                   Sair
@@ -56,7 +34,6 @@ export function Layout() {
               <li><Link to={'/signin'}>Entrar</Link></li>
             }
           </ul>
->>>>>>> 3476b2afa64ab762b3699594a7f70e1c0ab4cee3
         </LinksContainer>
       </NavbarContainer>
       <ContentContainer className="content">
