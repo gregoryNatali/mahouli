@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { EntryList } from "./EntryList";
 
 @Entity()
 export class KnownAnime {
@@ -21,7 +22,13 @@ export class KnownAnime {
 	@Column("boolean")
 	is_anime: boolean
 
+	@OneToMany(() => EntryList, (entry) => entry.anime)
+	entries: EntryList[]
+
 	constructor(info?: any) {
+		if (!info)
+			return 
+
 		this.mal_id = info.mal_id
 		this.img_url = info.img_url
 		this.name = info.name

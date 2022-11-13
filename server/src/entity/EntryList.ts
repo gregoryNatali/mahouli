@@ -1,46 +1,43 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from "typeorm"
 import { KnownAnime } from "./KnownAnime"
 import { User } from "./User"
 
 @Entity()
 export class EntryList {
 
-    @PrimaryGeneratedColumn()
-    id: number
+	@PrimaryGeneratedColumn()
+	id: number
 
-		@ManyToOne(() => User, (user) => user.id)
-		user: User
+	@ManyToOne(() => User, (user) => user.entries)
+	user: User
 
-		@ManyToMany(() => KnownAnime, (anime) => anime.id)
-		anime: KnownAnime
+	@ManyToOne(() => KnownAnime, (anime) => anime.entries)
+	anime: KnownAnime
 
-    @Column("date")
-    start_date: string
+	@CreateDateColumn()
+	start_date: Date
 
-    @Column("date")
-    finish_date: string
+	@Column("date", { nullable: true })
+	finish_date: string
 
-		@Column("integer")
-		progress: number
+	@Column("integer", { default: 0})
+	progress: number
 
-		@Column("integer")
-		score: number
+	@Column("integer", { nullable: true, default: null })
+	score: number
 
-		@Column("boolean")
-		is_favorite: boolean
+	@Column("boolean", { default: false })
+	is_favorite: boolean
 
-		@Column("boolean")
-		is_anime: boolean
+	@Column("boolean", { default: true })
+	is_anime: boolean
 
-		constructor(info?: any, user?: User, anime?: KnownAnime) {
-			this.id = info.id
-			this.user = user
-			this.anime = anime
-			this.start_date = info.start_date
-			this.finish_date = info.finish_date
-			this.progress = info.progress
-			this.score = info.score
-			this.is_favorite = info.is_favorite
-			this.is_anime = info.is_anime
-		}
+	constructor(info?: any, user?: User, anime?: KnownAnime) {
+		if (!user || !anime)
+			return
+
+		this.user = user
+		this.anime = anime
+	}
+
 }

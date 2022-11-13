@@ -8,12 +8,15 @@ import { FastifyRequest } from "fastify"
 import { User } from "../entity/User"
 
 async function addToList(info: any, user: User, anime: KnownAnime) {
-	let obj = new EntryList(info, user, anime)
-	return await AppDataSource.manager.save(obj)
+	let obj = new EntryList()
+	obj.anime = anime
+	obj.user = user
+	const savedObj = await AppDataSource.manager.save(obj)
+	return savedObj
 }
 
-async function removeFromList(info: any, user: User) {
-	let obj = await AppDataSource.manager.findOneBy(EntryList, { id: info.id })
+async function removeFromList(id: number, user: User) {
+	let obj = await AppDataSource.manager.findOneBy(EntryList, { id })
 
 	if (obj.user !== user)
 		return false
@@ -43,19 +46,18 @@ export async function listRoutes (fastify: FastifyInstance) {
 			return user
 		
 		const { isanime } = req.params as { isanime: string }
-		return await AppDataSource.manager.findBy(EntryList, {
-			user: user,
-			is_anime: isanime === 'anime'
+		return await AppDataSource.manager.find(EntryList, {
+			relations: { anime: true }
 		})
 	})
 
 	fastify.post('/api/:isanime/list', async (req: FastifyRequest) => {
-		const user = await getUser(req)
-		if (!user.success)
-			return user
+		const { success, user } = await getUser(req)
+		if (!success)
+			return 'damn, no authentication huh'
 
-		const body: any = req.body 
-		const entry = await addToList(body, user, await getAnimeOrManga(body.name, body))
+		const body: any = JSON.parse(req.body as any)
+		const entry = await addToList(body, user, await getAnimeOrManga(body.anime.mal_id, body.anime))
 		return { success: Boolean(entry) }
 	})
 
@@ -64,16 +66,18 @@ export async function listRoutes (fastify: FastifyInstance) {
 		if (!user.success)
 			return user
 		
-		const entry = await editListEntry(req.body, user)
+		const body: any = JSON.parse(req.body as any)
+		const entry = await editListEntry(body, user)
 		return { success: Boolean(entry) }
 	})
 
-	fastify.post('/api/:isanime/deleteEntry', async (req: FastifyRequest) => {
+	fastify.delete('/api/:isanime/list/:id', async (req: FastifyRequest) => {
 		const user = await getUser(req)
 		if (!user.success)
 			return user
-		
-		const entry = await removeFromList(req.body, user)
+
+		const { id } = req.params as { id: string }
+		const entry = await removeFromList(parseInt(id), user)
 		return { success: Boolean(entry) }
 	})
 }
