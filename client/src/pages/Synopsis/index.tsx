@@ -1,83 +1,72 @@
 import { ActionsContainer, ContentContainer, InfoContainer, SynopsisContainer, SynopsisPageContainer } from "./styles";
+import { getEntryById } from "../../api/jikanApi";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { getAnimeById, getMangaById } from "../../api/jikanApi";
 import { Anime } from "../../types/Anime";
 import { Manga } from "../../types/Manga";
+import { useNavigate, useParams } from "react-router";
+import { addToList, getCacheList, setLastList } from "../../api/listManager";
 
 export function SynopsisPage() {
-  const [anime, setAnime] = useState<Anime>()
-  const [manga, setManga] = useState<Manga>()
+	const [entry, setEntry] = useState<Anime | Manga | any>()
+  const searchType = location.pathname.split('/')[1] as 'anime' | 'manga'
+	const redirect = useNavigate()
   const { id } = useParams()
-  const searchType = location.pathname.split('/')
 
   useEffect(() => {
-    if (searchType[1] === 'anime') {
-      getAnimeById(id!, setAnime)
-      return
-    }
-
-    if (searchType[1] === 'manga') {
-      getMangaById(id!, setManga)
-      return
-    }
+		getEntryById(
+			id!,
+			searchType,
+			setEntry
+		)
   }, [location.pathname])
 
-  if (searchType[1] === 'anime') {
-    if (!anime)
-      return <div>Loading...</div>
+	const handleSeeInList = () => {
+		setLastList(searchType)
+		redirect(`/list#mal_id${entry.mal_id}`)
+	}
 
-    return (
-      <SynopsisPageContainer>
-        <h2>{anime.title}</h2>
-        <InfoContainer>
-          <ContentContainer>
-            <img src={anime.images.jpg.large_image_url} alt="" />
-            <ActionsContainer>
-              <button>Favoritar</button>
-              <button>Add Lista</button>
-            </ActionsContainer>
-            <div className="info">
-              <h4>Título: {anime.title}</h4>
-              <h4>Episódios: {anime.episodes}</h4>
-              <h4>Ano de lançamento: {anime.year}</h4>
-            </div>
-          </ContentContainer>
-          <SynopsisContainer>
-            <h1>Sinopse</h1>
-            <p>{anime.synopsis}</p>
-          </SynopsisContainer>
-        </InfoContainer>
-      </SynopsisPageContainer>
-    )
-  }
+	if (!entry)
+		return <div>Loading...</div>
+	
+	const cacheList = getCacheList(searchType)
 
-  if (searchType[1] === 'manga') {
-    if (!manga)
-      return <div>Loading...</div>
+	const already = cacheList.map((val: Anime | Manga) => {
+		return entry.mal_id === val.mal_id
+	})
 
-    return (
-      <SynopsisPageContainer>
-        <h2>{manga.title}</h2>
-        <InfoContainer>
-          <ContentContainer>
-            <img src={manga.images.jpg.large_image_url} alt="" />
-            <ActionsContainer>
-              <button>Favoritar</button>
-              <button>Add Lista</button>
-            </ActionsContainer>
-            <div className="info">
-              <h4>Título: {manga.title}</h4>
-              <h4>Capítulos: {manga.chapters}</h4>
-              <h4>Volumes: {manga.volumes}</h4>
-            </div>
-          </ContentContainer>
-          <SynopsisContainer>
-            <h1>Sinopse</h1>
-            <p>{manga.synopsis}</p>
-          </SynopsisContainer>
-        </InfoContainer>
-      </SynopsisPageContainer>
-    )
-  }
+	return (
+		<SynopsisPageContainer>
+			<h2>{entry.title}</h2>
+			<InfoContainer>
+				<ContentContainer>
+					<img src={entry.images.jpg.large_image_url} alt="cover" />
+					<ActionsContainer>
+						{!already.length ?
+							<button onClick={() => addToList(entry, searchType)}>Adicionar à Lista</button>
+						:
+							<button onClick={() => handleSeeInList()}>Ver na lista</button>
+						}
+					</ActionsContainer>
+					<div className="info">
+						<h4>Título: {entry.title}</h4>
+						{searchType[1] === 'anime' ?
+							<>
+							<h4>Ano de lançamento: {entry.year}</h4>
+							<h4>Episódios: {entry.episodes}</h4>
+							</>
+						:
+							<>
+							{entry.chapters ? <h4>Capítulos: {entry.chapters}</h4> : <></>}
+							{entry.volumes ? <h4>Volumes: {entry.volumes}</h4> : <></>}
+							</>
+						}
+					</div>
+				</ContentContainer>
+				<SynopsisContainer>
+					<h1>Sinopse</h1>
+					<p>{entry.synopsis}</p>
+				</SynopsisContainer>
+			</InfoContainer>
+		</SynopsisPageContainer>
+	)
 }

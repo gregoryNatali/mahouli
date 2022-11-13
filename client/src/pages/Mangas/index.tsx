@@ -10,11 +10,6 @@ export function MangasPage() {
   const [randomMangas, setRandomMangas]: any = useState()
   const redirect = useNavigate()
 
-
-  const handleRredirectToMangaPage = (malId: string) => {
-    redirect(`/manga/${malId}`)
-  }
-
   useEffect(() => {
     getRandomMangas(setRandomMangas)
   }, [])
@@ -40,7 +35,7 @@ export function MangasPage() {
               alt={`${randomManga.name} Cover`}
               width={180}
               height={280}
-              onDoubleClick={() => handleRredirectToMangaPage(randomManga.malId)}
+              onDoubleClick={() => redirect(`/manga/${randomManga.malId}`)}
             />
           ))}
         </Carousel>

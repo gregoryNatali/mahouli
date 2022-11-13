@@ -21,10 +21,6 @@ AppDataSource.initialize().then(async () => {
 		}
 	})
 
-	// console.log(path.basename(path.dirname(__dirname)))
-	// console.log(path.resolve(__dirname, '../images/users'));
-	// console.log(pathToFileURL(path.resolve(__dirname, '../images/users').toString()).toString())
-	
 	server.register(userRoutes)
 	server.register(listRoutes)
 	server.register(fastifyStatic, {
@@ -34,10 +30,6 @@ AppDataSource.initialize().then(async () => {
 	server.register(cors, {
 		origin: '*'
 	})
-	// await server.register(fileRoutes, {
-	// 	routesDir: '../images/users',
-	// 	// prefix: '/images/users'
-	// })
 
 	server.listen({ port: 8080, host: '0.0.0.0' }, (err, address) => {
 		if (err) {

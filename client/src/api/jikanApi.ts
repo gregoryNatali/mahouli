@@ -52,15 +52,8 @@ export async function getRandomMangas(setRandomMangas: any) {
 // synopsis page
 // getAnimeById ("/anime/{id}")
 // getMangaById ("/manga/{id}")
-export async function getAnimeById(id: string, setState: any) {
-	const req = await fetch(`${baseUrl}/anime/${id}`)
-	const data = await req.json()
-
-	setState(data.data)
-}
-
-export async function getMangaById(id: string, setState: any) {
-	const req = await fetch(`${baseUrl}/manga/${id}`)
+export async function getEntryById(id: string, type: 'anime' | 'manga', setState: any) {
+	const req = await fetch(`${baseUrl}/${type}/${id}`)
 	const data = await req.json()
 
 	setState(data.data)
