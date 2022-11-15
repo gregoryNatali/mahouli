@@ -1,0 +1,40 @@
+layout:
+- search bar css
+- nav bar to tall
+- change text to feather icons
+
+account page:
+- access other people's account beside yours
+- show favorite anime (if exists)
+- show favorite manga (if exists)
+
+search page:
+- change search mode ('anime', 'manga')
+- add, edit, remove button 
+- sorting?
+- search pagination
+- placeholder while no results
+
+list page:
+- edit button
+- progress buttons
+- star buttons
+
+about page:
+- too cringe
+
+animes || mangas page:
+- add more content?
+
+home page:
+- add more content
+
+general:
+- edit page
+
+
+
+
+
+api:
+- forgor password?
