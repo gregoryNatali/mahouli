@@ -37,7 +37,7 @@ export const QuoteImageContainer = styled.div`
   flex-direction: column;
 
   img {
-    opacity: 0.5;
+    /* opacity: 0.5; */
     height: 175px;
 		border-radius: 5px;
   }
