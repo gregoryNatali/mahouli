@@ -1,4 +1,5 @@
 import { Anime } from "./Anime"
+import { Manga } from "./Manga"
 
 export interface EntryList {
 	id?: number
@@ -18,4 +19,5 @@ export interface KnownAnime {
 	name: string
 	total_episodes: number
 	is_anime: boolean
+	anime?: Anime | Manga | any
 }

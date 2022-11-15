@@ -23,8 +23,7 @@ export function AccountPage() {
     const month = date.slice(5, 7)
     const day = date.slice(8)
 
-    const joinDate = `${day}/${month}/${year}`
-    return joinDate
+    return `${day}/${month}/${year}`
   }
 
 	useEffect(() => {
@@ -32,13 +31,10 @@ export function AccountPage() {
 		verifyLogin(redirect)
 	}, [])
 
-  if (!account) return (
-    <>
-    {redirect('/signin')}
-    </>
-    )
-
-  console.log(account)
+  if (!account) {
+    redirect('/signin')
+		return (<></>)
+	}
 
   return (
     <AccountPageContainer>

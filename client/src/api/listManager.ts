@@ -3,7 +3,7 @@ import { Anime } from "../types/Anime";
 import { Manga } from "../types/Manga";
 import { getHeaders } from "./useful";
 
-const listCacheName = 'listCache'
+export const listCacheName = 'listCache'
 const baseUrl = 'http://localhost:8080/api'
 
 function generateKnownAnime(body: Anime | Manga | any, type: 'anime' | 'manga') {
@@ -19,6 +19,7 @@ function generateKnownAnime(body: Anime | Manga | any, type: 'anime' | 'manga') 
 	return newBody
 }
 
+
 export async function getList(setState: any, setLoading: any, type: 'anime' | 'manga') {
 	const req = await fetch(`${baseUrl}/${type}/list`, {
 		headers: getHeaders()
@@ -26,21 +27,22 @@ export async function getList(setState: any, setLoading: any, type: 'anime' | 'm
 
 	setLoading(false)
 	if (req.status !== 200) {
-		setState([])
 		setCacheList([], type)
+		setState([])
 		return
 	}
 
-	const list: KnownAnime = await req.json()
+	const list: EntryList[] = await req.json()
 
-	// setCacheList(list, type)
+	setCacheList(list, type)
 	setState(list)
 }
 
 export async function addToList(body: Anime | Manga | any, type: 'anime' | 'manga') {
+	const anime = generateKnownAnime(body, type)
 	const newBody: EntryList = {
-		anime: generateKnownAnime(body, type),
-		is_anime: type === 'anime'
+		is_anime: anime.is_anime,
+		anime
 	}	
 
 	const req = await fetch(`${baseUrl}/${type}/list`, {
@@ -51,7 +53,7 @@ export async function addToList(body: Anime | Manga | any, type: 'anime' | 'mang
 	const data = await req.json()
 
 	if (data.success)
-		addNewToCacheList(body, type)
+		addNewToCacheList(newBody, type)
 
 	return data.success
 }
@@ -70,64 +72,74 @@ export async function editList(body: Anime | Manga | any, type: 'anime' | 'manga
 	return data.success
 }
 
-export async function deleteList(body: KnownAnime, type: 'anime' | 'manga') {
-	const req = await fetch(`${baseUrl}/${type}/list/${body.id}`, {
+export async function deleteList(body: Anime | Manga, type: 'anime' | 'manga') {
+	const req = await fetch(`${baseUrl}/${type}/list/${body.mal_id}`, {
 		method: 'DELETE',
 		headers: getHeaders()
 	})
 	const data = await req.json()
 
-	if (data.success)
-		removeFromCacheList(body, type)
-	
-	return data.success
+	if (!data.success)
+		return getCacheList(type)
+
+	removeFromCacheList(body, type)
 }
 
 
-function setCacheList(list: Anime[], type: 'anime' | 'manga') {
+function setCacheList(list: EntryList[], type: 'anime' | 'manga') {
 	sessionStorage.setItem(listCacheName + type, JSON.stringify(list))
 }
 
-function addNewToCacheList(anime: KnownAnime, type: 'anime' | 'manga') {
+function addNewToCacheList(anime: EntryList, type: 'anime' | 'manga') {
 	const list = getCacheList(anime.is_anime ? 'anime' : 'manga')
 
 	list.push(anime)
 	setCacheList(list, type)
 }
 
-function editCacheList(anime: KnownAnime, type: 'anime' | 'manga') {
+function editCacheList(anime: EntryList, type: 'anime' | 'manga') {
 	const list = getCacheList(type)
 
-	const id = list.map((val: KnownAnime, idx: number) => {
-		if (val.mal_id === anime.mal_id) {
+	const id = list.map((val: EntryList, idx: number) => {
+		if (val.anime.mal_id === anime.anime.mal_id) {
 			list[idx] = anime
 			setCacheList(list, type)
 			return
 		}
 	})
-	console.log('nothing editted from ListCache' + type)
 }
 
-function removeFromCacheList(anime: KnownAnime, type: 'anime' | 'manga') {
+function removeFromCacheList(anime: Anime | Manga, type: 'anime' | 'manga') {
 	const list = getCacheList(type)
 
-	const id = list.map((val: KnownAnime, idx: number) => {
-		if (val.mal_id === anime.mal_id) {
+	const id = list.map((val: EntryList, idx: number) => {
+		if (val.anime.mal_id === anime.mal_id) {
 			list.splice(idx, 1)
 			setCacheList(list, type)
 			return
 		}
 	})
-	console.log('nothing removed from ListCache' + type)
 }
 
-export function getCacheList(type: 'anime' | 'manga'):  any[] {
-	const list = JSON.parse(sessionStorage.getItem(listCacheName + type)!)
+export function getCacheList(type: 'anime' | 'manga') {
+	const list = sessionStorage.getItem(listCacheName + type)!
 	if (!list)
 		return []
 	
-	return list
+	return JSON.parse(list)
 }
+
+export function checkInList(entry: Anime | Manga, type: 'anime' | 'manga') {
+	const list: EntryList[] = getCacheList(type)
+
+	for (let i of list) {
+		if (i.anime.mal_id === entry.mal_id)
+			return i
+	}
+
+	return false
+}
+
 
 export function getLastList(): 'anime' | 'manga' {
 	const lastList = localStorage.getItem('lastList')

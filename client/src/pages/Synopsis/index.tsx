@@ -1,15 +1,14 @@
 import { ActionsContainer, ContentContainer, InfoContainer, SynopsisContainer, SynopsisPageContainer } from "./styles";
+import { AddToListButton } from "../../components/AddToListButton";
 import { getEntryById } from "../../api/jikanApi";
 import { useEffect, useState } from "react";
 import { Anime } from "../../types/Anime";
 import { Manga } from "../../types/Manga";
-import { useNavigate, useParams } from "react-router";
-import { addToList, getCacheList, setLastList } from "../../api/listManager";
+import { useParams } from "react-router";
 
 export function SynopsisPage() {
 	const [entry, setEntry] = useState<Anime | Manga | any>()
   const searchType = location.pathname.split('/')[1] as 'anime' | 'manga'
-	const redirect = useNavigate()
   const { id } = useParams()
 
   useEffect(() => {
@@ -20,19 +19,8 @@ export function SynopsisPage() {
 		)
   }, [location.pathname])
 
-	const handleSeeInList = () => {
-		setLastList(searchType)
-		redirect(`/list#mal_id${entry.mal_id}`)
-	}
-
 	if (!entry)
 		return <div>Loading...</div>
-	
-	const cacheList = getCacheList(searchType)
-
-	const already = cacheList.map((val: Anime | Manga) => {
-		return entry.mal_id === val.mal_id
-	})
 
 	return (
 		<SynopsisPageContainer>
@@ -41,17 +29,13 @@ export function SynopsisPage() {
 				<ContentContainer>
 					<img src={entry.images.jpg.large_image_url} alt="cover" />
 					<ActionsContainer>
-						{!already.length ?
-							<button onClick={() => addToList(entry, searchType)}>Adicionar à Lista</button>
-						:
-							<button onClick={() => handleSeeInList()}>Ver na lista</button>
-						}
+						<AddToListButton entry={entry} isAnime={searchType} />
 					</ActionsContainer>
 					<div className="info">
 						<h4>Título: {entry.title}</h4>
+						<h4>Ano de lançamento: {entry.year}</h4>
 						{searchType[1] === 'anime' ?
 							<>
-							<h4>Ano de lançamento: {entry.year}</h4>
 							<h4>Episódios: {entry.episodes}</h4>
 							</>
 						:

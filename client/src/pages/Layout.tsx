@@ -1,6 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
-import { SearchBar } from "../components/SearchBar";
 import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer, Logout } from "../styles/Layout";
+import { SearchBar } from "../components/SearchBar";
+import { Link, Outlet } from "react-router-dom";
 
 export function Layout() {
 

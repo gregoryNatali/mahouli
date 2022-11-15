@@ -76,3 +76,18 @@ export async function getEntryById(id: string, type: 'anime' | 'manga', setState
 // producers: string
 // start_date: string ("2022", "2022-12", "2022-12-30")
 // end_date: string ("2022", "2022-12", "2022-12-30")
+export async function getEntrySearch(
+	query: string, limit: number, page: number, sfw: boolean = true,
+	resultState: any, 
+	) {
+		const reqAnime = await fetch(`${baseUrl}/anime?q=${query}&limit=${limit}&page=${page}&sfw=${sfw}`)
+		const reqManga = await fetch(`${baseUrl}/manga?q=${query}&limit=${limit}&page=${page}&sfw=${sfw}`)
+
+		const dataAnime = await reqAnime.json()
+		const dataManga = await reqManga.json()
+
+		resultState({
+			anime: dataAnime.data,
+			manga: dataManga.data
+		})
+}

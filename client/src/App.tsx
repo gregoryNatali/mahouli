@@ -1,8 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { EmailConfirmationPage } from "./pages/EmailConfirmation"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { SynopsisPage } from "./pages/Synopsis"
+import { verifyLogin } from "./api/userManager"
 import { AccountPage } from "./pages/Account"
 import { AppContainer } from "./styles/App"
+import { SearchPage } from "./pages/Search"
 import { AnimesPage } from "./pages/Animes"
 import { MangasPage } from "./pages/Mangas"
 import { SigninPage } from "./pages/Signin"
@@ -11,8 +13,13 @@ import { AboutPage } from "./pages/About"
 import { ListPage } from "./pages/List"
 import { Layout } from "./pages/Layout"
 import { Home } from "./pages/Home"
+import { useEffect } from "react"
 
 function App() {
+	useEffect(() => {
+		verifyLogin()
+	}, [])
+
   return (
     <AppContainer className="App">
       <BrowserRouter>
@@ -29,6 +36,7 @@ function App() {
 						<Route path="anime/:id" element={<SynopsisPage />} />
 						<Route path="manga/:id" element={<SynopsisPage />} />
 						<Route path="list" element={<ListPage />} />
+						<Route path="search" element={<SearchPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
