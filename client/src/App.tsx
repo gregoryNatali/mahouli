@@ -11,6 +11,7 @@ import { SigninPage } from "./pages/Signin"
 import { SignupPage } from "./pages/Signup"
 import { AboutPage } from "./pages/About"
 import { ListPage } from "./pages/List"
+import { EditPage } from "./pages/Edit"
 import { Layout } from "./pages/Layout"
 import { Home } from "./pages/Home"
 import { useEffect } from "react"
@@ -36,6 +37,7 @@ function App() {
 						<Route path="anime/:id" element={<SynopsisPage />} />
 						<Route path="manga/:id" element={<SynopsisPage />} />
 						<Route path="list" element={<ListPage />} />
+						<Route path="edit/:id" element={<EditPage />} />
 						<Route path="search" element={<SearchPage />} />
           </Route>
         </Routes>
