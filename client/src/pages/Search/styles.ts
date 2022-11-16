@@ -3,6 +3,45 @@ import styled from "styled-components";
 export const SearchPageStyle = styled.div`
 `
 
+export const SearchOptionsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  #optionsForm {
+    margin-top: 1rem;
+    display: flex;
+    
+    border: 2px solid #fff ;
+    border-radius: 7px;
+
+    gap: 0.2rem;
+
+    input {
+      background-color: #272727;
+      border-radius: 7px;
+      font-size: 1.05rem;
+
+      height: 1.5rem;
+      color: #fff;
+      border: none;
+
+      :focus {
+        outline: none;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer
+    }   
+  }
+`
+
 export const SearchPageResultsContent = styled.div`
 	display: flex;
 	flex: 1 1 auto;

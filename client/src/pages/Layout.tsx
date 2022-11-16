@@ -1,6 +1,7 @@
 import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer, Logout } from "../styles/Layout";
 import { SearchBar } from "../components/SearchBar";
 import { Link, Outlet } from "react-router-dom";
+import { LogOut, User } from "react-feather";
 
 export function Layout() {
 
@@ -20,13 +21,13 @@ export function Layout() {
             <li><SearchBar /></li>
             <Link to={'/animes'}><li>Animes</li></Link>
             <Link to={'/mangas'}><li>Mangás</li></Link>
-            <Link to={'/about'}><li>Sobre</li></Link>
+            {/* <Link to={'/about'}><li>Sobre</li></Link> */}
             {localStorage.getItem('token') &&
               <>
-								<Link to={'/list'}><li>Lista</li></Link>
-                <Link to={'/account'}><li>Conta</li></Link>
+                <Link to={'/list'}><li>Lista</li></Link>
+                <Link to={'/account'}><li><User /></li></Link>
                 <Logout onClick={logout}>
-                  Sair
+                  <li><LogOut /></li>
                 </Logout>
               </>
             }

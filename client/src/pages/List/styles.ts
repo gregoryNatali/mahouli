@@ -46,6 +46,10 @@ export const ListItem = styled.div`
 		justify-content: center;
 		gap: 20px;
 	}
+
+  #date {
+    margin-right: 12rem;
+  }
 `
 
 export const ListEmptyError = styled.div`
@@ -54,4 +58,23 @@ export const ListEmptyError = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex: 1 1 auto;
+`
+
+export const StyledButton = styled.button`
+  padding: 1rem;
+  margin: 0.5rem;
+  
+  background-color: #6A336A;
+  color: #d7d7d7;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  
+  :hover {
+    background-color: #4d244d;
+    transition: 0.3s;
+  }
+  transition: 0.3s;
 `

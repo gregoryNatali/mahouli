@@ -4,25 +4,25 @@ import { SyntheticEvent } from "react";
 import { Search } from "react-feather";
 
 export function SearchBar() {
-	const redirect = useNavigate()
+  const redirect = useNavigate()
 
-	const handleSearch = (e: SyntheticEvent) => {
-		e.preventDefault()
+  const handleSearch = (e: SyntheticEvent) => {
+    e.preventDefault()
 
-		const query = document.querySelector<HTMLInputElement>('#LayoutSearchBar')!
+    const query = document.querySelector<HTMLInputElement>('#LayoutSearchBar')!
 
-		redirect('/search', {
-			state: query.value
-		})
+    redirect('/search', {
+      state: query.value
+    })
 
-		query.value = ''
-		return
-	}
+    query.value = ''
+    return
+  }
 
   return (
     <SearchBarContainer onSubmit={handleSearch}>
       <SearchBarInput id="LayoutSearchBar" autoComplete="off" />
-			<button type="submit"><Search /></button>
+      <button type="submit"><Search stroke="#FFF" /></button>
     </SearchBarContainer>
   )
 }
