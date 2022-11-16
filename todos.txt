@@ -9,10 +9,8 @@ account page:
 - show favorite manga (if exists)
 
 search page:
-- change search mode ('anime', 'manga')
-- add, edit, remove button 
+- edit button 
 - sorting?
-- search pagination
 - placeholder while no results
 
 list page:

@@ -87,7 +87,12 @@ export async function getEntrySearch(
 		const dataManga = await reqManga.json()
 
 		resultState({
+			query: query,
 			anime: dataAnime.data,
 			manga: dataManga.data
 		})
+		return {
+			pagAnime: dataAnime.pagination.has_next_page,
+			pagManga: dataManga.pagination.has_next_page
+		}
 }
