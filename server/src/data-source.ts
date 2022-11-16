@@ -5,19 +5,19 @@ import { EntryList } from "./entity/EntryList"
 import { KnownAnime } from "./entity/KnownAnime"
 
 export const AppDataSource = new DataSource({
-	type: "mysql",
-	host: "localhost",
-	port: 3306,
-	username: "root",
-	password: "root",
-	database: "mahouli",
-	synchronize: true,
-	logging: false,
-	entities: [
-		User,
-		EntryList,
-		KnownAnime
-	],
-	migrations: [],
-	subscribers: [],
+  type: "mysql",
+  host: "localhost",
+  port: 3307,
+  username: "root",
+  password: "",
+  database: "mahouli",
+  synchronize: true,
+  logging: false,
+  entities: [
+    User,
+    EntryList,
+    KnownAnime
+  ],
+  migrations: [],
+  subscribers: [],
 })
