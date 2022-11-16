@@ -25,7 +25,7 @@ export function AddToListButton({
 
 	useEffect(() => {
 		setAlreadyInList(Boolean(checkInList(entry, isAnime)))
-	}, [])
+	}, [entry])
 
 	const handleAddButton = () => {
 		setAlreadyInList(true)

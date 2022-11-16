@@ -29,7 +29,7 @@ export function EmailConfirmationPage() {
 
     const result = await sendEmailConfirm(target.codeInput.value, pendingUser, redirect)
 
-    if (result !== null) {
+    if (!result) {
       if (result.message === "wrong code")
         setWentWrong('Código Inválido')
     }

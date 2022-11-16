@@ -79,15 +79,16 @@ export async function verifyLogin(redirect?: NavigateFunction) {
 
   if (!data.success) {
     localStorage.removeItem('token')
-    redirect!('/signin')
+    if (redirect)
+      redirect('/signin')
   }
 
   const url = document.location.pathname
 
-  if (url === 'signin' ||
+  if ((url === 'signin' ||
     url === 'signup' ||
-    url === 'email-confirmation')
-    redirect!('/')
+    url === 'email-confirmation') && redirect)
+    redirect('/')
 }
 
 export async function getUser(id: string) {
