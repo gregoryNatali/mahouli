@@ -13,7 +13,6 @@ const limit = 30
 
 export function SearchPage() {
   const [results, setResults] = useState<{ query: string, anime: Anime[], manga: Manga[] }>()
-  const [loading, setLoading] = useState<boolean>(false)
   const [mode, setMode] = useState<'manga' | 'anime'>('anime')
   const [morePages, setMorePages] = useState<{ anime: boolean, manga: boolean }>()
   const [page, setPage] = useState<number>(1)
