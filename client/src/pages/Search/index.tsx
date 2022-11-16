@@ -60,11 +60,17 @@ export function SearchPage() {
 			<div>
 				<span>Buscar por</span>
 				<button
-					onClick={() => setMode('anime')}
+					onClick={() => {
+						setMode('anime')
+						setPage(1)
+					}}
 					className={mode === 'anime' ? 'selected-mode' : ''}
 				>Animes</button>
 				<button
-					onClick={() => setMode('manga')}
+					onClick={() => {
+						setMode('manga')
+						setPage(1)
+					}}
 					className={mode === 'manga' ? 'selected-mode' : ''}
 				>Mangás</button>
 			</div>
