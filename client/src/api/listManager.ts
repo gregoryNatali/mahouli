@@ -140,6 +140,17 @@ export function checkInList(entry: Anime | Manga, type: 'anime' | 'manga') {
 	return false
 }
 
+export function checkInListMalID(mal_id: number, type: 'anime' | 'manga') {
+	const list: EntryList[] = getCacheList(type)
+
+	for (let i of list) {
+		if (i.anime.mal_id === mal_id)
+			return i
+	}
+
+	return false
+}
+
 
 export function getLastList(): 'anime' | 'manga' {
 	const lastList = localStorage.getItem('lastList')

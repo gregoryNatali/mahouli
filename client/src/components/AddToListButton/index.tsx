@@ -38,8 +38,7 @@ export function AddToListButton({
 	}
 
 	const handleEditButton = () => {
-		// todo
-		//	maybe open a modal idk
+		redirect(`/${isAnime}/edit/${entry.mal_id}`)
 	}
 
 	const handleDeleteButton = async () => {

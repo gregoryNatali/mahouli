@@ -37,7 +37,8 @@ function App() {
 						<Route path="anime/:id" element={<SynopsisPage />} />
 						<Route path="manga/:id" element={<SynopsisPage />} />
 						<Route path="list" element={<ListPage />} />
-						<Route path="edit/:id" element={<EditPage />} />
+						<Route path="anime/edit/:mal_id" element={<EditPage />} />
+						<Route path="manga/edit/:mal_id" element={<EditPage />} />
 						<Route path="search" element={<SearchPage />} />
           </Route>
         </Routes>

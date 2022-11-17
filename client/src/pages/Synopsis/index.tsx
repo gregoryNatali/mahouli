@@ -29,7 +29,7 @@ export function SynopsisPage() {
 				<ContentContainer>
 					<img src={entry.images.jpg.large_image_url} alt="cover" />
 					<ActionsContainer>
-						<AddToListButton entry={entry} isAnime={searchType} />
+						<AddToListButton entry={entry} isAnime={searchType} seeButton />
 					</ActionsContainer>
 					<div className="info">
 						<h4>Título: {entry.title}</h4>

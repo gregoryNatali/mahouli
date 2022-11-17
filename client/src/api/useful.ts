@@ -3,3 +3,7 @@ export function getHeaders() {
 	headers.set('Authorization', localStorage.getItem('token')!)
 	return headers
 }
+
+export function isUserLogged() {
+	return Boolean(localStorage.getItem('token')!)
+}
