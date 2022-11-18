@@ -1,7 +1,5 @@
 layout:
-- search bar css
-- nav bar to tall
-- change text to feather icons
+- nav bar too tall
 
 account page:
 - access other people's account beside yours
@@ -30,7 +28,7 @@ home page:
 
 general:
 - edit page
-
+- disable addlistbutton if no account
 
 
 

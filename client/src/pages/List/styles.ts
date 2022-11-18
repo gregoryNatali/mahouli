@@ -45,6 +45,10 @@ export const ListItem = styled.div`
 		align-items: center;
 		justify-content: center;
 		gap: 20px;
+
+		img {
+			max-height: 80px;
+		}
 	}
 
   #date {
