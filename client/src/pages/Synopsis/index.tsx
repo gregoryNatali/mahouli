@@ -13,17 +13,13 @@ export function SynopsisPage() {
   const { id } = useParams()
 
   useEffect(() => {
-		if (entry !== 404 || !entry) {
-			getEntryById(
-				id!,
-				searchType,
-				setEntry
-			)
-			return
-		}
-		
-		getGif().then((data) => set404(data))
-  }, [location.pathname, entry])
+		getEntryById(
+			id!,
+			searchType,
+			setEntry
+		)
+  }, [location.pathname])
+
 
 	const getGif = async () => {
 		const req = await fetch(`https://nekos.best/api/v2/blush`)
@@ -35,6 +31,8 @@ export function SynopsisPage() {
 		return <div>Loading...</div>
 	
 	if (entry === 404) {
+		if (!is404)
+			getGif().then((data) => set404(data))
 		return <UnavailableContainer>
 			<div>
 				<h1>404!</h1>

@@ -1,11 +1,12 @@
 import { SearchOptionsContainer, SearchPageControls, SearchPageResultsContent, SearchPageSideContent, SearchPageStyle } from "./styles";
+import { AddToListButton } from "../../components/AddToListButton";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { getEntrySearch } from "../../api/jikanApi";
+import { StyledButton } from "../List/styles";
 import { useLocation } from "react-router";
 import { Anime } from "../../types/Anime";
 import { Manga } from "../../types/Manga";
-import { AddToListButton } from "../../components/AddToListButton";
 import { Link } from "react-router-dom";
 
 
@@ -60,20 +61,20 @@ export function SearchPage() {
         </form>
         <div>
           <span>Buscar por</span>
-          <button
+          <StyledButton
             onClick={() => {
               setMode('anime')
               setPage(1)
             }}
-            className={mode === 'anime' ? 'selected-mode' : ''}
-          >Animes</button>
-          <button
+            className={mode === 'anime' ? 'active' : ''}
+          >Animes</StyledButton>
+          <StyledButton
             onClick={() => {
               setMode('manga')
               setPage(1)
             }}
-            className={mode === 'manga' ? 'selected-mode' : ''}
-          >Mangás</button>
+            className={mode === 'manga' ? 'active' : ''}
+          >Mangás</StyledButton>
         </div>
       </SearchOptionsContainer>
       <SearchPageResultsContent>
