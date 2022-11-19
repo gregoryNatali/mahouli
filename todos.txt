@@ -1,5 +1,5 @@
 layout:
-- nav bar too tall
+- nav bar kinda tall
 
 account page:
 - access other people's account beside yours
@@ -8,12 +8,10 @@ account page:
 - change profile picture
 
 search page:
-- edit button 
 - sorting?
 - placeholder while no results
 
-list page:
-- edit button
+edit modal:
 - progress buttons
 - star buttons
 
@@ -25,12 +23,6 @@ animes || mangas page:
 
 home page:
 - add more content
-
-general:
-- edit page
-- disable addlistbutton if no account
-
-
 
 
 api:
