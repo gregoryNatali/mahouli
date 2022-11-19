@@ -35,8 +35,14 @@ export function ListPage() {
   return (
     <ListDiv>
       <div>
-        <StyledButton onClick={() => setShowingList('anime')}>Animes</StyledButton>
-        <StyledButton onClick={() => setShowingList('manga')}>Mangás</StyledButton>
+        <StyledButton
+					onClick={() => setShowingList('anime')}
+					className={showingList === 'anime' ? 'active' : ''}
+				>Animes</StyledButton>
+        <StyledButton
+					onClick={() => setShowingList('manga')}
+					className={showingList === 'manga' ? 'active' : ''}
+				>Mangás</StyledButton>
       </div>
       <ListContent>
         <ListItem id="legend">
@@ -54,7 +60,7 @@ export function ListPage() {
             <p>{idx + 1}</p>
             <img src={val.anime.img_url} alt="" />
           </div>
-          <p>{val.anime.name}</p>
+          <p><Link to={`/${showingList}/${val.anime.mal_id}`}>{val.anime.name}</Link></p>
           <div>
             <p>{parseDate(val.start_date)}</p>
             <AddToListButton
