@@ -40,6 +40,10 @@ export const ListItem = styled.div`
 	align-items: center;
 	height: 80px;
 
+	a {
+		color: white;
+	}
+
 	div {
 		display: flex;
 		align-items: center;

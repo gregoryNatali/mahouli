@@ -9,7 +9,6 @@ export const AddButton = styled.button`
   border: none;
   border-radius: 5px;
   font-weight: 500;
-  /* font-size: 1.2rem; */
   cursor: pointer;
   
   :hover {
@@ -28,7 +27,6 @@ export const SeeButton = styled.button`
   border: none;
   border-radius: 5px;
   font-weight: 500;
-  /* font-size: 1.2rem; */
   cursor: pointer;
   
   :hover {
@@ -47,7 +45,6 @@ export const EditButton = styled.button`
   border: none;
   border-radius: 5px;
   font-weight: 500;
-  /* font-size: 1.2rem; */
   cursor: pointer;
   
   :hover {
@@ -66,7 +63,6 @@ export const DeleteButton = styled.button`
   border: none;
   border-radius: 5px;
   font-weight: 500;
-  /* font-size: 1.2rem; */
   cursor: pointer;
   
   :hover {

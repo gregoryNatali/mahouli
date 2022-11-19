@@ -21,7 +21,7 @@ export const InfoContainer = styled.div`
 
 export const ContentContainer = styled.div`
   img {
-    width: 17rem;
+		width: 100%;
 		border-radius: 0 0 10px 10px;
   }
 
@@ -39,26 +39,31 @@ export const ActionsContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-gap: 1rem;
+gap: 1vw;
 
 button {
   background-color: #6A336A;
   border: none;
   color: #d9d9d9;
-  margin-top: 1rem;
-  padding: 0.5rem;
+  margin-top: 10px;
+  padding: 10px;
   border-radius: 6px;
 }
 `
 
 export const SynopsisContainer = styled.div`
-  padding: 1rem;
+  padding: 15px; 
   
   background-color: #191919;
   border-radius: 15px;
 
+	h1 {
+		margin-top: 0;
+	}
+
   p {
     font-size: 1.2rem;
+		text-align: justify;
   }
 `
 
