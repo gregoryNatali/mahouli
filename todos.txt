@@ -20,6 +20,7 @@ about page:
 
 animes || mangas page:
 - add more content?
+- fix manga page carousel
 
 home page:
 - add more content

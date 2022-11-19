@@ -17,7 +17,7 @@ export const NavbarContainer = styled.nav`
 `
 
 export const LinksContainer = styled.div`
-  margin: 0.5rem;
+	margin: 5px;
 
   display: flex;
   flex: 1 1 auto;
@@ -32,7 +32,7 @@ export const LinksContainer = styled.div`
     padding: 0;
     margin: 0;
 
-    gap: 0.5rem;
+		gap: 1vw;
 
     li {
       list-style-type: none;
