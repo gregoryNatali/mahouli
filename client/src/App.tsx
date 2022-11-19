@@ -9,6 +9,7 @@ import { AnimesPage } from "./pages/Animes"
 import { MangasPage } from "./pages/Mangas"
 import { SigninPage } from "./pages/Signin"
 import { SignupPage } from "./pages/Signup"
+import { isUserLogged } from "./api/useful"
 import { AboutPage } from "./pages/About"
 import { ListPage } from "./pages/List"
 import { EditPage } from "./pages/Edit"
@@ -18,7 +19,8 @@ import { useEffect } from "react"
 
 function App() {
 	useEffect(() => {
-		verifyLogin()
+		if (isUserLogged())
+			verifyLogin()
 	}, [])
 
   return (

@@ -12,7 +12,6 @@ export const ListDiv = styled.div`
 export const ListContent = styled.div`
 	display: flex;
 	flex-direction: column;
-	flex: 1 1 auto;
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
@@ -26,7 +25,8 @@ export const ListContent = styled.div`
 		background-color: #727;
 		border-radius: 25px 25px 0 0;
 		user-select: none;
-		height: auto;
+		height: 50px;
+		max-height: 50px;
 	}
 `
 

@@ -1,9 +1,12 @@
-import { addToList, checkInList, deleteList, setLastList } from "../../api/listManager";
+import { addToList, checkInList, checkInListMalID, deleteList, setLastList } from "../../api/listManager";
 import { AddButton, DeleteButton, EditButton, SeeButton } from "./styles";
+import { EntryList } from "../../types/Database";
+import { isUserLogged } from "../../api/useful";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Anime } from "../../types/Anime";
 import { Manga } from "../../types/Manga";
+import { EditModal } from "../EditModal";
 
 interface listProps {
 	entry: Anime | Manga
@@ -21,6 +24,7 @@ export function AddToListButton({
 	setShouldUpdate
 }: listProps) {
 	const [alreadyInList, setAlreadyInList] = useState<boolean>(false)
+	const [modalValue, setModalValue] = useState<EntryList | any>()
 	const redirect = useNavigate()
 
 	useEffect(() => {
@@ -38,7 +42,7 @@ export function AddToListButton({
 	}
 
 	const handleEditButton = () => {
-		redirect(`/${isAnime}/edit/${entry.mal_id}`)
+		setModalValue(checkInListMalID(entry.mal_id, isAnime))
 	}
 
 	const handleDeleteButton = async () => {
@@ -46,32 +50,39 @@ export function AddToListButton({
 		setShouldUpdate(true)
 		redirect(`/list`)
 	}
-
+	
 	return (
 		<>
-		{!alreadyInList ?
+		{isUserLogged() ?
 			<>
-			<AddButton onClick={handleAddButton}>
-				Adicionar à lista
-			</AddButton>	
+			{!alreadyInList ?
+				<>
+				<AddButton onClick={handleAddButton}>
+					Adicionar à lista
+				</AddButton>	
+				</>
+			:
+				<>
+				{ seeButton ?
+					<SeeButton onClick={handleSeeButton}>
+						Ver na lista
+					</SeeButton>
+				: <></>}
+				<EditButton onClick={handleEditButton}>
+					Editar entrada
+				</EditButton>
+				<EditModal
+					propEntry={modalValue}
+				/>
+				{deleteButton ?
+					<DeleteButton onClick={handleDeleteButton}>
+						Remover
+					</DeleteButton>
+				:	<></>}
+				</>
+			}
 			</>
-		:
-			<>
-			{ seeButton ?
-				<SeeButton onClick={handleSeeButton}>
-					Ver na lista
-				</SeeButton>
-			: <></>}
-			<EditButton onClick={handleEditButton}>
-				Editar entrada
-			</EditButton>
-			{deleteButton ?
-				<DeleteButton onClick={handleDeleteButton}>
-					Remover
-				</DeleteButton>
-			:	<></>}
-			</>
-		}
+		: <></> }
 		</>
 	)
 }

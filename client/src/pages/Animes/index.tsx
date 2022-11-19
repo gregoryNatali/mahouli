@@ -1,10 +1,10 @@
-import { getSeasonAnimes } from '../../api/jikanApi';
-import { WelcomeBar } from "../../components/WelcomeBar";
 import { formattedData as SeasonAnime } from '../../types/SeasonAnime';
+import { WelcomeBar } from "../../components/WelcomeBar";
+import { getSeasonAnimes } from '../../api/jikanApi';
 import { AnimesPageContainer } from "./styles";
 import { useEffect, useState } from 'react';
-import Carousel from 'nuka-carousel'
 import { useNavigate } from 'react-router';
+import Carousel from 'nuka-carousel';
 
 export function AnimesPage() {
   const [seasonAnimes, setSeasonAnimes]: any = useState()
@@ -32,8 +32,8 @@ export function AnimesPage() {
       />
       <h1>Animes</h1>
 
-      <div style={{ display: 'flex', flex: '1 1 auto', alignItems: 'center', justifyContent: 'center' }}>
-        <Carousel slidesToShow={7} style={{ width: '100vw', userSelect: 'none' }}>
+			<div className='carousel-wrapper'>
+        <Carousel slidesToShow={7} style={{ overflowX: 'clip', userSelect: 'none' }}>
           {seasonAnimes.map((seasonAnime: SeasonAnime) => (
             <img
               key={seasonAnime.malId}

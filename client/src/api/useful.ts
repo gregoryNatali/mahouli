@@ -5,5 +5,11 @@ export function getHeaders() {
 }
 
 export function isUserLogged() {
-	return Boolean(localStorage.getItem('token')!)
+	const token = localStorage.getItem('token')!
+	if (!token || token === 'undefined') {
+		localStorage.removeItem('token')
+		return false
+	}
+
+	return true
 }

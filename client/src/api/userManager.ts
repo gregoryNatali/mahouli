@@ -4,7 +4,7 @@ import { getHeaders } from "./useful"
 const baseUrl = 'http://localhost:8080/api'
 
 
-export async function sendLogin(email: string, password: string, redirect: NavigateFunction) {
+export async function sendLogin(email: string, password: string, redirect: NavigateFunction, setWentWrong: any) {
 	const req = await fetch(`${baseUrl}/user/login`, {
 		method: 'POST',
 		body: JSON.stringify({
@@ -25,9 +25,11 @@ export async function sendLogin(email: string, password: string, redirect: Navig
       return
     }
 
-    return data
+		setWentWrong(data.message)
+		return
   }
 
+	localStorage.setItem('token', data.token)
   redirect('/')
 }
 

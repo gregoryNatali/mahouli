@@ -24,10 +24,12 @@ export function SynopsisPage() {
 
 	return (
 		<SynopsisPageContainer>
-			<h2>{entry.title}</h2>
 			<InfoContainer>
 				<ContentContainer>
-					<img src={entry.images.jpg.large_image_url} alt="cover" />
+					<div className="card">
+						<h2>{entry.title}</h2>
+						<img src={entry.images.jpg.large_image_url} alt="cover" />
+					</div>
 					<ActionsContainer>
 						<AddToListButton entry={entry} isAnime={searchType} seeButton />
 					</ActionsContainer>

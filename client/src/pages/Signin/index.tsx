@@ -1,14 +1,16 @@
 import { SigninPageContainer, StyledSigninForm } from "./styles";
 import { sendLogin, verifyLogin } from "../../api/userManager";
-import { useNavigate } from "react-router";
+import { isUserLogged } from "../../api/useful";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 export function SigninPage() {
   const [wentWrong, setWentWrong] = useState<string>()
   const redirect = useNavigate()
 
   useEffect(() => {
-    verifyLogin(redirect)
+		if (isUserLogged())
+			verifyLogin(redirect)
   }, [])
 
   const onSubmit = async (e: React.SyntheticEvent) => {
@@ -19,9 +21,8 @@ export function SigninPage() {
       password: { value: string }
     }
 
-    sendLogin(target.email.value, target.password.value, redirect)
+    sendLogin(target.email.value, target.password.value, redirect, setWentWrong)
 
-    // setWentWrong(result.message)
   }
 
   return (
@@ -33,6 +34,7 @@ export function SigninPage() {
         <label htmlFor="passwordInput">Senha:</label>
         <input id="passwordInput" name="password" type="password" />
         <button type="submit">Entrar</button>
+				<span>{wentWrong}</span>
       </StyledSigninForm>
       <span onClick={() => redirect('/signup')}>Não possuo uma conta :(</span>
     </SigninPageContainer>

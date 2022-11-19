@@ -4,7 +4,6 @@ import { Link, Outlet } from "react-router-dom";
 import { LogOut, User } from "react-feather";
 
 export function Layout() {
-
   const logout = () => {
     localStorage.removeItem('token')
     document.location.reload()
@@ -27,7 +26,7 @@ export function Layout() {
                 <Link to={'/list'}><li>Lista</li></Link>
                 <Link to={'/account'}><li><User /></li></Link>
                 <Logout onClick={logout}>
-                  <li><LogOut /></li>
+                  <LogOut />
                 </Logout>
               </>
             }

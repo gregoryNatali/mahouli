@@ -1,22 +1,38 @@
 import styled from "styled-components";
 
 export const SynopsisPageContainer = styled.div`
-display: flex;
-flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
 
-overflow: hidden;
+	margin: 15px;
+
+	h2 {
+		margin: 0;
+		text-align: center;
+	}
 `
 
 export const InfoContainer = styled.div`
   display: flex;
   justify-content: center;
-  `
+	gap: 15px;
+`
+
 export const ContentContainer = styled.div`
-  margin: 1rem;
-  
   img {
     width: 17rem;
+		border-radius: 0 0 10px 10px;
   }
+
+	.card {
+		background-color: #191919;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		border-radius: 15px;
+		padding-top: 10px;
+	}
 `
 
 export const ActionsContainer = styled.div`
@@ -32,12 +48,10 @@ button {
   margin-top: 1rem;
   padding: 0.5rem;
   border-radius: 6px;
-  cursor: pointer;
 }
 `
 
 export const SynopsisContainer = styled.div`
-  margin: 1rem;
   padding: 1rem;
   
   background-color: #191919;
