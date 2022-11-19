@@ -56,7 +56,14 @@ export async function getEntryById(id: string, type: 'anime' | 'manga', setState
 	const req = await fetch(`${baseUrl}/${type}/${id}`)
 	const data = await req.json()
 
-	setState(data.data)
+	if (data.status === 200 &&
+			req.status === 200
+		) {
+		setState(data.data)
+		return
+	}
+	
+	setState(404)
 }
 
 // search page

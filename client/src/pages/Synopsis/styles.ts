@@ -61,3 +61,39 @@ export const SynopsisContainer = styled.div`
     font-size: 1.2rem;
   }
 `
+
+export const UnavailableContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1 1 auto;
+	text-align: center;
+
+	div {
+		background-color: #727;
+		margin: 0;
+		padding-top: 10px;
+		display: flex;
+		flex-direction: column;
+		border-radius: 10px;
+	}
+
+	h1 {
+		margin: 0;
+		padding: 0;
+	}
+	
+	p {
+		padding: 0 16px;
+		margin: 5px 0;
+	}
+
+	img {
+		border-radius: 0 0 10px 10px;
+		max-width: 498px;
+		max-height: 280px;
+		width: 100%;
+		height: 100%;
+	}
+`

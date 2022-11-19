@@ -1,4 +1,4 @@
-import { ActionsContainer, ContentContainer, InfoContainer, SynopsisContainer, SynopsisPageContainer } from "./styles";
+import { ActionsContainer, ContentContainer, InfoContainer, SynopsisContainer, SynopsisPageContainer, UnavailableContainer } from "./styles";
 import { AddToListButton } from "../../components/AddToListButton";
 import { getEntryById } from "../../api/jikanApi";
 import { useEffect, useState } from "react";
@@ -8,19 +8,45 @@ import { useParams } from "react-router";
 
 export function SynopsisPage() {
 	const [entry, setEntry] = useState<Anime | Manga | any>()
+	const [is404, set404] = useState<string>()
   const searchType = location.pathname.split('/')[1] as 'anime' | 'manga'
   const { id } = useParams()
 
   useEffect(() => {
-		getEntryById(
-			id!,
-			searchType,
-			setEntry
-		)
-  }, [location.pathname])
+		if (entry !== 404 || !entry) {
+			getEntryById(
+				id!,
+				searchType,
+				setEntry
+			)
+			return
+		}
+		
+		getGif().then((data) => set404(data))
+  }, [location.pathname, entry])
+
+	const getGif = async () => {
+		const req = await fetch(`https://nekos.best/api/v2/blush`)
+		const data = await req.json()
+		return data.results[0].url
+	}
 
 	if (!entry)
 		return <div>Loading...</div>
+	
+	if (entry === 404) {
+		return <UnavailableContainer>
+			<div>
+				<h1>404!</h1>
+				<p>
+					Pode ser que o servidor esteja fora,
+					<br />
+					como também pode ser um anime ou mangá safadinho...
+				</p>
+				<img src={is404} alt="blush anime gif" />
+			</div>
+		</UnavailableContainer>
+	}
 
 	return (
 		<SynopsisPageContainer>
