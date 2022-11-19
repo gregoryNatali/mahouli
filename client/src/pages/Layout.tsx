@@ -1,7 +1,7 @@
-import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer, Logout } from "../styles/Layout";
+import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer, Logout, Footer } from "../styles/Layout";
+import { GitHub, LogOut, User } from "react-feather";
 import { SearchBar } from "../components/SearchBar";
 import { Link, Outlet } from "react-router-dom";
-import { LogOut, User } from "react-feather";
 
 export function Layout() {
   const logout = () => {
@@ -39,6 +39,14 @@ export function Layout() {
       <ContentContainer className="content">
         <Outlet />
       </ContentContainer>
+			<Footer>
+				<div>
+					mahouLi é um projeto open-source &gt;
+					<a href="https://github.com/NomikuH8/mahouli">
+						<GitHub />
+					</a>
+				</div>
+			</Footer>
     </LayoutContainer>
   )
 }

@@ -66,3 +66,30 @@ export const ContentContainer = styled.div`
 	flex: 1 1 auto;
 	height: 1px;
 `
+
+export const Footer = styled.footer`
+	display: flex;
+	flex-direction: column;
+	position: sticky;
+	display: block;
+	bottom: 0;
+
+	div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		font-size: small;
+		padding: 5px;
+		padding-bottom: 0;
+		
+		svg {
+			height: fit-content;
+			width: fit-content;
+		}
+
+		a {
+			color: white;
+		}
+	}
+`

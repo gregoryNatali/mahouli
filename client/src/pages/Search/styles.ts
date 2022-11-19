@@ -74,17 +74,15 @@ export const SearchPageSideContent = styled.div`
 		flex: 1 1 auto;
 	}
 
-	/* tr td {
-		height: 80px;
-		max-height: 80px;
-		max-width: 80px;
-	} */
-
 	tr td {
 		max-width: 250px;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+
+		a {
+			color: white;
+		}
 	}
 
 	.ano, .status {

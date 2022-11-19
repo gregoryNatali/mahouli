@@ -104,7 +104,7 @@ export function SearchPage() {
             <tbody>
               {mode === 'anime' ? results?.anime.map((val: Anime, idx) => <tr key={idx + 'anime'}>
                 <td className="image"><img src={val.images.jpg.small_image_url} /></td>
-                <td><Link to={'/anime/' + val.mal_id}>{val.title}</Link></td>
+                <td title={val.title}><Link to={'/anime/' + val.mal_id}>{val.title}</Link></td>
                 <td className="ano">{val.year}</td>
                 <td className="status">{val.episodes}</td>
                 <td className="status">{val.airing ? 'Em produção' : 'Terminado'}</td>
@@ -112,7 +112,7 @@ export function SearchPage() {
               </tr>) : <></>}
               {mode === 'manga' ? results?.manga.map((val: Manga, idx) => <tr key={idx + 'manga'}>
                 <td className="image"><img src={val.images.jpg.small_image_url} /></td>
-                <td><Link to={'/manga/' + val.mal_id}>{val.title}</Link></td>
+                <td title={val.title}><Link to={'/manga/' + val.mal_id}>{val.title}</Link></td>
                 <td className="ano">{val.chapters}</td>
                 <td className="status">{val.status === '' ? 'Em produção' : 'Terminado'}</td>
                 <td><AddToListButton entry={val} isAnime={mode} seeButton /></td>
