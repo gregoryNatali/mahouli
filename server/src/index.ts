@@ -27,6 +27,7 @@ AppDataSource.initialize().then(async () => {
 		root: path.resolve(__dirname, '../images/users'),
 		prefix: '/images/users'
 	})
+
 	server.register(cors, {
 		origin: '*'
 	})
