@@ -1,22 +1,11 @@
-layout:
-- nav bar kinda tall
-
 account page:
 - access other people's account beside yours
 - show favorite anime (if exists)
 - show favorite manga (if exists)
-- change profile picture
-
-search page:
-- sorting?
-- placeholder while no results
 
 edit modal:
 - progress buttons
 - star buttons
-
-about page:
-- too cringe
 
 animes || mangas page:
 - add more content?

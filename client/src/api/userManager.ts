@@ -108,3 +108,19 @@ export async function getOwnAccount(setState: any) {
 
   setState(await req.json())
 }
+
+export async function changePFP(image: any) {
+	const headers = getHeaders()
+
+	const body = new FormData()
+	body.append('image', image)
+
+	const req = await fetch(`${baseUrl}/user/update-pfp`, {
+		method: 'PUT',
+		headers: headers,
+		body
+	})
+
+	const data = await req.json()
+	return data
+}

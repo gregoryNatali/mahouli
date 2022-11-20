@@ -9,6 +9,7 @@ import {
   UserSideContainer 
 } from "./styles"
 import { getOwnAccount, verifyLogin } from "../../api/userManager"
+import { isUserLogged } from "../../api/useful"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { User } from "../../types/User"
@@ -27,8 +28,12 @@ export function AccountPage() {
   }
 
 	useEffect(() => {
-		getOwnAccount(setAccount)
-		verifyLogin(redirect)
+		if (isUserLogged()) {
+			verifyLogin(redirect).then(() => getOwnAccount(setAccount))
+			return
+		}
+
+		redirect('/signin')
 	}, [])
 
   if (!account) {
@@ -47,6 +52,7 @@ export function AccountPage() {
             : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
             } 
             alt="user profile picture" />
+					<button onClick={() => redirect('/update-pfp')}>Alterar imagem de perfil</button>
         </ProfileContainer>
         <ListContainer>
           <div className="listText">

@@ -21,7 +21,8 @@ export const InfoContainer = styled.div`
 
 export const ContentContainer = styled.div`
   img {
-		width: 100%;
+		width: auto;
+		max-width: 300px;
 		border-radius: 0 0 10px 10px;
   }
 
@@ -32,6 +33,7 @@ export const ContentContainer = styled.div`
 		gap: 10px;
 		border-radius: 15px;
 		padding-top: 10px;
+		max-width: 300px;
 	}
 `
 

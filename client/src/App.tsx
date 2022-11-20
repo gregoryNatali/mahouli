@@ -2,6 +2,7 @@ import { EmailConfirmationPage } from "./pages/EmailConfirmation"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { SynopsisPage } from "./pages/Synopsis"
 import { verifyLogin } from "./api/userManager"
+import { UpdatePfp } from "./pages/Update-pfp"
 import { AccountPage } from "./pages/Account"
 import { AppContainer } from "./styles/App"
 import { SearchPage } from "./pages/Search"
@@ -42,6 +43,7 @@ function App() {
 						<Route path="anime/edit/:mal_id" element={<EditPage />} />
 						<Route path="manga/edit/:mal_id" element={<EditPage />} />
 						<Route path="search" element={<SearchPage />} />
+						<Route path="update-pfp" element={<UpdatePfp />} />
           </Route>
         </Routes>
       </BrowserRouter>

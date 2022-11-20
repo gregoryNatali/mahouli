@@ -112,14 +112,17 @@ export async function userRoutes (fastify, options) {
 	})
 
 	fastify.get('/api/user/delete', async (req, resp) => {
-		const user = await getUser(req)
+		const { success, user } = await getUser(req)
+		if (!success)
+			return user
+
 		await AppDataSource.manager.remove(user)
 		return { success: true }
 	})
 
 	fastify.put('/api/user/update', async (req, resp) => {
-		const user = await getUser(req)
-		if (!user.success)
+		const { success, user } = await getUser(req)
+		if (!success)
 			return user
 
 		let name: string = ''
@@ -146,7 +149,9 @@ export async function userRoutes (fastify, options) {
 	})
 
 	fastify.put('/api/user/update-pfp', async (req, resp) => {
-		const user = await getUser(req)
+		const { success, user } = await getUser(req)
+		if (!success)
+			return user
 
 		try {
 			const data = await req.file()
@@ -167,6 +172,7 @@ export async function userRoutes (fastify, options) {
 			return { success: true }
 		}
 		catch (err) {
+			console.log(err)
 			return { success: false, message: 'file may be too large' }
 		}
 	})

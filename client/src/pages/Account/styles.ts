@@ -11,12 +11,8 @@ display: flex;
 flex-direction: column;
 flex: 1 1 auto;
 
-max-width: 18rem;
-height: 88vh;
-
-margin-left: 0.5rem;
-padding-top: 1rem;
-padding-right: 1rem;
+max-width: 256px;
+padding: 10px;
 border-right: 2px solid #575757;
 `
 
@@ -36,8 +32,25 @@ export const ProfileContainer = styled.div`
   }
   
   img {
-    width: 18rem;
+		width: 100%;
   }
+
+	button {
+		background-color: #6A336A;
+		border: 0;
+		color: #d7d7d7;
+		outline: none;
+		border-radius: 0 0 15px 15px;
+		width: 100%;
+		transition: 200ms;
+		font-size: 12pt;
+		padding: 4px;
+	}
+
+	button:hover {
+		background-color: #442144;
+		transition: 200ms;
+	}
   
   border-radius: 15px;
   overflow: hidden;
