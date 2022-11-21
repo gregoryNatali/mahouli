@@ -1,10 +1,10 @@
-import Carousel from 'nuka-carousel'
+import { formattedData as Manga } from '../../types/SeasonAnime';
+import { WelcomeBar } from "../../components/WelcomeBar";
+import { getRandomMangas } from '../../api/jikanApi';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { getRandomMangas } from '../../api/jikanApi';
-import { WelcomeBar } from "../../components/WelcomeBar";
-import { formattedData as Manga } from '../../types/SeasonAnime';
-import { MangasPageContainer } from "./styles";
+import Carousel from 'nuka-carousel';
+import { AnimesPageContainer } from '../Animes/styles';
 
 export function MangasPage() {
   const [randomMangas, setRandomMangas]: any = useState()
@@ -14,20 +14,21 @@ export function MangasPage() {
     getRandomMangas(setRandomMangas)
   }, [])
 
-  if (!randomMangas) {
+  if (!randomMangas)
     return (
       <div>Loading...</div>
     )
-  }
-  console.log(randomMangas)
+
+
   return (
-    <MangasPageContainer>
+    <AnimesPageContainer>
       <WelcomeBar
         gifType="think"
       />
       <h1>Mangás</h1>
-      <div style={{ display: 'flex', flex: '1 1 auto', alignItems: 'center', justifyContent: 'center' }}>
-        <Carousel slidesToShow={7} style={{ width: '98vw' }}>
+
+			<div className='carousel-wrapper'>
+        <Carousel slidesToShow={7} style={{ overflowX: 'clip', userSelect: 'none' }}>
           {randomMangas.map((randomManga: Manga) => (
             <img
               key={randomManga.malId}
@@ -40,6 +41,6 @@ export function MangasPage() {
           ))}
         </Carousel>
       </div>
-    </MangasPageContainer>
+    </AnimesPageContainer>
   )
 }

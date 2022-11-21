@@ -10,10 +10,6 @@ export function AnimesPage() {
   const [seasonAnimes, setSeasonAnimes]: any = useState()
   const redirect = useNavigate()
 
-  const handleRedirectToAnimePage = (malId: string) => {
-    redirect(`/anime/${malId}`)
-  }
-
   useEffect(() => {
     getSeasonAnimes(setSeasonAnimes)
   }, [])
@@ -23,7 +19,6 @@ export function AnimesPage() {
       <div>Loading...</div>
     )
 
-  console.log(seasonAnimes)
 
   return (
     <AnimesPageContainer>
@@ -41,7 +36,7 @@ export function AnimesPage() {
               alt={`${seasonAnime.name} Cover`}
               width={180}
               height={280}
-              onDoubleClick={() => handleRedirectToAnimePage(seasonAnime.malId)}
+              onDoubleClick={() => redirect(`/anime/${seasonAnime.malId}`)}
             />
           ))}
         </Carousel>
