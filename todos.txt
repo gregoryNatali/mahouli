@@ -11,12 +11,12 @@ edit modal:
 - progress buttons
 - star buttons
 
-animes || mangas page:
-- add more content?
 
 home page:
 - add more content
 
+animes || mangas page:
+- add more content?
 
 api:
 - forgor password?
