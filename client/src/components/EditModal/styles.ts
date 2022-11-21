@@ -18,6 +18,7 @@ export const Dimmer = styled.div`
 
 		div {
 			display: flex;
+			flex-direction: column;
 		}
 	}
 `
@@ -30,6 +31,10 @@ export const ModalDiv = styled.div`
 	border: 5px solid #727;
 	border-radius: 10px;
 	transition: all ease;
+
+	div {
+		flex-direction: row !important;
+	}
 `
 
 export const InfoDiv = styled.div`

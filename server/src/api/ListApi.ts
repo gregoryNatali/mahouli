@@ -19,11 +19,11 @@ async function addToList(info: any, user: User, anime: KnownAnime) {
 async function removeFromList(id: number, user: User) {
 	let obj = await AppDataSource.manager.findOne(EntryList, {
 		relations: {user: true, anime: true},
-		where: {anime: { mal_id: id }}
+		where: {
+			anime: { mal_id: id },
+			user: { id: user.id }
+		}
 	})
-
-	if (obj.user.id !== user.id)
-		return false
 
 	return await AppDataSource.manager.remove(obj)
 }
@@ -83,7 +83,9 @@ export async function listRoutes (fastify: FastifyInstance) {
 		if (!success)
 			return user
 
+		console.log('autenticado')
 		const { mal_id } = req.params as { mal_id: string }
+		console.log('pegou params')
 		const entry = await removeFromList(parseInt(mal_id), user)
 		return { success: Boolean(entry) }
 	})
