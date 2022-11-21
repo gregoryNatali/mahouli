@@ -20,7 +20,6 @@ export function SynopsisPage() {
     )
   }, [location.pathname])
 
-
   const getGif = async () => {
     const req = await fetch(`https://nekos.best/api/v2/blush`)
     const data = await req.json()
@@ -72,13 +71,14 @@ export function SynopsisPage() {
                 {entry.volumes ? <h4>Volumes: {entry.volumes}</h4> : <></>}
               </>
             }
-            <h4>
-              Autores:
-              {entry.authors.map((author: Author) => (
-                <p>{author.name}</p>
-              ))}
-
-            </h4>
+            {entry.authors &&
+              <h4>
+                Autores:
+                {entry.authors.map((author: Author) => (
+                  <p>{author.name}</p>
+                ))}
+              </h4>
+            }
           </div>
         </ContentContainer>
         <SynopsisContainer>
