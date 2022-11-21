@@ -1,5 +1,5 @@
 import { getCacheList, getLastList, getList, setLastList } from "../../api/listManager";
-import { ListContent, ListDiv, ListEmptyError, ListItem, StyledButton } from "./styles";
+import { LinksContainer, ListContent, ListDiv, ListEmptyError, ListItem, StyledButton } from "./styles";
 import { AddToListButton } from "../../components/AddToListButton";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -36,13 +36,13 @@ export function ListPage() {
     <ListDiv>
       <div>
         <StyledButton
-					onClick={() => setShowingList('anime')}
-					className={showingList === 'anime' ? 'active' : ''}
-				>Animes</StyledButton>
+          onClick={() => setShowingList('anime')}
+          className={showingList === 'anime' ? 'active' : ''}
+        >Animes</StyledButton>
         <StyledButton
-					onClick={() => setShowingList('manga')}
-					className={showingList === 'manga' ? 'active' : ''}
-				>Mangás</StyledButton>
+          onClick={() => setShowingList('manga')}
+          className={showingList === 'manga' ? 'active' : ''}
+        >Mangás</StyledButton>
       </div>
       <ListContent>
         <ListItem id="legend">
@@ -76,10 +76,10 @@ export function ListPage() {
           <ListEmptyError>
             <p>Sua lista está vazia :(</p>
             <p>Procure animes e mangás novos aqui:</p>
-            <div>
+            <LinksContainer>
               <Link to={'/animes'}>Animes</Link>
               <Link to={'/mangas'}>Mangás</Link>
-            </div>
+            </LinksContainer>
           </ListEmptyError> : <></>}
       </ListContent>
     </ListDiv>

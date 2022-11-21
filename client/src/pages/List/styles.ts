@@ -67,6 +67,15 @@ export const ListEmptyError = styled.div`
 	justify-content: center;
 	flex: 1 1 auto;
 `
+export const LinksContainer = styled.div`
+  display: flex;
+	width: 100%;
+  justify-content: space-around;
+  
+  a {  
+    color: #fff;
+  }
+`
 
 export const StyledButton = styled.button`
   padding: 1rem;
