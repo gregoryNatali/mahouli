@@ -9,14 +9,26 @@ interface ModalProps {
 
 export function EditModal({ propEntry }: ModalProps) {
 	const [entry, setEntry] = useState<EntryList>()
+	const [score, setScore] = useState<string | undefined>()
+	const [fav, setFav] = useState<boolean>()
 
 	useEffect(() => {
 		setEntry(propEntry ? propEntry : undefined)
 	}, [propEntry])
 
+	useEffect(() => {
+		if (entry)
+			setFav(entry.is_anime)
+	}, [entry])
+
 	const handleClose = () => {
 		setEntry(undefined)
 	}
+
+	const changeScore = () => {
+		setScore(document.querySelector<HTMLInputElement>('#score')!.value)
+	}
+
 
 	return (
 		<Dimmer className={entry ? 'active' : ''}>
@@ -32,7 +44,14 @@ export function EditModal({ propEntry }: ModalProps) {
 				</div>
 				<div>
 					<span>Nota:</span>
-					<input type={'range'} min={0} max={10} />
+					<input id='score' type={'range'} min={0} max={10} onChange={changeScore} />
+					<span>{score}</span>
+				</div>
+				<div>
+					{ fav &&
+						<button onClick={() => setFav(false)}>Desfavoritar</button>}
+					{ !fav &&
+						<button onClick={() => setFav(true)}>Favoritar</button>}
 				</div>
 			</ModalDiv>
 		</Dimmer>
