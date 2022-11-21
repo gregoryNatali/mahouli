@@ -72,13 +72,47 @@ export function AccountPage() {
         <FavoritesContainer>
           <h4>Favoritos</h4>
           <FavoritesListContainer>
+            <h4>Animes</h4>
             {account.entries
               ?
               <Carousel style={{ width: '70vw' }}>
-                {account.entries?.map(entry => entry.anime.name)}
+                {account.entries?.map(entry => {
+                  if (entry.is_anime) return (
+                    <img
+                      key={entry.anime.mal_id}
+                      src={entry.anime.img_url}
+                      alt={`${entry.anime.name} Cover`}
+                      width={180}
+                      height={280}
+                      onDoubleClick={() => redirect(`/anime/${entry.anime.mal_id}`)}
+                    />
+                  )
+                })}
               </Carousel>
               :
-              <h2>Nenhum favorito encontrado!</h2>
+              <h2>Nenhum anime favorito encontrado!</h2>
+            }
+          </FavoritesListContainer>
+          <FavoritesListContainer>
+            <h4>Mangás</h4>
+            {account.entries
+              ?
+              <Carousel style={{ width: '70vw' }}>
+                {account.entries?.map(entry => {
+                  if (!entry.is_anime) return (
+                    <img
+                      key={entry.anime.mal_id}
+                      src={entry.anime.img_url}
+                      alt={`${entry.anime.name} Cover`}
+                      width={180}
+                      height={280}
+                      onDoubleClick={() => redirect(`/manga/${entry.anime.mal_id}`)}
+                    />
+                  )
+                })}
+              </Carousel>
+              :
+              <h2>Nenhum mangá favorito encontrado!</h2>
             }
           </FavoritesListContainer>
         </FavoritesContainer>
