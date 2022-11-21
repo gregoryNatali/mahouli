@@ -91,7 +91,12 @@ export async function userRoutes (fastify, options) {
 	})
 
 	fastify.get('/api/user/get/:id', async (req, resp) => {
-		const user = await AppDataSource.manager.findOneBy(User, { id: req.params.id})
+		const user = await AppDataSource.manager.findOne(User, {
+			relations: { entries: true },
+			where: {
+				id: req.params.id
+			}
+		})
 		return user
 	})
 
