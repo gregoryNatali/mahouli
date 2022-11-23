@@ -58,10 +58,10 @@ export async function addToList(body: Anime | Manga | any, type: 'anime' | 'mang
 	return data.success
 }
 
-export async function editList(body: Anime | Manga | any, type: 'anime' | 'manga') {
+export async function editList(body: EntryList, type: 'anime' | 'manga') {
 	const req = await fetch(`${baseUrl}/${type}/list`, {
 		method: 'PUT',
-		body: JSON.stringify(generateKnownAnime(body, type)),
+		body: JSON.stringify(body),
 		headers: getHeaders()
 	})
 	const data = await req.json()

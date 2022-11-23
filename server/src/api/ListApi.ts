@@ -28,15 +28,21 @@ async function removeFromList(id: number, user: User) {
 	return await AppDataSource.manager.remove(obj)
 }
 
-async function editListEntry(info: any, user: User) {
-	let obj = await AppDataSource.manager.findOneBy(EntryList, { id: info.id })
-
-	if (obj.user !== user)
-		return false
+async function editListEntry(info: EntryList, user: User) {
+	let obj = await AppDataSource.manager.findOne(EntryList, {
+		relations: {user: true, anime: true},
+		where: {
+			anime: { mal_id: info.anime.mal_id, is_anime: info.is_anime },
+			user: { id: user.id }
+		}
+	})
 	
 	obj.progress = info.progress
 	obj.score = info.score
-	obj.start_date = info.start
+	obj.start_date = info.start_date
+	obj.finish_date = !info.finish_date ? null : info.finish_date
+	obj.is_favorite = info.is_favorite
+
 	return await AppDataSource.manager.save(obj)
 }
 
@@ -73,7 +79,7 @@ export async function listRoutes (fastify: FastifyInstance) {
 		if (!success)
 			return user
 		
-		const body: any = JSON.parse(req.body as any)
+		const body: EntryList = JSON.parse(req.body as any)
 		const entry = await editListEntry(body, user)
 		return { success: Boolean(entry) }
 	})
@@ -83,9 +89,7 @@ export async function listRoutes (fastify: FastifyInstance) {
 		if (!success)
 			return user
 
-		console.log('autenticado')
 		const { mal_id } = req.params as { mal_id: string }
-		console.log('pegou params')
 		const entry = await removeFromList(parseInt(mal_id), user)
 		return { success: Boolean(entry) }
 	})

@@ -18,7 +18,7 @@ export class EntryList {
 	start_date: Date
 
 	@Column("date", { nullable: true })
-	finish_date: string
+	finish_date: Date
 
 	@Column("integer", { default: 0})
 	progress: number

@@ -1,16 +1,19 @@
-import { checkInListMalID } from "../../api/listManager";
+import { EditPageDiv, InfoDiv, InputDiv, ProgressDiv } from "./styles";
+import { checkInListMalID, editList } from "../../api/listManager";
 import { useNavigate, useParams } from "react-router";
 import { EntryList } from "../../types/Database";
 import { isUserLogged } from "../../api/useful";
 import { useEffect, useState } from "react";
-import { EditPageDiv } from "./styles";
-
-function returnDateString(str: string) {
-	return new Date(str).toLocaleDateString()
-}
+import { Minus, Plus } from "react-feather";
 
 export function EditPage() {
 	const [info, setInfo] = useState<EntryList>()
+	const [progress, setProgress] = useState<number>()
+	const [score, setScore] = useState<number>()
+	const [startDate, setStartDate] = useState<Date>()
+	const [finishDate, setFinishDate] = useState<Date | null>()
+	const [fav, setFav] = useState<boolean>(false)
+
 	const { mal_id } = useParams()
 	const redirect = useNavigate()
 
@@ -30,43 +33,103 @@ export function EditPage() {
 		}
 
 		setInfo(result)
+		setProgress(result.progress)
+		setScore(result.score)
+		setStartDate(new Date(result.start_date!))
+		setFinishDate(new Date(result.finish_date!))
+		setFav(result.is_favorite!)
 	}, [])
 
-	const checkOnChangeEP = () => {
-		const element = document.querySelector<HTMLInputElement>('#episodes')!
-		const episodes = parseInt(element!.value)
+	useEffect(() => {
+		if (progress === info?.anime.total_episodes)
+			setFinishDate(new Date())
+	}, [progress])
 
-		if (episodes > info?.anime.total_episodes!) {
-			element.value = info?.anime.total_episodes.toString()!
+	const handleSave = async () => {
+		const success = await editList({
+			finish_date: progress === info?.anime.total_episodes ? finishDate!.toISOString().slice(0, 10) : undefined,
+			score: score!,
+			progress: progress,
+			start_date: startDate?.toISOString().slice(0, 10),
+			is_favorite: fav,
+			anime: info?.anime!
+		}, info?.is_anime ? 'anime' : 'manga')
+
+		if (success) {
+			redirect('/list')
 			return
 		}
-
-		if (episodes < 0)
-			element.value = '0'
 	}
+	
+	if (!info)
+		return <div>Loading...</div>
 
 	return (
 		<EditPageDiv>
-			<div>
+			<div className="main">
 				<h3>Editar item da lista</h3>
-				<span>{info?.anime.name}</span>
-				<div>
+				<InfoDiv>
+					<img src={info.anime.img_url} alt="" />
+					<span>{info.anime.name}</span>
+				</InfoDiv>
+				<ProgressDiv>
 					Progresso:
+					<button
+						className={progress! <= 0 ? 'disabled' : ''}
+						onClick={() => setProgress(progress! <= 0 ? 0 : progress! - 1)}
+					><Minus /></button>
+					<span>{progress}</span>
+					<button
+						className={progress! >= info?.anime.total_episodes! ? 'disabled' : ''}
+						onClick={() =>
+							setProgress(progress! >= info?.anime.total_episodes! ? progress : progress! + 1)}
+					><Plus /></button>
+					/{info.anime.total_episodes}</ProgressDiv>
+				<InputDiv>
+					<span>Pontuação:</span>
+					<select id="scoreSelect">
+						{[undefined,10,9,8,7,6,5,4,3,2,1].map((val, idx) => 
+							<option
+								key={idx}
+								value={val}
+								onClick={() => setScore(val)}
+								selected={val === score}
+							>{val}</option>
+						)}
+					</select>
+				</InputDiv>
+				<InputDiv>
+					<span>Data de início:</span>
 					<input
-						id="episodes"
-						type="number"
-						min={0}
-						max={info?.anime.total_episodes}
-						defaultValue={info?.progress}
-						onChange={checkOnChangeEP} />
-					/{info?.anime.total_episodes}</div>
-				<div>Pontuação: {info?.score}</div>
-				<div>Data de início: {returnDateString(info?.start_date!)}</div>
-				<div>Data de término: {info?.finish_date ? returnDateString(info.finish_date) : 'não terminado'}</div>
+						required
+						id="start-date"
+						type="date" defaultValue={startDate?.toISOString().slice(0, 10)}
+						onChange={() =>
+							setStartDate(new Date(document.querySelector<HTMLInputElement>('#start-date')!.value))
+						}
+					/>
+				</InputDiv>
+				<InputDiv>
+					<span>Data de término:</span>
+					{progress === info.anime.total_episodes ?
+					<input
+						required
+						id="finish-date"
+						type="date" defaultValue={finishDate?.toISOString().slice(0, 10)}
+						onChange={() =>
+							setFinishDate(new Date(document.querySelector<HTMLInputElement>('#finish-date')!.value))
+						}
+					></input>
+					: 'não terminado'}
+				</InputDiv>
+				<InputDiv>
+					{fav ?
+						<button onClick={() => setFav(!fav)}>Desfavoritar</button>
+					: <button onClick={() => setFav(!fav)}>Favoritar</button>
+					}
+				</InputDiv>
 			</div>
-			<form>
-
-			</form>
+			<button onClick={handleSave}>Salvar alterações</button>
 		</EditPageDiv>
 	)
 }
