@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const EditPageDiv = styled.div`
 	display: flex;
+  flex-direction: column;
 	flex: 1 1 auto;
 	align-items: center;
 	justify-content: center;
@@ -76,8 +77,76 @@ export const InputDiv = styled.div`
 	align-items: center;
 	gap: 15px;
 
+  select {
+    background-color: #272727;
+    color: #d9d9d9;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+
+    option {
+      background-color: #272727;
+      color: #d9d9d9;
+      border: 1px solid #d9d9d9;
+    }
+  }
+
 	input {
 		padding: 5px;
 		border-radius: 5px;
 	}
+`
+
+export const UnfavButton = styled.button`
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-radius: 6%;
+  padding: 15px;
+  transition: 200ms;
+  max-width: 100px;
+  max-height: 35px;
+  cursor: pointer;
+  
+  background-color: #a88900;
+
+  :hover {
+    transition: 200ms;
+    background-color: #695601
+  }
+`
+
+export const FavButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  border-radius: 6%;
+  padding: 15px;
+  max-width: 100px;
+  max-height: 35px;
+  cursor: pointer;
+  
+  background-color: #ffd000;
+
+  :hover {
+    transition: 200ms;
+    background-color: #ad8e00
+  }
+`
+
+export const SaveButton = styled.button`
+  padding: 1rem;
+  
+  background-color: #6A336A;
+  color: #d7d7d7;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  
+  :hover {
+    background-color: #4d244d;
+    transition: 200ms;
+  }
+  transition: 200ms;
 `
