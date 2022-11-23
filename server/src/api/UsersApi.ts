@@ -1,6 +1,7 @@
 import { compareText, encryptText } from "../utils/encrypter";
 import { generateConfirmCode } from "../utils/userMisc";
 import { sendConfirmEmail } from "../utils/emailer";
+import { EntryList } from "../entity/EntryList";
 import { AppDataSource } from "../data-source";
 import { getUser } from "../utils/serverUtils";
 import { createJWT } from "../utils/jwt";
@@ -19,9 +20,6 @@ export async function userRoutes (fastify, options) {
 		const newUser = new User()
 
 		try {
-			// console.log(info.name)
-			// console.log(info.email)
-			// console.log(info.password)
 			if (!info.password || !info.name || !info.email)
 				throw 'error'
 
@@ -97,7 +95,37 @@ export async function userRoutes (fastify, options) {
 				id: req.params.id
 			}
 		})
-		return user
+
+		const newUser: User = user
+		const entries: EntryList[] = await AppDataSource.manager.find(EntryList, {
+			relations: { anime: true },
+			where: {
+				user,
+				is_favorite: true
+			}
+		})
+
+		const parsedEntries = []
+		entries.forEach((val) => {
+			parsedEntries.push({
+				is_anime: val.is_anime,
+				score: val.score,
+				anime: {
+					name: val.anime.name,
+					img_url: val.anime.img_url,
+					mal_id: val.anime.mal_id
+				}
+			})
+		})
+
+		return {
+			user: {
+				name: newUser.name,
+				join_date: newUser.join_date,
+				profile_picture: newUser.profile_picture
+			},
+			entries: parsedEntries
+		}
 	})
 
 	fastify.get('/api/user/getOwnAccount', async (req, resp) => {
@@ -105,7 +133,37 @@ export async function userRoutes (fastify, options) {
 		if (!success)
 			return user
 
-		return user
+		const newUser: User = user
+
+		const entries: EntryList[] = await AppDataSource.manager.find(EntryList, {
+			relations: { anime: true },
+			where: {
+				user,
+				is_favorite: true
+			}
+		})
+
+		const parsedEntries = []
+		entries.forEach((val) => {
+			parsedEntries.push({
+				is_anime: val.is_anime,
+				score: val.score,
+				anime: {
+					name: val.anime.name,
+					img_url: val.anime.img_url,
+					mal_id: val.anime.mal_id
+				}
+			})
+		})
+
+		return {
+			user: {
+				name: newUser.name,
+				join_date: newUser.join_date,
+				profile_picture: newUser.profile_picture
+			},
+			entries: parsedEntries
+		}
 	})
 
 	fastify.get('/api/user/verify', async (req, resp) => {
