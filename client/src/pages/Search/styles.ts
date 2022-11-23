@@ -116,4 +116,31 @@ export const SearchPageResult = styled.div`
 `
 
 export const SearchPageControls = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+`
+
+export const PageButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  background-color: #727;
+  border: none;
+  border-radius: 40%;
+  transition: 200ms;
+
+  :hover {
+    background-color: #461346;
+    transition: 200ms;
+  }
+
+  :disabled {
+    background-color: #381738;
+    cursor: not-allowed;
+  }
+
 `

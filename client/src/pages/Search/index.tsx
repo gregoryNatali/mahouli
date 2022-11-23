@@ -1,4 +1,4 @@
-import { SearchOptionsContainer, SearchPageControls, SearchPageResultsContent, SearchPageSideContent, SearchPageStyle } from "./styles";
+import { PageButton, SearchOptionsContainer, SearchPageControls, SearchPageResultsContent, SearchPageSideContent, SearchPageStyle } from "./styles";
 import { AddToListButton } from "../../components/AddToListButton";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 import { SyntheticEvent, useEffect, useState } from "react";
@@ -123,22 +123,22 @@ export function SearchPage() {
         </SearchPageSideContent>
       </SearchPageResultsContent>
       <SearchPageControls>
-        <button
+        <PageButton
           disabled={page <= 1}
           onClick={() => {
             setPage(page - 1)
             window.scrollTo(0, 0)
           }}>
-          <ChevronLeft />
-        </button>
-        <button
+          <ChevronLeft stroke="#fff" />
+        </PageButton>
+        <PageButton
           disabled={mode === 'anime' ? !morePages?.anime : !morePages?.manga}
           onClick={() => {
             setPage(page + 1)
             window.scrollTo(0, 0)
           }}>
-          <ChevronRight />
-        </button>
+          <ChevronRight stroke="#fff" />
+        </PageButton>
       </SearchPageControls>
     </SearchPageStyle>
   )
