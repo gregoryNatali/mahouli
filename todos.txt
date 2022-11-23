@@ -3,15 +3,6 @@ account page:
 - show favorite anime (if exists)
 - show favorite manga (if exists)
 
-edit modal:
-- edit start date
-- edit finish date (set automatically if progress === total_episodes)
-- edit score (0-10)
-- edit is_favorite
-- progress buttons
-- star buttons
-
-
 home page:
 - add more content
 
