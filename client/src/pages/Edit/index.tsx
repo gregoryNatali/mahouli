@@ -1,10 +1,10 @@
 import { EditPageDiv, FavButton, InfoDiv, InputDiv, ProgressDiv, SaveButton, UnfavButton } from "./styles";
 import { checkInListMalID, editList } from "../../api/listManager";
 import { useNavigate, useParams } from "react-router";
+import { Minus, Plus, Star } from "react-feather";
 import { EntryList } from "../../types/Database";
 import { isUserLogged } from "../../api/useful";
 import { useEffect, useState } from "react";
-import { Minus, Plus, Star } from "react-feather";
 
 export function EditPage() {
   const [info, setInfo] = useState<EntryList>()
@@ -27,6 +27,7 @@ export function EditPage() {
       location.pathname.split('/')[1] as 'anime' | 'manga'
     )
 
+		console.log(result)
     if (!result) {
       redirect('/list')
       return
@@ -35,8 +36,8 @@ export function EditPage() {
     setInfo(result)
     setProgress(result.progress)
     setScore(result.score)
-    setStartDate(new Date(result.start_date!))
-    setFinishDate(new Date(result.finish_date!))
+    setStartDate(result.start_date ? new Date(result.start_date) : new Date())
+    // setFinishDate(new Date(result.finish_date ? result.finish_date : 0))
     setFav(result.is_favorite!)
   }, [])
 

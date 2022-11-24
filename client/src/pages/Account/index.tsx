@@ -16,38 +16,56 @@ import { Account } from "../../types/User"
 import Carousel from 'nuka-carousel'
 
 
-const regex = /.+(?=t\.jpg|t\.webp)|(?=l\.jpg|l\.webp)/gm
 function createImageUrl(link: string) {
+	const regex = /.+(?=t\.jpg|t\.webp)|(?=l\.jpg|l\.webp)/gm
   const result = regex.exec(link)
   return result![0] + '.jpg'
 }
 
+function formatDate(date: string) {
+	const year = date.slice(0, 4)
+	const month = date.slice(5, 7)
+	const day = date.slice(8)
+
+	return `${day}/${month}/${year}`
+}
 
 export function AccountPage() {
   const [account, setAccount] = useState<Account>()
+	const [favAnimes, setFavAnimes] = useState<any[]>([])
+	const [favMangas, setFavMangas] = useState<any[]>([])
   const redirect = useNavigate()
 
-  const formatDate = (date: string) => {
-    const year = date.slice(0, 4)
-    const month = date.slice(5, 7)
-    const day = date.slice(8)
-
-    return `${day}/${month}/${year}`
-  }
-
   useEffect(() => {
-    if (isUserLogged()) {
-      verifyLogin(redirect).then(() => getOwnAccount(setAccount))
-      return
-    }
+		const innerFunc = async () => {
+			if (!isUserLogged()) {
+				redirect('/signin')
+				return
+			}
 
-    redirect('/signin')
+			await verifyLogin(redirect)
+			const newAcc = await getOwnAccount()
+
+			if (!newAcc) {
+				redirect('/signin')
+				return
+			}
+
+			const animes: any[] = []
+			const mangas: any[] = []
+			newAcc.entries.forEach((val) => {
+				if (val.is_anime) animes.push(val)
+				else mangas.push(val)
+			})
+			setFavAnimes(animes)
+			setFavMangas(mangas)
+			setAccount(newAcc)
+		}
+		innerFunc()
   }, [])
 
-  if (!account) {
-    redirect('/signin')
-    return (<></>)
-  }
+	if (!account)
+		return <div>Loading...</div>
 
   return (
     <AccountPageContainer>
@@ -81,47 +99,47 @@ export function AccountPage() {
           <h4>Favoritos</h4>
           <FavoritesListContainer>
             <h4>Animes</h4>
-            {account.entries
-              ?
-              <Carousel style={{ width: '70vw' }}>
-                {account.entries?.map((entry, idx) => {
-                  if (entry.is_anime) return (
-                    <img
-                      key={idx}
-                      src={createImageUrl(entry.anime.img_url)}
-                      alt={`${entry.anime.name} Cover`}
-                      width={180}
-                      height={280}
-                      onDoubleClick={() => redirect(`/anime/${entry.anime.mal_id}`)}
-                    />
-                  )
-                })}
-              </Carousel>
-              :
-              <h2>Nenhum anime favorito encontrado!</h2>
-            }
+						<div className="carousel-wrapper">
+							{favAnimes.length > 0
+								?
+								<Carousel slidesToShow={4}>
+									{favAnimes.map((entry, idx) =>
+										<img
+											key={idx}
+											src={createImageUrl(entry.anime.img_url)}
+											alt={`${entry.anime.name} Cover`}
+											width={180}
+											height={280}
+											onDoubleClick={() => redirect(`/anime/${entry.anime.mal_id}`)}
+										/>
+									)}
+								</Carousel>
+								:
+								<h2>Nenhum anime favorito encontrado!</h2>
+							}
+						</div>
           </FavoritesListContainer>
           <FavoritesListContainer>
             <h4>Mangás</h4>
-            {account.entries
-              ?
-              <Carousel style={{ width: '70vw' }}>
-                {account.entries?.map(entry => {
-                  if (!entry.is_anime) return (
-                    <img
-                      key={entry.anime.mal_id}
-                      src={entry.anime.img_url}
-                      alt={`${entry.anime.name} Cover`}
-                      width={180}
-                      height={280}
-                      onDoubleClick={() => redirect(`/manga/${entry.anime.mal_id}`)}
-                    />
-                  )
-                })}
-              </Carousel>
-              :
-              <h2>Nenhum mangá favorito encontrado!</h2>
-            }
+						<div className="carousel-wrapper">
+							{favMangas.length > 0
+								?
+								<Carousel slidesToShow={4}>
+									{favMangas.map((entry, idx) =>
+										<img
+											key={idx}
+											src={createImageUrl(entry.anime.img_url)}
+											alt={`${entry.anime.name} Cover`}
+											width={180}
+											height={280}
+											onDoubleClick={() => redirect(`/manga/${entry.anime.mal_id}`)}
+										/>
+									)}
+								</Carousel>
+								:
+								<h2>Nenhum mangá favorito encontrado!</h2>
+							}
+						</div>
           </FavoritesListContainer>
         </FavoritesContainer>
       </ContentSideContainer>

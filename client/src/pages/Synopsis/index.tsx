@@ -74,9 +74,9 @@ export function SynopsisPage() {
             {entry.authors &&
               <h4>
                 Autores:
-                {entry.authors.map((author: Author) => (
-                  <p>{author.name}</p>
-                ))}
+                {entry.authors.map((author: Author) =>
+                  <p key={author.mal_id}>{author.name}</p>
+                )}
               </h4>
             }
           </div>

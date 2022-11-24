@@ -73,57 +73,79 @@ export const ListContainer = styled.div`
   }
   
   .buttonsContainer {
-    width: 100%;
+		gap: 2vw;
     display: flex;
-    flex-direction: row;
+		flex: 1 1 auto;
     justify-content: space-around;
   }
   
   .entryDateContainer {
-    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     margin-top: 3vh;
+		gap: 10px;
+		background-color: #202020;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 10px;
   }
   `
 
 export const StyledListButton = styled.button`
-  padding: 1rem;
+  padding: 15px;
+  cursor: pointer;
   
   background-color: #6A336A;
   color: #d7d7d7;
   border: none;
   border-radius: 10px;
   font-weight: 500;
-  font-size: 1.2rem;
-  cursor: pointer;
+	font-size: 14pt;
+  transition: 200ms;
   
   :hover {
     background-color: #4d244d;
-    transition: 0.3s;
+    transition: 200ms;
   }
-  transition: 0.3s;
-  
-  `
-  export const ContentSideContainer = styled.div`
-  margin-left: 1rem;
-  `
-  
-  export const FavoritesContainer = styled.div`
-  
-  h4 {
-      background-color: #442144;
-      padding: 0.35rem 3rem;
-      border-radius: 10px;
-      font-weight: 500;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      margin-top: 1rem;
-      width: 4.5rem;
-  }
-  
-  `
-  export const FavoritesListContainer = styled.div`
-    margin-left: 2rem;
-  `
+`
+
+export const ContentSideContainer = styled.div`
+	margin: 15px;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+`
+
+export const FavoritesContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+
+	h4 {
+			background-color: #442144;
+			padding: 0.35rem 3rem;
+			border-radius: 10px;
+			font-weight: 500;
+			font-size: 1.2rem;
+			margin-bottom: 0.5rem;
+			margin-top: 1rem;
+			width: 4.5rem;
+	}
+`
+
+export const FavoritesListContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	margin-left: 20px;
+
+	.carousel-wrapper {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+
+		img {
+			border-radius: 10px;
+		}
+	}
+`

@@ -1,4 +1,5 @@
 import { NavigateFunction } from "react-router"
+import { Account } from "../types/User"
 import { getHeaders } from "./useful"
 
 const baseUrl = 'http://localhost:8080/api'
@@ -101,12 +102,12 @@ export async function getUser(id: string) {
   return await req.json()
 }
 
-export async function getOwnAccount(setState: any) {
+export async function getOwnAccount() {
   const req = await fetch(`${baseUrl}/user/getOwnAccount`, {
     headers: getHeaders()
   })
 
-  setState(await req.json())
+	return await req.json() as Account
 }
 
 export async function changePFP(image: any) {

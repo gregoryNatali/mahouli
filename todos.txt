@@ -3,6 +3,10 @@ account page:
 - show favorite anime (if exists)
 - show favorite manga (if exists)
 
+edit page:
+- set lastlist before redirect
+- fix finish date default field value
+
 home page:
 - add more content
 

@@ -71,7 +71,7 @@ export async function listRoutes (fastify: FastifyInstance) {
 
 		const body: any = JSON.parse(req.body as any)
 		const entry = await addToList(body, user, await getAnimeOrManga(body.anime.mal_id, body.anime))
-		return { success: Boolean(entry) }
+		return { success: Boolean(entry), entry }
 	})
 
 	fastify.put('/api/:isanime/list', async (req: FastifyRequest) => {

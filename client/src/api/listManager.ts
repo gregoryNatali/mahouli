@@ -53,7 +53,7 @@ export async function addToList(body: Anime | Manga | any, type: 'anime' | 'mang
 	const data = await req.json()
 
 	if (data.success)
-		addNewToCacheList(newBody, type)
+		addNewToCacheList(data.entry, type)
 
 	return data.success
 }
