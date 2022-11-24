@@ -27,7 +27,6 @@ export function EditPage() {
       location.pathname.split('/')[1] as 'anime' | 'manga'
     )
 
-		console.log(result)
     if (!result) {
       redirect('/list')
       return
