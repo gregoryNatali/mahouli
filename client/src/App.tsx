@@ -16,6 +16,7 @@ import { EditPage } from "./pages/Edit"
 import { Layout } from "./pages/Layout"
 import { Home } from "./pages/Home"
 import { useEffect } from "react"
+import { Error404 } from "./pages/Error404"
 
 function App() {
   useEffect(() => {
@@ -42,6 +43,7 @@ function App() {
             <Route path="manga/edit/:mal_id" element={<EditPage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="update-pfp" element={<UpdatePfp />} />
+            <Route path="*" element={<Error404 />} />
           </Route>
         </Routes>
       </BrowserRouter>
