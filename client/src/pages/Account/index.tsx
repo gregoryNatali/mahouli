@@ -124,7 +124,7 @@ export function AccountPage() {
             <div className="carousel-wrapper">
               {favMangas.length > 0
                 ?
-                <Carousel slidesToShow={4} style={{ overflowX: 'clip', maxWidth: '80vw' }}>
+                <Carousel slidesToShow={4} style={{ overflowX: 'clip' }}>
                   {favMangas.map((entry, idx) =>
                     <img
                       key={idx}
