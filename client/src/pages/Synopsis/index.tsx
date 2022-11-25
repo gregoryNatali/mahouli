@@ -1,9 +1,10 @@
 import { ActionsContainer, ContentContainer, InfoContainer, SynopsisContainer, SynopsisPageContainer, UnavailableContainer } from "./styles";
 import { AddToListButton } from "../../components/AddToListButton";
+import { Loading } from "../../components/Loading";
 import { getEntryById } from "../../api/jikanApi";
+import { Author, Manga } from "../../types/Manga";
 import { useEffect, useState } from "react";
 import { Anime } from "../../types/Anime";
-import { Author, Manga } from "../../types/Manga";
 import { useParams } from "react-router";
 
 export function SynopsisPage() {
@@ -27,7 +28,7 @@ export function SynopsisPage() {
   }
 
   if (!entry)
-    return <div>Loading...</div>
+    return <Loading />
 
   if (entry === 404) {
     if (!is404)

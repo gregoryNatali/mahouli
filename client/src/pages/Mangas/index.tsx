@@ -1,10 +1,11 @@
 import { formattedData as Manga } from '../../types/SeasonAnime';
 import { WelcomeBar } from "../../components/WelcomeBar";
+import { AnimesPageContainer } from '../Animes/styles';
 import { getRandomMangas } from '../../api/jikanApi';
+import { Loading } from '../../components/Loading';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Carousel from 'nuka-carousel';
-import { AnimesPageContainer } from '../Animes/styles';
 
 export function MangasPage() {
   const [randomMangas, setRandomMangas]: any = useState()
@@ -16,7 +17,7 @@ export function MangasPage() {
 
   if (!randomMangas)
     return (
-      <div>Loading...</div>
+      <Loading />
     )
 
 
@@ -27,7 +28,7 @@ export function MangasPage() {
       />
       <h1>Mangás</h1>
 
-			<div className='carousel-wrapper'>
+      <div className='carousel-wrapper'>
         <Carousel slidesToShow={7} style={{ overflowX: 'clip', userSelect: 'none' }}>
           {randomMangas.map((randomManga: Manga) => (
             <img

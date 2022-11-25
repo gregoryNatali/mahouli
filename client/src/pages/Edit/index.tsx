@@ -1,6 +1,7 @@
 import { EditPageDiv, FavButton, InfoDiv, InputDiv, ProgressDiv, SaveButton, UnfavButton } from "./styles";
 import { checkInListMalID, editList, setLastList } from "../../api/listManager";
 import { useNavigate, useParams } from "react-router";
+import { Loading } from "../../components/Loading";
 import { Minus, Plus, Star } from "react-feather";
 import { EntryList } from "../../types/Database";
 import { isUserLogged } from "../../api/useful";
@@ -58,7 +59,7 @@ export function EditPage() {
   }
 
   if (!info)
-    return <div>Loading...</div>
+    return <Loading />
 
   return (
     <EditPageDiv>

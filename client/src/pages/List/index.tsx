@@ -1,6 +1,7 @@
 import { getCacheList, getLastList, getList, getOtherList, setLastList } from "../../api/listManager";
 import { LinksContainer, ListContent, ListDiv, ListEmptyError, ListItem, StyledButton } from "./styles";
 import { AddToListButton } from "../../components/AddToListButton";
+import { Loading } from "../../components/Loading";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -38,7 +39,7 @@ export function ListPage() {
   }
 
   if (loading)
-    return <p>Loading...</p>
+    return <Loading />
 
   return (
     <ListDiv>

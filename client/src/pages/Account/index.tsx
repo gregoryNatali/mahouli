@@ -9,12 +9,13 @@ import {
   UserSideContainer
 } from "./styles"
 import { getOwnAccount, getUser, verifyLogin } from "../../api/userManager"
+import { useNavigate, useParams } from "react-router"
+import { setLastList } from "../../api/listManager"
+import { Loading } from "../../components/Loading"
 import { isUserLogged } from "../../api/useful"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router"
 import { Account } from "../../types/User"
 import Carousel from 'nuka-carousel'
-import { setLastList } from "../../api/listManager"
 
 
 function createImageUrl(link: string) {
@@ -68,7 +69,7 @@ export function AccountPage() {
       separateEntries(newAcc, setFavAnimes, setFavMangas)
       setAccount(newAcc)
     }
-  
+
     const otherAccount = async () => {
       const newAcc = await getUser(id!)
 
@@ -91,7 +92,7 @@ export function AccountPage() {
   }
 
   if (!account)
-    return <div>Loading...</div>
+    return <Loading />
 
   return (
     <AccountPageContainer>

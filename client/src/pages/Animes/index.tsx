@@ -1,6 +1,7 @@
 import { formattedData as SeasonAnime } from '../../types/SeasonAnime';
 import { WelcomeBar } from "../../components/WelcomeBar";
 import { getSeasonAnimes } from '../../api/jikanApi';
+import { Loading } from '../../components/Loading';
 import { AnimesPageContainer } from "./styles";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -16,7 +17,7 @@ export function AnimesPage() {
 
   if (!seasonAnimes)
     return (
-      <div>Loading...</div>
+      <Loading />
     )
 
 
@@ -27,7 +28,7 @@ export function AnimesPage() {
       />
       <h1>Animes</h1>
 
-			<div className='carousel-wrapper'>
+      <div className='carousel-wrapper'>
         <Carousel slidesToShow={7} style={{ overflowX: 'clip', userSelect: 'none' }}>
           {seasonAnimes.map((seasonAnime: SeasonAnime) => (
             <img
