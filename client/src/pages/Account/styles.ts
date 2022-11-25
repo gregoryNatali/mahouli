@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const AccountPageContainer = styled.div`
 display: flex;
-flex-direction: row;
 flex: 1 1 auto;
 `
 
@@ -23,7 +22,8 @@ export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  border-radius: 15px;
+  overflow: hidden;
   
   h3 {
     font-size: 2rem;
@@ -51,10 +51,7 @@ export const ProfileContainer = styled.div`
 		background-color: #442144;
 		transition: 200ms;
 	}
-  
-  border-radius: 15px;
-  overflow: hidden;
-  `
+`
 
 export const ListContainer = styled.div`
   display: flex;
@@ -141,8 +138,11 @@ export const FavoritesListContainer = styled.div`
 
 	.carousel-wrapper {
 		display: flex;
-		flex-direction: column;
 		flex: 1 1 auto;
+
+		.slider-container {
+			max-width: 83%;
+		}
 
 		img {
 			border-radius: 10px;

@@ -1,5 +1,5 @@
 import { EditPageDiv, FavButton, InfoDiv, InputDiv, ProgressDiv, SaveButton, UnfavButton } from "./styles";
-import { checkInListMalID, editList } from "../../api/listManager";
+import { checkInListMalID, editList, setLastList } from "../../api/listManager";
 import { useNavigate, useParams } from "react-router";
 import { Minus, Plus, Star } from "react-feather";
 import { EntryList } from "../../types/Database";
@@ -18,6 +18,7 @@ export function EditPage() {
   const redirect = useNavigate()
 
   useEffect(() => {
+    setLastList(location.pathname.split('/')[1] as 'anime' | 'manga')
     if (!mal_id || !isUserLogged()) {
       redirect('/list')
       return
@@ -36,18 +37,13 @@ export function EditPage() {
     setProgress(result.progress)
     setScore(result.score)
     setStartDate(result.start_date ? new Date(result.start_date) : new Date())
-    // setFinishDate(new Date(result.finish_date ? result.finish_date : 0))
+    setFinishDate(result.finish_date ? new Date(result.finish_date) : new Date())
     setFav(result.is_favorite!)
   }, [])
 
-  useEffect(() => {
-    if (progress === info?.anime.total_episodes)
-      setFinishDate(new Date())
-  }, [progress])
-
   const handleSave = async () => {
     const success = await editList({
-      finish_date: progress === info?.anime.total_episodes ? finishDate!.toISOString().slice(0, 10) : undefined,
+      finish_date: progress === info?.anime.total_episodes ? finishDate?.toISOString().slice(0, 10) : undefined,
       score: score!,
       progress: progress,
       start_date: startDate?.toISOString().slice(0, 10),
