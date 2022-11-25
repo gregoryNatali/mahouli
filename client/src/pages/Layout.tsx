@@ -39,14 +39,14 @@ export function Layout() {
       <ContentContainer className="content">
         <Outlet />
       </ContentContainer>
-			<Footer>
-				<div>
-					mahouLi é um projeto open-source &gt;
-					<a href="https://github.com/NomikuH8/mahouli">
-						<GitHub />
-					</a>
-				</div>
-			</Footer>
+      <Footer>
+        <div>
+          mahouLi é um projeto open-source &gt;
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/NomikuH8/mahouli">
+            <GitHub />
+          </a>
+        </div>
+      </Footer>
     </LayoutContainer>
   )
 }
