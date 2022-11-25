@@ -11,7 +11,6 @@ import { MangasPage } from "./pages/Mangas"
 import { SigninPage } from "./pages/Signin"
 import { SignupPage } from "./pages/Signup"
 import { isUserLogged } from "./api/useful"
-import { AboutPage } from "./pages/About"
 import { ListPage } from "./pages/List"
 import { EditPage } from "./pages/Edit"
 import { Layout } from "./pages/Layout"
@@ -19,10 +18,10 @@ import { Home } from "./pages/Home"
 import { useEffect } from "react"
 
 function App() {
-	useEffect(() => {
-		if (isUserLogged())
-			verifyLogin()
-	}, [])
+  useEffect(() => {
+    if (isUserLogged())
+      verifyLogin()
+  }, [])
 
   return (
     <AppContainer className="App">
@@ -35,15 +34,14 @@ function App() {
             <Route index element={<Home />} />
             <Route path="animes" element={<AnimesPage />} />
             <Route path="mangas" element={<MangasPage />} />
-            <Route path="about" element={<AboutPage />} />
             <Route path="account" element={<AccountPage />} />
-						<Route path="anime/:id" element={<SynopsisPage />} />
-						<Route path="manga/:id" element={<SynopsisPage />} />
-						<Route path="list" element={<ListPage />} />
-						<Route path="anime/edit/:mal_id" element={<EditPage />} />
-						<Route path="manga/edit/:mal_id" element={<EditPage />} />
-						<Route path="search" element={<SearchPage />} />
-						<Route path="update-pfp" element={<UpdatePfp />} />
+            <Route path="anime/:id" element={<SynopsisPage />} />
+            <Route path="manga/:id" element={<SynopsisPage />} />
+            <Route path="list" element={<ListPage />} />
+            <Route path="anime/edit/:mal_id" element={<EditPage />} />
+            <Route path="manga/edit/:mal_id" element={<EditPage />} />
+            <Route path="search" element={<SearchPage />} />
+            <Route path="update-pfp" element={<UpdatePfp />} />
           </Route>
         </Routes>
       </BrowserRouter>
