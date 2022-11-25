@@ -111,6 +111,7 @@ export const ContentSideContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 auto;
+	max-width: 80%;
 `
 
 export const FavoritesContainer = styled.div`
@@ -133,15 +134,12 @@ export const FavoritesContainer = styled.div`
 export const FavoritesListContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	flex: 1 1 auto;
 	margin-left: 20px;
 
 	.carousel-wrapper {
-		display: flex;
-		flex: 1 1 auto;
-
-		.slider-container {
-			max-width: 83%;
+		.slide {
+			display: flex;
+			justify-content: center;
 		}
 
 		img {
