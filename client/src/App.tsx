@@ -35,9 +35,11 @@ function App() {
             <Route path="animes" element={<AnimesPage />} />
             <Route path="mangas" element={<MangasPage />} />
             <Route path="account" element={<AccountPage />} />
+            <Route path="account/:id" element={<AccountPage />} />
             <Route path="anime/:id" element={<SynopsisPage />} />
             <Route path="manga/:id" element={<SynopsisPage />} />
             <Route path="list" element={<ListPage />} />
+            <Route path="list/:id" element={<ListPage />} />
             <Route path="anime/edit/:mal_id" element={<EditPage />} />
             <Route path="manga/edit/:mal_id" element={<EditPage />} />
             <Route path="search" element={<SearchPage />} />

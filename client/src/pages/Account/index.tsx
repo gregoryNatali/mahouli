@@ -8,10 +8,10 @@ import {
   StyledListButton,
   UserSideContainer
 } from "./styles"
-import { getOwnAccount, verifyLogin } from "../../api/userManager"
+import { getOwnAccount, getUser, verifyLogin } from "../../api/userManager"
 import { isUserLogged } from "../../api/useful"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { Account } from "../../types/User"
 import Carousel from 'nuka-carousel'
 
@@ -30,11 +30,23 @@ function formatDate(date: string) {
   return `${day}/${month}/${year}`
 }
 
+function separateEntries(acc: Account, setAnime: any, setManga: any) {
+  const animes: any[] = []
+  const mangas: any[] = []
+  acc.entries.forEach((val) => {
+    if (val.is_anime) animes.push(val)
+    else mangas.push(val)
+  })
+  setAnime(animes)
+  setManga(mangas)
+}
+
 export function AccountPage() {
   const [account, setAccount] = useState<Account>()
   const [favAnimes, setFavAnimes] = useState<any[]>([])
   const [favMangas, setFavMangas] = useState<any[]>([])
   const redirect = useNavigate()
+  const { id } = useParams()
 
   useEffect(() => {
     const innerFunc = async () => {
@@ -51,17 +63,21 @@ export function AccountPage() {
         return
       }
 
-      const animes: any[] = []
-      const mangas: any[] = []
-      newAcc.entries.forEach((val) => {
-        if (val.is_anime) animes.push(val)
-        else mangas.push(val)
-      })
-      setFavAnimes(animes)
-      setFavMangas(mangas)
+      separateEntries(newAcc, setFavAnimes, setFavMangas)
       setAccount(newAcc)
     }
-    innerFunc()
+  
+    const otherAccount = async () => {
+      const newAcc = await getUser(id!)
+
+      separateEntries(newAcc, setFavAnimes, setFavMangas)
+      setAccount(newAcc)
+    }
+
+    if (!id)
+      innerFunc()
+    else
+      otherAccount()
   }, [])
 
   if (!account)
@@ -78,7 +94,8 @@ export function AccountPage() {
               : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
           }
             alt="user profile picture" />
-          <button onClick={() => redirect('/update-pfp')}>Alterar imagem de perfil</button>
+          {!id &&
+            <button onClick={() => redirect('/update-pfp')}>Alterar imagem de perfil</button>}
         </ProfileContainer>
         <ListContainer>
           <div className="listText">

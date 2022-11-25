@@ -3,6 +3,7 @@ import { AddToListButton } from "../../components/AddToListButton";
 import { ChevronLeft, ChevronRight, Search } from "react-feather";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { getEntrySearch } from "../../api/jikanApi";
+import { getLastList } from "../../api/listManager";
 import { StyledButton } from "../List/styles";
 import { useLocation } from "react-router";
 import { Anime } from "../../types/Anime";
@@ -14,7 +15,7 @@ const limit = 30
 
 export function SearchPage() {
   const [results, setResults] = useState<{ query: string, anime: Anime[], manga: Manga[] }>()
-  const [mode, setMode] = useState<'manga' | 'anime'>('anime')
+  const [mode, setMode] = useState<'manga' | 'anime'>(getLastList())
   const [morePages, setMorePages] = useState<{ anime: boolean, manga: boolean }>()
   const [page, setPage] = useState<number>(1)
   let state = useLocation().state as string

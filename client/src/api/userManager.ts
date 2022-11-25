@@ -99,7 +99,7 @@ export async function getUser(id: string) {
     headers: getHeaders()
   })
 
-  return await req.json()
+  return await req.json() as Account
 }
 
 export async function getOwnAccount() {

@@ -6,7 +6,6 @@ import { PfpDiv, PfpForm } from "./styles";
 
 export function UpdatePfp() {
   const [wentWrong, setWentWrong] = useState<string>()
-  const state = useLocation().state as string
   const redirect = useNavigate()
 
   useEffect(() => {

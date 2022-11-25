@@ -1,5 +1,5 @@
-account page:
-- access other people's account beside yours
+list page:
+- access other's lists
 
 home page:
 - add more content
