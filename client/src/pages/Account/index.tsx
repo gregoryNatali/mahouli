@@ -14,6 +14,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Account } from "../../types/User"
 import Carousel from 'nuka-carousel'
+import { setLastList } from "../../api/listManager"
 
 
 function createImageUrl(link: string) {
@@ -35,6 +36,7 @@ export function AccountPage() {
   const [favAnimes, setFavAnimes] = useState<any[]>([])
   const [favMangas, setFavMangas] = useState<any[]>([])
   const redirect = useNavigate()
+
 
   useEffect(() => {
     const innerFunc = async () => {
@@ -64,6 +66,11 @@ export function AccountPage() {
     innerFunc()
   }, [])
 
+  const handleRedirectList = (type: 'anime' | 'manga') => {
+    setLastList(type)
+    redirect('/list')
+  }
+
   if (!account)
     return <div>Loading...</div>
 
@@ -85,8 +92,12 @@ export function AccountPage() {
             <h4>Listas</h4>
           </div>
           <div className="buttonsContainer">
-            <StyledListButton>Animes</StyledListButton>
-            <StyledListButton>Mangás</StyledListButton>
+            <StyledListButton
+              onClick={() => handleRedirectList('anime')}
+            >Animes</StyledListButton>
+            <StyledListButton
+              onClick={() => handleRedirectList('manga')}
+            >Mangás</StyledListButton>
           </div>
           <div className="entryDateContainer">
             <span>Membro desde:</span>
