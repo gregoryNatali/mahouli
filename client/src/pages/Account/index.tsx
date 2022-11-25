@@ -84,7 +84,10 @@ export function AccountPage() {
 
   const handleRedirectList = (type: 'anime' | 'manga') => {
     setLastList(type)
-    redirect('/list')
+    if (!id)
+      redirect('/list')
+    else
+      redirect(`/list/${id}`)
   }
 
   if (!account)

@@ -64,6 +64,18 @@ export async function listRoutes (fastify: FastifyInstance) {
 		})
 	})
 
+	fastify.get('/api/:isanime/list/:id', async (req: FastifyRequest) => {
+		const { isanime, id } = req.params as { isanime: string, id: number }
+
+		return await AppDataSource.manager.find(EntryList, {
+			relations: { anime: true },
+			where: {
+				is_anime: isanime === 'anime',
+				user: { id }
+			}
+		})
+	})
+
 	fastify.post('/api/:isanime/list', async (req: FastifyRequest) => {
 		const { success, user } = await getUser(req)
 		if (!success)

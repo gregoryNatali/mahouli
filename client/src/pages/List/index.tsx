@@ -1,25 +1,33 @@
-import { getCacheList, getLastList, getList, setLastList } from "../../api/listManager";
+import { getCacheList, getLastList, getList, getOtherList, setLastList } from "../../api/listManager";
 import { LinksContainer, ListContent, ListDiv, ListEmptyError, ListItem, StyledButton } from "./styles";
 import { AddToListButton } from "../../components/AddToListButton";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-// todo here:
-// 	progress
-//	buttons to remove or add progress
 
 export function ListPage() {
   const [showingList, setShowingList] = useState<'anime' | 'manga'>(getLastList())
   const [shouldUpdate, setShouldUpdate] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [list, setList] = useState<any[]>([])
+  const { id } = useParams() as { id: string }
 
   useEffect(() => {
-    getList(setList, setLoading, showingList ? showingList : 'anime')
-    setLastList(showingList)
+    if (!id) {
+      getList(setList, setLoading, showingList ? showingList : 'anime')
+      setLastList(showingList)
+      return
+    }
+
+    getOtherList(showingList, parseInt(id)).then((data) => {
+      setLoading(false)
+      setList(data)
+    })
   }, [showingList])
 
   useEffect(() => {
+    if (id)
+      return
+
     setList(getCacheList(showingList))
     setShouldUpdate(false)
   }, [shouldUpdate])

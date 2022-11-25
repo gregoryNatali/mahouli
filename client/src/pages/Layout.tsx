@@ -2,8 +2,20 @@ import { ContentContainer, LayoutContainer, NavbarContainer, LinksContainer, Log
 import { GitHub, LogOut, User } from "react-feather";
 import { SearchBar } from "../components/SearchBar";
 import { Link, Outlet } from "react-router-dom";
+import { isUserLogged } from "../api/useful";
+import { getList } from "../api/listManager";
+import { useEffect } from "react";
 
 export function Layout() {
+  useEffect(() => {
+    if (!isUserLogged())
+      return
+
+    const a = () => {}
+    getList(a, a, 'anime')
+    getList(a, a, 'manga')
+  }, [])
+
   const logout = () => {
     localStorage.removeItem('token')
     document.location.reload()

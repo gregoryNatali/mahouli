@@ -7,11 +7,18 @@ export const listCacheName = 'listCache'
 const baseUrl = 'http://localhost:8080/api'
 
 function generateKnownAnime(body: Anime | Manga | any, type: 'anime' | 'manga') {
+	let image_url = ''
+
+	if ('img_url' in body)
+		image_url = body.img_url
+	else
+		image_url = body.images.jpg.small_image_url
+
 	const newBody: KnownAnime = {
 		mal_id: body.mal_id,
 		name: body.title,
 		is_anime: type === 'anime',
-		img_url: body.images.jpg.small_image_url,
+		img_url: image_url,
 		total_episodes: type === 'anime' ?
 			(body.episodes ? body.episodes : 0) :
 			(body.chapters ? body.chapters : 0)
@@ -36,6 +43,13 @@ export async function getList(setState: any, setLoading: any, type: 'anime' | 'm
 
 	setCacheList(list, type)
 	setState(list)
+}
+
+export async function getOtherList(type: 'anime' | 'manga', id: number) {
+	const req = await fetch(`${baseUrl}/${type}/list/${id}`)
+	const data = await req.json()
+
+	return data
 }
 
 export async function addToList(body: Anime | Manga | any, type: 'anime' | 'manga') {
