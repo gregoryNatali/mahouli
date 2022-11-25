@@ -11,12 +11,12 @@ import { MangasPage } from "./pages/Mangas"
 import { SigninPage } from "./pages/Signin"
 import { SignupPage } from "./pages/Signup"
 import { isUserLogged } from "./api/useful"
+import { Error404 } from "./pages/Error404"
 import { ListPage } from "./pages/List"
 import { EditPage } from "./pages/Edit"
 import { Layout } from "./pages/Layout"
 import { Home } from "./pages/Home"
 import { useEffect } from "react"
-import { Error404 } from "./pages/Error404"
 
 function App() {
   useEffect(() => {
