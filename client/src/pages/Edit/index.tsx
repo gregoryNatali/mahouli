@@ -45,7 +45,7 @@ export function EditPage() {
   const handleSave = async () => {
     const success = await editList({
       finish_date: progress === info?.anime.total_episodes ? finishDate?.toISOString().slice(0, 10) : undefined,
-      score: score!,
+      score: score,
       progress: progress,
       start_date: startDate?.toISOString().slice(0, 10),
       is_favorite: fav,
@@ -84,7 +84,7 @@ export function EditPage() {
           /{info.anime.total_episodes}</ProgressDiv>
         <InputDiv>
           <span>Pontuação:</span>
-          <select id="scoreSelect" defaultValue={score}>
+          <select id="scoreSelect" defaultValue={score} onChange={(e) => setScore(parseInt(e.target.value))}>
             {[undefined, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((val, idx) =>
               <option
                 key={idx}
