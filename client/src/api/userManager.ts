@@ -26,7 +26,9 @@ export async function sendLogin(email: string, password: string, redirect: Navig
       return
     }
 
-		setWentWrong(data.message)
+    if (data.message === 'wrong password' ||
+        data.message === 'user not found')
+      setWentWrong('Usuário ou senha incorretos')
 		return
   }
 
