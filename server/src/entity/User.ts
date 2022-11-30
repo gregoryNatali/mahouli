@@ -22,9 +22,6 @@ export class User {
 	@Column("varchar", { length: 8 })
 	confirm_code: string
 
-	@Column('boolean', { default: false })
-	private_lists: boolean
-
 	@Column("varchar", { length: 320 })
 	password: string
 
